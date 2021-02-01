@@ -31,12 +31,80 @@ def menu():
     print("\033[32m{5} CONSULTA BANCARIA\033[m")
     print("\033[32m{6} CONSULTA CPF\033[m")
     print("\033[32m{7} CONSULTA CNS\033[m")
+    print("\033[32m{8} CONSULTA PLACA\033[m")
+    print("\033[32m{9} CONSULTA CRM\033[m")
     print()
     print("\033[32m{99} Update && Upgrade\033[m")
     print("\033[32m{00} EXIT\033[m")
     op = input("\033[32m===>\033[m ").strip()
-    
-    
+    if op == '9' or op == '09':
+        clear()
+        os.system("figlet KINY")
+        def consultacrm():
+            global requests
+            global crm_input
+            import os,time,base64,json,re
+            from requests import get
+            requests = requests.get('https://www.consultacrm.com.br/api/index.php?tipo=crm&uf=SP&q={}&chave=5072097263&destino=json'.format(crm_input))
+            crm_data = requests.json()
+            #consultas = (crm_data['api_limite']) - (crm_data['api_consultas'])
+            if (crm_data['status']) == "true":
+                #print('Consultas restantes ='+consultas)
+                print('CRM: {}'.format(crm_data["item"]["numero"]))
+            else:
+                print(f'{C}[{R}i{C}] CRM invalido')
+            print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
+            choice = input("===>")
+            if choice == "1" or choice == "01":
+                consultacrm()
+            if choice == "2" or choice == "02":
+                menu()
+            else:
+                print("Opcao invalida.")
+        global crm_input
+        print(f'{C}[{G}i{C}] Digite o numero do CRM.')
+        crm_input = input("===>")
+        consultacrm()
+    if op == '8' or op == '08':
+        #def gerarplaca():
+        #def tiposplaca():
+        clear()
+        os.system("figlet KINY")
+        def consultaplaca():
+            global requests
+            global placa_input
+            import os,time,base64,json,re
+            from requests import get
+            req = requests.get('https://apicarros.com/v1/consulta/{}/json'.format(placa_input), verify = False) # JSQ7436
+            placa_data = req.json()
+            clear()
+            os.system('figlet KINY')
+            if (placa_data['codigoRetorno']) == "0":
+                print('Placa: {}'.format(placa_data['placa']))
+                print('Marca: {}'.format(placa_data['marca']))
+                print('Modelo: {}'.format(placa_data['modelo']))
+                print('Ano: {}'.format(placa_data['ano']))
+                print('Cor: {}'.format(placa_data['cor']))
+                print('UF: {}'.format(placa_data['uf']))
+                print('Municipio: {}'.format(placa_data['municipio']))
+                print('Chassi: {}'.format(placa_data['chassi']))
+                print('Situacao: {}'.format(placa_data['situacao']))
+            else:
+                print(f'{C}[{R}i]{C} Ocorreu um erro,tente novamente.')
+            print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
+            print('1.Sim')
+            print('2.Não')
+            choice = input("===>")
+            if choice == "1" or choice == "01":
+                consultaplaca()
+            if choice == "2" or choice == "02":
+                menu()
+            else:
+                print("Opcao invalida.")
+        global placa_input
+        print(f'{C}[{G}i]{C}Digite o numero da placa.')
+        placa_input = input("===>")
+        consultaplaca()
     if op == '7' or op == '07':
         def consultarcns():
             global requests
@@ -353,33 +421,40 @@ def menu():
             try:
                 requests = requests.get('https://www.receitaws.com.br/v1/cnpj/{}'.format(cnpj_input))
                 cnpj_data = requests.json()
-            
-                if 'message' not in cnpj_data:
-                    print("CNPJ: {}".format(cnpj_data['cnpj']))
-                    print("Nome: {}".format(cnpj_data['nome']))
-                    print("CEP: {}".format(cnpj_data['cep']))
-                    print("Telefone: {}".format(cnpj_data['telefone']))
-                    print("Email: {}".format(cnpj_data['email']))
-                    print("Situação: {}".format(cnpj_data['situacao']))
-                    print("Logradouro: {}".format(cnpj_data['logradouro']))
-                    print("Numero: {}".format(cnpj_data['numero']))
-                    print("Porte: {}".format(cnpj_data['porte']))
-                    print("Natureza: {}".format(cnpj_data['natureza_juridica']))
-                    print("Data de abertura: {}".format(cnpj_data['abertura']))
-                    print("Tipo: {}".format(cnpj_data['tipo']))
-                    print("UF: {}".format(cnpj_data['uf']))
-                    print("Capital: {}".format(cnpj_data['capital_social']))
-                else:
-                    print(f'{C}[{R}*{C}]'+'{}: CNPJ INVALIDO.'.format(cnpj_input))
-                    if gen == '1':
-                        print(f'{C}[{Y}i{C}]Tentando novamente...')
+            except:
+                print(f'{C}[{R}*{C}]Erro no servidor')
+            if 'message' not in cnpj_data:
+                print("CNPJ: {}".format(cnpj_data['cnpj']))
+                print("Nome: {}".format(cnpj_data['nome']))
+                print("CEP: {}".format(cnpj_data['cep']))
+                print("Telefone: {}".format(cnpj_data['telefone']))
+                print("Email: {}".format(cnpj_data['email']))
+                print("Situação: {}".format(cnpj_data['situacao']))
+                print("UF: {}".format(cnpj_data['uf']))
+                print("Municipio: {}".format(cnpj_data['municipio']))
+                print("Logradouro: {}".format(cnpj_data['logradouro']))
+                print("Numero: {}".format(cnpj_data['numero']))
+                print("Complemento: {}".format(cnpj_data['complemento']))
+                print("Porte: {}".format(cnpj_data['porte']))
+                print("Natureza: {}".format(cnpj_data['natureza_juridica']))
+                print("Data de abertura: {}".format(cnpj_data['abertura']))
+                print("Tipo: {}".format(cnpj_data['tipo']))
+                print("Capital: {}".format(cnpj_data['capital_social']))
+                #print("pessoal: {}".format(cnpj_data['qsa']['0']['nome']))
+                #print("Cargo: {}".format(cnpj_data['qsa']['0']['qual']))
+                #print("pessoal: {}".format(cnpj_data['qsa']['1']['nome']))
+                #print("Cargo: {}".format(cnpj_data['qsa']['1']['qual']))
+                #print("Pessoal: {}".format(cnpj_data['qsa']['2']['nome']))
+                #print("Cargo: {}".format(cnpj_data['qsa']['2']['qual']))
+            else:
+                print(f'{C}[{R}*{C}]'+'{}: CNPJ INVALIDO.'.format(cnpj_input))
+                if gen == '1':
+                    print(f'{C}[{Y}i{C}]Tentando novamente...')
                     del cnpj_data
                     del requests
                     del cnpj_input
                     time.sleep(4)
                     geradorcnpj()
-            except:
-                print(f'{C}[{R}*{C}]Erro no servidor')
             del requests
             del cnpj_input
             print("\nDESEJA REALIZAR UMA NOVA CONSULTA? \n{1}Sim\n{2}Nao\n")
