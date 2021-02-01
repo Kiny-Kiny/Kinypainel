@@ -33,23 +33,54 @@ def menu():
     print("\033[32m{7} CONSULTA CNS\033[m")
     print("\033[32m{8} CONSULTA PLACA\033[m")
     print("\033[32m{9} CONSULTA CRM\033[m")
+    print("\033[32m{10} CONSULTA OPERADORA\033[m")
     print()
     print("\033[32m{99} Update && Upgrade\033[m")
     print("\033[32m{00} EXIT\033[m")
     op = input("\033[32m===>\033[m ").strip()
-    if op == '9' or op == '09':
-        def consultacrm():
-            import os,time,base64,json,re
+    if op == '10':
+        def consultaoperadora():
+            import requests
             clear()
             os.system("figlet KINY")
-            global requests
+            global op_input
+            print(f'{C}[{G}i{C}] Exemplo: 48952021826')
+            print(f'{C}[{Y}i{C}] Digite o numero com DDD.')
+            op_input = input("===>")
+            headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+            request = requests.post('http://consultanumero1.telein.com.br/sistema/consulta_numero.php?chave=senhasite&numero='+op_input, headers=headers)
+            '''except:
+                print(f'{C}[{R}i{C}] Erro no servidor 1,tentando outro servidor...]')
+                request = requests.get('http://consultanumero2.telein.com.br/sistema/consulta_numero.php?chave=senhasite&numero='+op_input)
+            #except:
+                print(f'{C}[{R}i{C}] Erro no servidor 2,tentando outro servidor...]')
+                request = requests.get('http://consultanumero3.telein.com.br/sistema/consulta_numero.php?chave=senhasite&numero='+op_input)
+            #except:
+                print(f'{C}[{R}i{C}] Erro em todos os servidores.')'''
+            op_data = request.json()
+            #op_data = request[0,2]
+            op_final = code(x)
+            try:
+                print(f'{C}[{G}*{C}] Operadora:'+op_final)
+            except:
+                print(f'{C}[{R}*{C}] Não foi possível consultar a operadora')
+        def code(x):
+            switcher = {
+                '41#':TIM
+            }
+            return switcher.get(x,"Opção inválida")
+        consultaoperadora()
+    if op == '9' or op == '09':
+        def consultacrm():
+            import requests
+            clear()
+            os.system("figlet KINY")
             global crm_input
             global uf_input
             print(f'{C}[{G}i{C}] Digite o numero do CRM.')
             crm_input = input("===>")
             print(f'{C}[{G}i{C}] Digite o UF.')
             uf_input = input("===>")
-            from requests import get
             url = 'https://www.consultacrm.com.br/api/index.php?tipo=crm&uf='+uf_input
             requests = requests.get(url+'&q={}&chave=5072097263&destino=json'.format(crm_input))
             crm_data = requests.json()
@@ -60,6 +91,7 @@ def menu():
                 print('Nome: {}'.format(crm_data["item"][0]["nome"]))
                 print('UF: {}'.format(crm_data["item"][0]["uf"]))
                 print('Situacao: {}'.format(crm_data["item"][0]["situacao"]))
+                print('Profissão: {}'.format(crm_data["item"][0]["profissao"]))
             else:
                 print(f'{C}[{R}i{C}] CRM invalido')
             del crm_input
