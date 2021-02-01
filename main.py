@@ -38,22 +38,37 @@ def menu():
     print("\033[32m{00} EXIT\033[m")
     op = input("\033[32m===>\033[m ").strip()
     if op == '9' or op == '09':
-        clear()
-        os.system("figlet KINY")
         def consultacrm():
+            import os,time,base64,json,re
+            clear()
+            os.system("figlet KINY")
             global requests
             global crm_input
-            import os,time,base64,json,re
+            global uf_input
+            print(f'{C}[{G}i{C}] Digite o numero do CRM.')
+            crm_input = input("===>")
+            print(f'{C}[{G}i{C}] Digite o UF.')
+            uf_input = input("===>")
             from requests import get
-            requests = requests.get('https://www.consultacrm.com.br/api/index.php?tipo=crm&uf=SP&q={}&chave=5072097263&destino=json'.format(crm_input))
+            url = 'https://www.consultacrm.com.br/api/index.php?tipo=crm&uf='+uf_input
+            requests = requests.get(url+'&q={}&chave=5072097263&destino=json'.format(crm_input))
             crm_data = requests.json()
             #consultas = (crm_data['api_limite']) - (crm_data['api_consultas'])
             if (crm_data['status']) == "true":
                 #print('Consultas restantes ='+consultas)
-                print('CRM: {}'.format(crm_data["item"]["numero"]))
+                print('CRM: {}'.format(crm_data["item"][0]["numero"]))
+                print('Nome: {}'.format(crm_data["item"][0]["nome"]))
+                print('UF: {}'.format(crm_data["item"][0]["uf"]))
+                print('Situacao: {}'.format(crm_data["item"][0]["situacao"]))
             else:
                 print(f'{C}[{R}i{C}] CRM invalido')
+            del crm_input
+            del uf_input
+            del url
+            del crm_data
             print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
+            print('1.Sim')
+            print('2.Não')
             choice = input("===>")
             if choice == "1" or choice == "01":
                 consultacrm()
@@ -61,19 +76,15 @@ def menu():
                 menu()
             else:
                 print("Opcao invalida.")
-        global crm_input
-        print(f'{C}[{G}i{C}] Digite o numero do CRM.')
-        crm_input = input("===>")
         consultacrm()
     if op == '8' or op == '08':
         #def gerarplaca():
         #def tiposplaca():
-        clear()
-        os.system("figlet KINY")
         def consultaplaca():
-            global requests
-            global placa_input
-            import os,time,base64,json,re
+            clear()
+            os.system("figlet KINY")
+            print(f'{C}[{G}i]{C}Digite o numero da placa.')
+            placa_input = input("===>")
             from requests import get
             req = requests.get('https://apicarros.com/v1/consulta/{}/json'.format(placa_input), verify = False) # JSQ7436
             placa_data = req.json()
@@ -90,7 +101,10 @@ def menu():
                 print('Chassi: {}'.format(placa_data['chassi']))
                 print('Situacao: {}'.format(placa_data['situacao']))
             else:
-                print(f'{C}[{R}i]{C} Ocorreu um erro,tente novamente.')
+                print(f'{C}[{R}i]{C} Ocorreu um erro,tente novamente mais tarde.')
+            del placa_data
+            del req
+            del placa_input
             print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
             print('1.Sim')
             print('2.Não')
@@ -100,10 +114,7 @@ def menu():
             if choice == "2" or choice == "02":
                 menu()
             else:
-                print("Opcao invalida.")
-        global placa_input
-        print(f'{C}[{G}i]{C}Digite o numero da placa.')
-        placa_input = input("===>")
+                print("Opcao invalida.")        
         consultaplaca()
     if op == '7' or op == '07':
         def consultarcns():
@@ -397,8 +408,6 @@ def menu():
         ip()
     if op == '4' or op == '04':
         def geradorcnpj():
-            global requests
-            global cnpj_input
             import requests, os, time, base64, json, re
             from requests import get
             os.system("clear")
@@ -411,6 +420,7 @@ def menu():
             print(f'{C}[{Y}i{C}] O CNPJ gerado foi: {B}'+cnpj2)
             time.sleep(1)
             print(f'{C}[{G}*{C}] Consultando CNPJ gerado...')
+            global cnpj_input
             cnpj_input = cnpj
             consultacnpj()
         def consultacnpj():
@@ -423,12 +433,20 @@ def menu():
                 cnpj_data = requests.json()
             except:
                 print(f'{C}[{R}*{C}]Erro no servidor')
+                cnpj_data = "message"
             if 'message' not in cnpj_data:
                 print("CNPJ: {}".format(cnpj_data['cnpj']))
+                print("Atividade principal: {}".format(cnpj_data['atividade_principal'][0]['text']))
                 print("Nome: {}".format(cnpj_data['nome']))
                 print("CEP: {}".format(cnpj_data['cep']))
-                print("Telefone: {}".format(cnpj_data['telefone']))
-                print("Email: {}".format(cnpj_data['email']))
+                try:
+                    print("Telefone: {}".format(cnpj_data['telefone']))
+                except:
+                    pass
+                try:
+                    print("Email: {}".format(cnpj_data['email']))
+                except:
+                    pass
                 print("Situação: {}".format(cnpj_data['situacao']))
                 print("UF: {}".format(cnpj_data['uf']))
                 print("Municipio: {}".format(cnpj_data['municipio']))
@@ -440,12 +458,22 @@ def menu():
                 print("Data de abertura: {}".format(cnpj_data['abertura']))
                 print("Tipo: {}".format(cnpj_data['tipo']))
                 print("Capital: {}".format(cnpj_data['capital_social']))
-                #print("pessoal: {}".format(cnpj_data['qsa']['0']['nome']))
-                #print("Cargo: {}".format(cnpj_data['qsa']['0']['qual']))
-                #print("pessoal: {}".format(cnpj_data['qsa']['1']['nome']))
-                #print("Cargo: {}".format(cnpj_data['qsa']['1']['qual']))
-                #print("Pessoal: {}".format(cnpj_data['qsa']['2']['nome']))
-                #print("Cargo: {}".format(cnpj_data['qsa']['2']['qual']))
+                try:
+                    print("===============================")
+                    print("pessoal: {}".format(cnpj_data['qsa'][0]['nome']))
+                    print("Cargo: {}".format(cnpj_data['qsa'][0]['qual']))
+                except:
+                    pass
+                try:
+                    print("pessoal: {}".format(cnpj_data['qsa'][1]['nome']))
+                    print("Cargo: {}".format(cnpj_data['qsa'][1]['qual']))
+                except:
+                    pass
+                try:
+                    print("Pessoal: {}".format(cnpj_data['qsa'][2]['nome']))
+                    print("Cargo: {}".format(cnpj_data['qsa'][2]['qual']))
+                except:
+                    pass
             else:
                 print(f'{C}[{R}*{C}]'+'{}: CNPJ INVALIDO.'.format(cnpj_input))
                 if gen == '1':
