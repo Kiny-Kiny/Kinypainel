@@ -40,7 +40,12 @@ def menu():
     print("\033[32m{00} EXIT\033[m")
     op = input("\033[32m===>\033[m ").strip()
     if op == '98':
-        os.system("bash dev-update.sh")
+        try:
+            os.system("bash dev-update.sh")
+            print('Painel atualizado.')
+        except:
+            print('Erro ao atualizar painel.')
+        quit()
     if op == '10':
         def consultaoperadora():
             import requests
