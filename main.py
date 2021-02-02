@@ -40,11 +40,8 @@ def menu():
     print("\033[32m{00} EXIT\033[m")
     op = input("\033[32m===>\033[m ").strip()
     if op == '98':
-        try:
-            os.system("bash dev-update.sh")
-            print('Painel atualizado.')
-        except:
-            print('Erro ao atualizar painel.')
+        os.system("bash dev-update.sh")
+        print('Painel atualizado.')
         quit()
     if op == '10':
         def consultaoperadora():
@@ -580,5 +577,5 @@ def password():
         os.system("clear")
         print("\033[1;31mERROR: Wrong Password....Yare Yare\033[m")
         timeout(1)
-menu()
+#menu()
 password()
