@@ -35,9 +35,12 @@ def menu():
     print("\033[32m{9} CONSULTA CRM\033[m")
     print("\033[32m{10} CONSULTA OPERADORA\033[m")
     print()
+    print("\033[32m{98} Auto-update\033[m")
     print("\033[32m{99} Update && Upgrade\033[m")
     print("\033[32m{00} EXIT\033[m")
     op = input("\033[32m===>\033[m ").strip()
+    if op == '98':
+        os.system("bash dev-update.sh")
     if op == '10':
         def consultaoperadora():
             import requests
