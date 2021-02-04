@@ -44,37 +44,229 @@ def menu():
         print('Painel atualizado.')
         quit()
     if op == '10':
+        def consultaddd():
+            clear()
+            os.system('figlet KINY')
+            for ins in range(1, 999, 1):
+                ins = int(input('Digite o DDD: '))
+
+                if ins == 11:
+                    print(
+                        '⇾ São Paulo e Região Metropolitana /Jundiaí e Aglomeração Urbana /\n São Roque-Mairinque /\n Itu-Salto /\n Bragança Paulista-Atibaia')
+                elif ins == 12:
+                    print('⇾ São Paulo São José dos Campos e Vale do Paraíba')
+                elif ins == 14:
+                    print('⇾ São Paulo Bauru/Marília/Jaú/Botucatu')
+                elif ins == 15:
+                    print('⇾ São Paulo Sorocaba e Itapetininga')
+                elif ins == 16:
+                    print('⇾ São Paulo Ribeirão Preto/Araraquara/São Carlos')
+                elif ins == 17:
+                    print('⇾ São Paulo São José do Rio Preto/Barretos')
+                elif ins == 18:
+                    print('⇾ São Paulo Presidente Prudente/Araçatuba/Assis')
+                elif ins == 19:
+                    print('⇾ São Paulo Campinas e Região Metropolitana/Piracicaba')
+                elif ins == 21:
+                    print('⇾ Rio de Janeiro	Rio de Janeiro, Região Metropolitana e Teresópolis')
+                elif ins == 22:
+                    print('⇾ Rio de Janeiro	Campos dos Goytacazes/Nova Friburgo/Macaé/Cabo Frio')
+                elif ins == 24:
+                    print('⇾ Rio de Janeiro	Petrópolis/Volta Redonda/Angra dos Reis')
+                elif ins == 27:
+                    print('⇾ Espírito Santo	Vitória e Região Metropolitana')
+                elif ins == 28:
+                    print('⇾ Espírito Santo	Cachoeiro de Itapemirim')
+                elif ins == 31:
+                   print('⇾ Minas Gerais Belo Horizonte, Região Metropolitana e Vale do Aço')
+                elif ins == 32:
+                    print('⇾ Minas Gerais Juiz de Fora/São João Del Rei')
+                elif ins == 33:
+                    print('⇾ Minas Gerais Governador Valadares/Teófilo Otoni/Caratinga/Manhuaçu')
+                elif ins == 34:
+                    print('⇾ Minas Gerais Uberlândia e Triângulo Mineiro')
+                elif ins == 35:
+                    print('⇾ Minas Gerais Poços de Caldas/Pouso Alegre/Varginha')
+                elif ins == 37:
+                    print('⇾ Minas Gerais Divinópolis/Itaúna')
+                elif ins == 38:
+                    print('⇾ Minas Gerais Montes Claros/Diamantina/Noroeste de Minas')
+                elif ins == 41:
+                    print('⇾ Paraná	Curitiba e Região Metropolitana')
+                elif ins == 42:
+                    print('⇾ Paraná	Ponta Grossa/Guarapuava')
+                elif ins == 43:
+                    print('⇾ Paraná	Londrina/Apucarana')
+                elif ins == 44:
+                    print('⇾ Paraná	Maringá/Campo Mourão/Umuarama')
+                elif ins == 45:
+                    print('⇾ Paraná	Cascavel/Foz do Iguaçu')
+                elif ins == 46:
+                    print('⇾ Paraná	Francisco Beltrão/Pato Branco')
+                elif ins == 47:
+                    print('⇾ Santa Catarina	Joinville/Blumenau/Itajaí/Balneário Camboriú')
+                elif ins == 48:
+                    print('⇾ Santa Catarina	Florianópolis e Região Metropolitana/Criciúma/Tubarão')
+                elif ins == 49:
+                    print('⇾ Santa Catarina	Chapecó/Lages/Caçador')
+                elif ins == 51:
+                    print('⇾ Rio Grande do Sul Porto Alegre e Região Metropolitana/Santa Cruz do Sul/Litoral Norte')
+                elif ins == 53:
+                    print('⇾ Rio Grande do Sul Pelotas/Rio Grande')
+                elif ins == 54:
+                    print('⇾ Rio Grande do Sul Caxias do Sul/Passo Fundo')
+                elif ins == 55:
+                    print('⇾ Rio Grande do Sul Santa Maria/Uruguaiana/Santana do Livramento/Santo Ângelo')
+                elif ins == 61:
+                    print(
+                    '⇾ Distrito Federal/Goiás	Abrangência em todo o Distrito Federal e municípios goianos da Região Integrada de Desenvolvimento do Distrito Federal e Entorno')
+                elif ins == 62:
+                    print('⇾ Goiás Goiânia e Região Metropolitana/Anápolis/Niquelândia/Porangatu')
+                elif ins == 63:
+                    print('⇾ Tocantins Abrangência em todo o estado')
+                elif ins == 64:
+                    print('⇾ Goiás	Rio Verde/Itumbiara/Caldas Novas/Catalão')
+                elif ins == 65:
+                    print('⇾ Mato Grosso Cuiabá e Região Metropolitana')
+                elif ins == 66:
+                    print('⇾ Mato Grosso Rondonópolis/Sinop')
+                elif ins == 67:
+                    print('⇾ Mato Grosso do Sul	Abrangência em todo o estado')
+                elif ins == 68:
+                    print('⇾ Acre Abrangência em todo o estado')
+                elif ins == 69:
+                    print('⇾ Rondônia Abrangência em todo o estado')
+                elif ins == 71:
+                    print('⇾ Bahia Salvador e Região Metropolitana')
+                elif ins == 73:
+                    print('⇾ Bahia Itabuna/Ilhéus')
+                elif ins == 74:
+                    print('⇾ Bahia Juazeiro')
+                elif ins == 75:
+                    print('⇾ Bahia Feira de Santana/Alagoinhas')
+                elif ins == 77:
+                    print('⇾ Bahia Vitória da Conquista/Barreiras')
+                elif ins == 79:
+                    print('⇾ Sergipe Abrangência em todo o estado')
+                elif ins == 81:
+                    print('⇾ Pernambuco	Recife e Região Metropolitana/Caruaru')
+                elif ins == 82:
+                    print('⇾ Alagoas Abrangência em todo o estado')
+                elif ins == 83:
+                    print('⇾ Paraíba Abrangência em todo o estado')
+                elif ins == 84:
+                    print('⇾ Rio Grande do Norte Abrangência em todo o estado')
+                elif ins == 85:
+                    print('⇾ Ceará Fortaleza e Região Metropolitana')
+                elif ins == 86:
+                    print('⇾ Piauí Teresina e Região Metropolitana/Parnaíba')
+                elif ins == 87:
+                    print('⇾ Pernambuco	Petrolina/Garanhuns/Serra Talhada/Salgueiro')
+                elif ins == 88:
+                    print('⇾ Ceará Juazeiro do Norte/Sobral')
+                elif ins == 89:
+                    print('⇾ Piauí Picos/Floriano')
+                elif ins == 91:
+                    print('⇾ Pará Belém/Região Metropolitana')
+                elif ins == 92:
+                    print('⇾ Amazonas Manaus/Região Metropolitana/Parintins')
+                elif ins == 93:
+                    print('⇾ Pará Santarém/Altamira')
+                elif ins == 94:
+                    print('⇾ Pará Marabá')
+                elif ins == 95:
+                    print('⇾ Roraima Abrangência em todo o estado')
+                elif ins == 96:
+                    print('⇾ Amapá Abrangência em todo o estado')
+                elif ins == 97:
+                    print('⇾ Amazonas Abrangência no interior do estado')
+                elif ins == 98:
+                    print('⇾ Maranhão São Luís e Região Metropolitana')
+                elif ins == 99:
+                    print('⇾ Maranhão Imperatriz/Caxias')
+                print(f'{C}[{Y}i{C}]Deseja realizar uma nova consulta?')
+                print('1.Sim')
+                print('2.Não')
+                choice = input("===>")
+                if choice == '1' or choice == '01':
+                    tiposop()
+                if choice == '2' or choice == '02':
+                    menu()
+                else:
+                    print(f'{C}[{R}i{C}] Opção inválida')
+                    time.sleep(3)
+                    tiposop()
         def consultaoperadora():
             import requests
             clear()
             os.system("figlet KINY")
             global op_input
             print(f'{C}[{G}i{C}] Exemplo: 48952021826')
+            print(f'{C}[{Y}i{C}] Limite de consultas: 6 consultas por hora.')
             print(f'{C}[{Y}i{C}] Digite o numero com DDD.')
             op_input = input("===>")
             headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-            request = requests.post('http://consultanumero1.telein.com.br/sistema/consulta_numero.php?chave=senhasite&numero='+op_input, headers=headers)
-            '''except:
-                print(f'{C}[{R}i{C}] Erro no servidor 1,tentando outro servidor...]')
-                request = requests.get('http://consultanumero2.telein.com.br/sistema/consulta_numero.php?chave=senhasite&numero='+op_input)
-            #except:
-                print(f'{C}[{R}i{C}] Erro no servidor 2,tentando outro servidor...]')
-                request = requests.get('http://consultanumero3.telein.com.br/sistema/consulta_numero.php?chave=senhasite&numero='+op_input)
-            #except:
-                print(f'{C}[{R}i{C}] Erro em todos os servidores.')'''
-            op_data = request.json()
-            #op_data = request[0,2]
-            op_final = code(x)
             try:
-                print(f'{C}[{G}*{C}] Operadora:'+op_final)
+                request = requests.get('http://free.telein.com.br/sistema/consulta_json.php?chave=senhasite&numero='+op_input, headers=headers)
+                op_data = request.json()
             except:
+                print(f'{C}[{R}i{C}] Limite de consultas atingido')
+                print(f'{C}[{Y}i{C}] Deseja fazer uma nova consulta?')
+                print('1.Sim')
+                print('2.Não')
+                cho = input("===>")
+                if cho == '1' or cho == '01':
+                    consultaoperadora()
+                if cho == '2' or cho == '02':
+                    menu()
+                else:
+                    print(f'{C}[{R}i{C}] Opção inválida')
+            op_final = 'null'
+            if (op_data['operadora']) == '553016':
+                op_final = 'CLARO'
+            if (op_data['operadora']) == '553070':
+                op_final = 'OI'
+            if (op_data['operadora']) == '553066':
+                op_final = 'NEXTEL'
+            if (op_data['operadora']) == '553102':
+                op_final = 'TIM'
+            if (op_data['operadora']) == '553097':
+                op_final = 'VIVO'
+            elif (op_data['operadora']) == '99':
                 print(f'{C}[{R}*{C}] Não foi possível consultar a operadora')
-        def code(x):
-            switcher = {
-                '41#':TIM
-            }
-            return switcher.get(x,"Opção inválida")
-        consultaoperadora()
+            if op_final == 'null':
+                print(f'{C}[{R}*{C}] Operadora invalida.')
+            else:
+                print(f'{C}[{G}*{C}] Operadora:'+op_final)
+            #print(op_data['operadora'])
+            print(f'{C}[{Y}i{C}] Deseja fazer uma nova consulta?')
+            print('1.Sim')
+            print('2.Não')
+            cho = input("===>")
+            if cho == '1' or cho == '01':
+                consultaoperadora()
+            if cho == '2' or cho == '02':
+                menu()
+            else:
+                print(f'{C}[{R}i{C}] Opção inválida')
+                time.sleep(3)
+                tiposop()
+        def tiposop():
+            clear()
+            os.system('figlet KINY')
+            print(f'O que deseja fazer?')
+            print('1.Consultar operadora por numero')
+            print('2.Consultar DDD')
+            choi = input('===>')
+            if choi == '1' or choi == '01':
+                consultaoperadora()
+            if choi == '2' or choi == '02':
+                consultaddd()
+            else:
+                print(f'{C}[{R}i{C}] Opção inválida')
+                time.sleep(3)
+                tiposop()
+        tiposop()
     if op == '9' or op == '09':
         def consultacrm():
             import requests
@@ -577,5 +769,5 @@ def password():
         os.system("clear")
         print("\033[1;31mERROR: Wrong Password....Yare Yare\033[m")
         timeout(1)
-#menu()
-password()
+menu()
+#password()
