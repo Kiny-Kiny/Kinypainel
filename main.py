@@ -188,6 +188,7 @@ def menu():
                 menu()
         consultabin()
     if op == '10':
+        
         def consultaddd():
             clear()
             os.system('figlet KINY')
@@ -401,11 +402,15 @@ def menu():
             print(f'O que deseja fazer?')
             print('1.Consultar operadora por numero')
             print('2.Consultar DDD')
+            print('3.Phone infoga')
             choi = input('===>')
             if choi == '1' or choi == '01':
                 consultaoperadora()
             if choi == '2' or choi == '02':
                 consultaddd()
+            if choi == '3' or choi == '03':
+                args.number = input(f"{C}[{G}*{C}] Informe os números (sem espaços, parênteses e traço): {B}")
+                scanNumber(args.number)
             else:
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
