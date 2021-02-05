@@ -71,13 +71,13 @@ def menu():
             pais=r.get('country')
             banco=r.get('bank')
             nivel=r.get('brand')
-            
+
 
             if tipo=='credit':
                 tipo2='C'
             else:
                 tipo2='D'
-            
+
             print(f'''
 {G}[+]{C}Consultando dados do cartão:
 {Y}[*]{C}Cartao: {B}{gg}
@@ -161,7 +161,7 @@ def menu():
                 print(f'{G}[+]{C}Pagamento autorizado! {G}Cartão LIVE!{C}')
             else:
                 RS=RS.split('=')[3]
-        
+
             #Variaveis de retorno de erro
                 if RS=='REFUSED_PAYMENT':
                     print(f'{R}[-]{C}Transação recusada ({R}Possivel IP Block{C}).')
@@ -181,7 +181,7 @@ def menu():
                     print(f'{R}[-]{C}Algum dado faltando.')
                 else:
                     print(f'{Y}Erro nao listado, confira: {R}{RS}{RT}')
-    
+
     #Adicionei apenas estados brasileiros e americanos, analisando a request POST, vi que enviava apenas a sigla.
         estados={
             'Acre': 'AC',
@@ -267,8 +267,14 @@ def menu():
             'Wyoming': 'WY',
             'Virgin Islands': 'VI'
                 }
-    
-        lista=open(input(f'{C}Caminho da lista: '), 'r').read().splitlines()
+        clear()
+        os.system('figlet KINY')
+        try:
+            lista=open(input(f'{C}Caminho da lista: '), 'r').read().splitlines()
+        except:
+            print(f'{C}[{R}i{C}] Erro,verifique se é um arquivo.')
+            time.sleep(3)
+            menu()
         for gg in lista:
             cc=gg.split('|')[0]
             mes=gg.split('|')[1]
@@ -279,9 +285,9 @@ def menu():
         import socket
         def scan(message):
             R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-    
+
             ip = message.replace('https://', '').replace('http://', '').replace('/scan ', '')
-    
+
             portas = {
                 21: 'ftp',
                 22: 'ssh',
@@ -304,7 +310,7 @@ def menu():
                 5900: 'vnc',
                 8080: 'http-proxy'
                 }
-    
+
             texto = ''
 
             for key, value in portas.items():
@@ -392,7 +398,7 @@ def menu():
             print('Pais: {}'.format(req_data['country']['name']))
             print('Latitude: {}'.format(req_data['country']['latitude']))
             print('Longitude: {}'.format(req_data['country']['longitude']))
-            print('Moeda: {}'.format(req_data['country']['currency'])) 
+            print('Moeda: {}'.format(req_data['country']['currency']))
             print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
             print('1.Sim')
             print('2.Não')
@@ -735,7 +741,7 @@ def menu():
             if choice == "2" or choice == "02":
                 menu()
             else:
-                print("Opcao invalida.")        
+                print("Opcao invalida.")
         consultaplaca()
     if op == '7' or op == '07':
         def consultarcns():
@@ -819,7 +825,7 @@ def menu():
             time.sleep(1)
             print(f'{C}[{G}*{C}] Consultando CPF gerado...')
             consulta(cpf)
-  
+
         def consulta(cpf):
             import requests
             R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
@@ -856,7 +862,7 @@ def menu():
             clear()
             os.system('figlet KINY')
             print(f"""
-{C}[{G}i{C}] Formas de operação: 
+{C}[{G}i{C}] Formas de operação:
 [{G}1{C}] Consultar CPF.
 [{G}2{C}] Gerar CPF e consultar.
 [{G}3{C}] Voltar
@@ -874,8 +880,8 @@ def menu():
                 time.sleep(1)
                 tipos()
         tipos()
-    
-        
+
+
     if op == '5' or op == '05':
         def bank():
             global requests
@@ -887,9 +893,9 @@ def menu():
             bank_input = input("\033[32m=====> \033[m")
             try:
                 requests = requests.get('https://brasilapi.com.br/api/banks/v1/{}'.format(bank_input))
-            
+
                 bank_data = requests.json()
-            
+
                 if 'message' not in bank_data:
             	    clear()
             	    os.system("figlet KINY")
@@ -897,16 +903,16 @@ def menu():
             	    print("Nome: {}".format(bank_data['name']))
             	    print("Nome completo: {}".format(bank_data['fullName']))
             	    print("ISPB: {}".format(bank_data['ispb']))
-            	
+
                 else:
                     clear()
                     print('{}: Código bancário inválido.'.format(bank_input))
             except:
-                 print(f'{C}[{R}*{C}]Erro no servidor')   
+                 print(f'{C}[{R}*{C}]Erro no servidor')
             print("\nDESEJA CONSULTAR UM NOVO CODIGO BANCARIO? \n{1}Sim\n{2}Nao\n")
             del requests
             kc = input("===> ")
-            
+
             if kc == '01' or kc == '1':
             	bank()
             else:
@@ -1153,7 +1159,7 @@ O QUE DESEJA FAZER?
         tipo()
 
 def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')      
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def quit():
         os.system("clear")
@@ -1162,9 +1168,9 @@ def quit():
 
 def password():
     clear()
-    global user  
+    global user
     user = input("USERNAME:  ")
-    snh = 'VirtualInsanity' 
+    snh = 'VirtualInsanity'
     print("\n ")
     if user == 'Kiny' or user == 'KINY':
         kinymode()
