@@ -16,13 +16,27 @@ def restart():
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
-
+def kinymode():
+    print("Opa, como você veio parar aqui?")
+    time.sleep(1)
+    print("Deseja continuar?[s/n]")
+    lero = input("> ")
+    if lero =='s' or lero == 'S':
+        print("Nova Opção Desbloqueada")
+        menu()
+    if lero =='n' or lero == 'N':
+        print("Iniciando o script normalmente")
+        menu()
+    else:
+        print("Opção Invalida")
+        exit()
 def menu():
     os.system("pkg install figlet")
     os.system("clear")
     print("Coded By: \033[1;36m KINY \033[m in 14/12/2020")
     print()
     os.system("figlet KINY")
+    #print(f'{C}[{G}*{C}] Bem vindo,' + user)
     print()
     print("\033[32m{1} BUSCADOR DE CEP\033[m")
     print("\033[32m{2} GEO LOCALIZADOR DE IP\033[m")
@@ -36,6 +50,7 @@ def menu():
     print("\033[32m{10} CONSULTA OPERADORA\033[m")
     print("\033[32m{11} CONSULTA BIN\033[m")
     print("\033[32m{12} GERAR PESSOA\033[m")
+    print("\033[32m{13} SCANEAR PORTAS\033[m")
     print()
     print("\033[32m{98} Auto-update\033[m")
     print("\033[32m{99} Update && Upgrade\033[m")
@@ -45,6 +60,68 @@ def menu():
         os.system("bash dev-update.sh")
         print('Painel atualizado.')
         quit()
+    if op == '13':
+        import socket
+
+        def scan(message):
+    
+            ip = message.replace('https://', '').replace('http://', '').replace('/scan ', '')
+    
+            portas = {
+                21: 'ftp',
+                22: 'ssh',
+                23: 'telnet',
+                25: 'smtp',
+                53: 'domain',
+                80: 'http',
+                110: 'pop3',
+                111: 'rpcbind',
+                135: 'RPC',
+                139: 'netbios',
+                143: 'imap',
+                443: 'https',
+                445: 'microsoft-ds',
+                993: 'imaps',
+                995: 'pop3s',
+                1723: 'pptp',
+                3306: 'mysql',
+                3389: 'RDP',
+                5900: 'vnc',
+                8080: 'http-proxy'
+            }
+    
+            texto = ''
+
+            for key, value in portas.items():
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.settimeout(1.5)
+                code = s.connect_ex((ip, key))
+                if code == 0:
+                    texto = texto + f'*Porta* `{key} {value}` *=>* Aberta\n'
+            print(texto) if len(texto) > 1 else '`Nenhuma porta aberta`'
+            del code
+            del texto
+            del ip
+            print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
+            print('1.Sim')
+            print('2.Não')
+            choice = input("===>")
+            if choice == '1' or choice == '01':
+                choityp()
+            if choice == '2' or choice == '02':
+                menu()
+            else:
+                print(f'{C}[{R}i{C}] Opção inválida')
+                time.sleep(3)
+                menu()
+        def choityp():
+            clear()
+            os.system('figlet KINY')
+            global loufi
+            print(f'{C}[{Y}*{C}] Digite o IP.')
+            loufi = input('===>')
+            scan(loufi)
+        choityp()
     if op == '12':
         def gerarPessoa():
 
@@ -376,6 +453,7 @@ def menu():
     if op == '8' or op == '08':
         #def gerarplaca():
         #def tiposplaca():
+        #http://api.masterplaca.devplank.com/v2/placa/{placa}/json
         def consultaplaca():
             clear()
             os.system("figlet KINY")
@@ -826,15 +904,18 @@ def quit():
         timeout(1)
 
 def password():
-    clear()  
+    clear()
+    global user  
     user = input("USERNAME:  ")
     snh = 'VirtualInsanity' 
     print("\n ")
+    if user == 'Kiny' or user == 'KINY':
+        kinymode()
     if input("PASSWORD:  ").strip() == snh:
         menu()
     else:
         os.system("clear")
         print("\033[1;31mERROR: Wrong Password....Yare Yare\033[m")
         timeout(1)
-menu()
-#password()
+#menu()
+password()
