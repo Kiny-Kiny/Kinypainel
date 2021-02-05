@@ -34,6 +34,8 @@ def menu():
     print("\033[32m{8} CONSULTA PLACA\033[m")
     print("\033[32m{9} CONSULTA CRM\033[m")
     print("\033[32m{10} CONSULTA OPERADORA\033[m")
+    print("\033[32m{11} CONSULTA BIN\033[m")
+    print("\033[32m{12} GERAR PESSOA\033[m")
     print()
     print("\033[32m{98} Auto-update\033[m")
     print("\033[32m{99} Update && Upgrade\033[m")
@@ -43,6 +45,71 @@ def menu():
         os.system("bash dev-update.sh")
         print('Painel atualizado.')
         quit()
+    if op == '12':
+        def gerarPessoa():
+
+            while True:
+                cpf = requests.get('http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()['data']['number']
+                r = requests.get(f'http://104.41.5.41:12345/cpf.php?lista={cpf}').json()
+                if r['Type'] == "PESSOAFISICA":
+                    print(f'''*CPF*: `{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}`
+*Nome*: `{r["Nome"].title()}`
+*Nascimento*: `{r["Nacimento"]}`
+*Nome da Mae*: `{r["Mae"].title()}`
+*Endereco*: `{r["Nologradouro"].title()}, {r["Nrlogradouro"]}`
+*Complemento*: `{r["Complemento"].title()}`
+*Bairro*: `{r["Bairro"].title()}`
+*Cidade*: `{r["Municipio"].title()}-{r["Estado"]}`
+*CEP*: `{r["Cep"][:5]}-{r["Cep"][5:]}`''')
+                    print(f'{C}[{Y}i{C}] Deseja gerar mais?')
+                    print('1.Sim')
+                    print('2.Não')
+                    choice = input('===>')
+                    if choice == '1' or choice == '01':
+                        gerarPessoa()
+                    if choice == '2' or choice == '02':
+                        menu()
+                    else:
+                        print(f'{C}[{R}i{C}] Opção inválida.')
+                        menu()
+        clear()
+        print(f'{C}[{G}i{C}] Gerando...')
+        gerarPessoa()
+    if op == '11':
+        def consultabin():
+            clear()
+            os.system('figlet KINY')
+            print('Exemplo:45717360')
+            print(f'{C}[{Y}i{C}] Digite a BIN.')
+            bin_input = input("===>")
+            headers = {"Accept-Version":"3","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+            try:
+                req = requests.get('https://lookup.binlist.net/'+bin_input,headers = headers)
+                req_data = req.json()
+            except:
+                print(f'{C}[{R}i{C}] Ocorreu um erro,tente novamente.')
+            clear()
+            os.system('figlet KINY')
+            print('Bandeira: {}'.format(req_data['scheme']))
+            print('Marca: {}'.format(req_data['brand']))
+            print('Tipo: {}'.format(req_data['type']))
+            print('Pais: {}'.format(req_data['country']['name']))
+            print('Latitude: {}'.format(req_data['country']['latitude']))
+            print('Longitude: {}'.format(req_data['country']['longitude']))
+            print('Moeda: {}'.format(req_data['country']['currency'])) 
+            print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
+            print('1.Sim')
+            print('2.Não')
+            choice = input("===>")
+            if choice == '1' or choice == '01':
+                consultabin()
+            if choice == '2' or choice == '02':
+                menu()
+            else:
+                print(f'{C}[{R}i{C}] Opção inválida')
+                time.sleep(3)
+                menu()
+        consultabin()
     if op == '10':
         def consultaddd():
             clear()
