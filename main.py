@@ -65,6 +65,7 @@ def menu():
         import socket
 
         def scan(message):
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
     
             ip = message.replace('https://', '').replace('http://', '').replace('/scan ', '')
     
@@ -116,6 +117,7 @@ def menu():
                 time.sleep(3)
                 menu()
         def choityp():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             clear()
             os.system('figlet KINY')
             global loufi
@@ -125,6 +127,7 @@ def menu():
         choityp()
     if op == '12':
         def gerarPessoa():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
 
             while True:
                 cpf = requests.get('http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()['data']['number']
@@ -151,10 +154,12 @@ def menu():
                         print(f'{C}[{R}i{C}] Opção inválida.')
                         menu()
         clear()
+        R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
         print(f'{C}[{G}i{C}] Gerando...')
         gerarPessoa()
     if op == '11':
         def consultabin():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             clear()
             os.system('figlet KINY')
             print('Exemplo:45717360')
@@ -433,6 +438,7 @@ def menu():
         tiposop()
     if op == '9' or op == '09':
         def consultacrm():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             import requests
             clear()
             os.system("figlet KINY")
@@ -475,6 +481,7 @@ def menu():
         #def tiposplaca():
         #http://api.masterplaca.devplank.com/v2/placa/{placa}/json
         def consultaplaca():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             clear()
             os.system("figlet KINY")
             print(f'{C}[{G}i]{C}Digite o numero da placa.')
@@ -512,6 +519,7 @@ def menu():
         consultaplaca()
     if op == '7' or op == '07':
         def consultarcns():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             global requests
             global cns_input
             import requests, os, time, base64, json, re
@@ -539,6 +547,7 @@ def menu():
             else:
                 menu()
         def gerarcns():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             global requests
             global cns_input
             import requests, os, time, base64, json, re
@@ -556,6 +565,7 @@ def menu():
             cns_input = cns
             consultarcns()
         def tipocns():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             clear()
             os.system('figlet KINY')
             print(f'''
@@ -577,6 +587,7 @@ def menu():
         tipocns()
     if op == '6' or op == '06':
         def gerarcpf():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             clear()
             os.system('figlet KINY')
             print(f'{C}[{G}*{C}] Gerando CPF...')
@@ -628,13 +639,16 @@ def menu():
 {C}[{G}i{C}] Formas de operação: 
 [{G}1{C}] Consultar CPF.
 [{G}2{C}] Gerar CPF e consultar.
+[{G}3{C}] Voltar
 """)
             tool=input(f'{C}[{G}+{C}] Selecione a forma de operação ({G}1 {C}ou {G}2{C}): ')
-            if tool=='1':
+            if tool=='1' or tool == '01':
                 cpf=input(f'{C}[{G}*{C}] Informe o CPF a ser consultado (sem pontos ou traços): {B}')
                 consulta(cpf)
-            elif tool=='2':
+            elif tool=='2' or tool == '02':
                 gerarcpf()
+            elif tool=='3' or tool == '03':
+                menu()
             else:
                 print(f'{C}[{R}-{C}] Seleção inválida.')
                 time.sleep(1)
@@ -776,7 +790,7 @@ def menu():
 
             adress_data = requests.json()
 
-            if 'fail' not in adress_data:
+            if (adress_data['status']) == 'success':
                 print('IP: {}'.format(adress_data['query']))
                 print('Status: {}'.format(adress_data['status']))
                 print('Pais: {}'.format(adress_data['country']))
@@ -805,6 +819,7 @@ def menu():
         ip()
     if op == '4' or op == '04':
         def geradorcnpj():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             import requests, os, time, base64, json, re
             from requests import get
             os.system("clear")
@@ -823,6 +838,7 @@ def menu():
         def consultacnpj():
             global requests
             global cnpj_input
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             import requests, os, time, base64, json, re
             from requests import get
             try:
