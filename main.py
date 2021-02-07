@@ -700,11 +700,16 @@ def menu():
             #consultas = (crm_data['api_limite']) - (crm_data['api_consultas'])
             if (crm_data['status']) == "true":
                 #print('Consultas restantes ='+consultas)
-                print('CRM: {}'.format(crm_data["item"][0]["numero"]))
-                print('Nome: {}'.format(crm_data["item"][0]["nome"]))
-                print('UF: {}'.format(crm_data["item"][0]["uf"]))
-                print('Situacao: {}'.format(crm_data["item"][0]["situacao"]))
-                print('Profissão: {}'.format(crm_data["item"][0]["profissao"]))
+                try:
+                    print('CRM: {}'.format(crm_data["item"][0]["numero"]))
+                    print('Nome: {}'.format(crm_data["item"][0]["nome"]))
+                    print('UF: {}'.format(crm_data["item"][0]["uf"]))
+                    print('Situacao: {}'.format(crm_data["item"][0]["situacao"]))
+                    print('Profissão: {}'.format(crm_data["item"][0]["profissao"]))
+                except:
+                    print(f'{C}[{R}*{C}] Erro! dados invalidos!')
+                    time.sleep(3)
+                    consultacrm()
             else:
                 print(f'{C}[{R}i{C}] CRM invalido')
             del crm_input
