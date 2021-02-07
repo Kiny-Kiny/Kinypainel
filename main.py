@@ -2,9 +2,34 @@ import os
 import sys
 import base64, json, re
 import time
-import requests
-import api
-from time import sleep as timeout
+try:
+    import requests
+    import api
+    import platform
+    import signal
+    from colorama import Fore, Style
+    import atexit
+    import argparse
+    import random
+    import hashlib
+    import urllib3
+    from bs4 import BeautifulSoup
+    import html5lib
+    import phonenumbers
+    from phonenumbers import carrier
+    from phonenumbers import geocoder
+    from phonenumbers import timezone
+    from urllib.parse import urlencode
+    from time import sleep as timeout
+except:
+    os.system('pip3 install requests')
+    os.system('pip3 install phonenumbers')
+    os.system('pip3 install urllib3')
+    os.system('pip3 install colorama')
+    os.system('pip3 install bs4')
+    os.system('pip3 install html5lib')
+    os.system('pip3 install argparse')
+    os.system('pip3 install atexit')
 requests = requests.Session()
 
 os.system('git pull && clear')
@@ -399,6 +424,7 @@ def menu():
             print('Latitude: {}'.format(req_data['country']['latitude']))
             print('Longitude: {}'.format(req_data['country']['longitude']))
             print('Moeda: {}'.format(req_data['country']['currency']))
+            print('Emoji: {}'.format(req_data['country']['emoji']))
             print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
             print('1.Sim')
             print('2.Não')
@@ -582,6 +608,7 @@ def menu():
                     time.sleep(3)
                     tiposop()
         def consultaoperadora():
+            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             import requests
             clear()
             os.system("figlet KINY")
