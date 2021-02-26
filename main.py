@@ -1,44 +1,41 @@
-R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
+global R,B,C,Y,G,RT
+R='\033[1;31m'
+B='\033[1;34m'
+C='\033[1;37m'
+Y='\033[1;33m'
+G='\033[1;32m'
+RT='\033[;0m'
+## Distribuido livremente pela licença MIT,
+## Aos que não sabem o que isso significa,sugerimos estudo.
+#######################
+## Gostamos das suas atualizações no nosso github p0is0n,
+## espero que você não fique bravo se usarmos elas,né?
+## :p abraços,Yato e Kiny. 
+#######################
+## Obrigado pelo apoio snuking
+#######################
+
 def restart():
     python = sys.executable
     os.execl(python, python, *sys.argv)
-import os
-import sys
-import base64, json, re
-import time
+
+import os,sys,base64, json, re,time
 from time import sleep as timeout
 try:
-    import requests
-    import api
-    import platform
-    import signal
+    import requests,api,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers
     from colorama import Fore, Style
-    import atexit
-    import argparse
-    import random
-    import hashlib
-    import urllib3
     from bs4 import BeautifulSoup
-    import html5lib
-    import phonenumbers
     from phonenumbers import carrier
     from phonenumbers import geocoder
     from phonenumbers import timezone
     from urllib.parse import urlencode
 except:
-    os.system('pip3 install requests')
-    os.system('pip3 install phonenumbers')
-    os.system('pip3 install urllib3')
-    os.system('pip3 install colorama')
-    os.system('pip3 install bs4')
-    os.system('pip3 install html5lib')
-    os.system('pip3 install argparse')
+    os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse')
     print(f'{C}[{Y}i{C}] Reiniciando o painel em 3 seg...')
     time.sleep(3)
     restart()
 requests = requests.Session()
 
-os.system('git pull && clear')
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
 a=a.encode('ascii')
 a=base64.b64decode(a)
@@ -52,21 +49,26 @@ def kinymode():
     if lero =='s' or lero == 'S':
         print("Nova Opção Desbloqueada")
         kiny=1
-        menu()
+        menu(user)
     if lero =='n' or lero == 'N':
         print("Iniciando o script normalmente")
-        menu()
+        menu(user)
     else:
         print("Opção Invalida")
         exit()
-def menu():
-    import os
-    os.system("pkg install figlet")
+
+def menu(user):
+    try:
+        os.system("pkg update")
+        os.system("pkg install figlet")
+    except:
+        os.system("apt update")
+        os.system("apt install figlet")
     os.system("clear")
     print("Coded By: \033[1;36m KINY \033[m and \033[1;36m YATO \033[m in 07/02/2021")
     print()
     os.system("figlet KINY")
-    #print(f'{C}[{G}*{C}] Bem vindo,' + user)
+    print(f'{C}[{G}*{C}] Bem vindo,' + user)
     print()
     print("\033[32m{1} BUSCADOR DE CEP\033[m")
     print("\033[32m{2} GEO LOCALIZADOR DE IP\033[m")
@@ -77,24 +79,32 @@ def menu():
     print("\033[32m{7} CONSULTA CNS\033[m")
     print("\033[32m{8} CONSULTA PLACA\033[m")
     print("\033[32m{9} CONSULTA CRM\033[m")
-    print("\033[32m{10} CONSULTA OPERADORA\033[m")
+    print("\033[32m{10} CONSULTA DE NUMERO\033[m")
     print("\033[32m{11} CONSULTA BIN\033[m")
     print("\033[32m{12} GERAR PESSOA\033[m")
-    print("\033[32m{13} SCANEAR PORTAS\033[m")
+    #print("\033[32m{13} SCANEAR PORTAS\033[m")
     print("\033[32m{14} CC CHECKER\033[m")
     #print("\033[32m{15} CONSULTA NOME\033[m")
     print()
+    if login:
+    	pass
+    else:
+    	print("\033[32m{95} Mudar username\033[m")
+    print("\033[32m{96} Opções\033[m")
     print("\033[32m{97} Notas de versão\033[m")
     print("\033[32m{98} Auto-update\033[m")
     print("\033[32m{99} Update && Upgrade\033[m")
     print("\033[32m{00} EXIT\033[m")
     op = input("\033[32m===>\033[m ").strip()
+    if op == '95':
+    	print()
+    if op == '96':
+    	print()
+
     if op == '98':
-        R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
         os.system("bash update.sh")
         print('Painel atualizado.')
     if op == '97':
-        R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
         clear()
         print(f'{C}==={R}{C} Notas de versão {C}==={R}{C}')
         print(f'''
@@ -104,7 +114,7 @@ def menu():
         ''')
         print(f'{C}{B}YATO{C} & {C}{B}KINY{C} , 2021')
         pause = input('Pressione enter para retornar.')
-        menu()
+        menu(user)
     if op == '14':
         R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
         def checker(cc,mes,ano,cvv):
@@ -204,8 +214,6 @@ def menu():
                 print(f'{G}[+]{C}Pagamento autorizado! {G}Cartão LIVE!{C}')
             else:
                 RS=RS.split('=')[3]
-
-            #Variaveis de retorno de erro
                 if RS=='REFUSED_PAYMENT':
                     print(f'{R}[-]{C}Transação recusada ({R}Possivel IP Block{C}).')
                 elif RS=='DATA_INVALID':
@@ -224,8 +232,6 @@ def menu():
                     print(f'{R}[-]{C}Algum dado faltando.')
                 else:
                     print(f'{Y}Erro nao listado, confira: {R}{RS}{RT}')
-
-    #Adicionei apenas estados brasileiros e americanos, analisando a request POST, vi que enviava apenas a sigla.
         estados={
             'Acre': 'AC',
             'Alagoas': 'AL',
@@ -317,7 +323,7 @@ def menu():
         except:
             print(f'{C}[{R}i{C}] Erro,verifique se é um arquivo.')
             time.sleep(3)
-            menu()
+            menu(user)
         for gg in lista:
             cc=gg.split('|')[0]
             mes=gg.split('|')[1]
@@ -373,11 +379,11 @@ def menu():
                 if choice == '1' or choice == '01':
                     choityp()
                 if choice == '2' or choice == '02':
-                    menu()
+                    menu(user)
                 else:
                     print(f'{C}[{R}i{C}] Opção inválida')
                     time.sleep(3)
-                    menu()
+                    menu(user)
         def choityp():
             R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             clear()
@@ -411,10 +417,10 @@ def menu():
                     if choice == '1' or choice == '01':
                         gerarPessoa()
                     if choice == '2' or choice == '02':
-                        menu()
+                        menu(user)
                     else:
                         print(f'{C}[{R}i{C}] Opção inválida.')
-                        menu()
+                        menu(user)
         clear()
         R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
         print(f'{C}[{G}i{C}] Gerando...')
@@ -450,11 +456,11 @@ def menu():
             if choice == '1' or choice == '01':
                 consultabin()
             if choice == '2' or choice == '02':
-                menu()
+                menu(user)
             else:
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
-                menu()
+                menu(user)
         consultabin()
     if op == '10':
         def consultaphone():
@@ -467,7 +473,7 @@ def menu():
             if choice == '1' or choice == '01':
                 tiposop()
             if choice == '2' or choice == '02':
-                menu()
+                menu(user)
             else:
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
@@ -620,7 +626,7 @@ def menu():
                 if choice == '1' or choice == '01':
                     tiposop()
                 if choice == '2' or choice == '02':
-                    menu()
+                    menu(user)
                 else:
                     print(f'{C}[{R}i{C}] Opção inválida')
                     time.sleep(3)
@@ -648,7 +654,7 @@ def menu():
                 if cho == '1' or cho == '01':
                     consultaoperadora()
                 if cho == '2' or cho == '02':
-                    menu()
+                    menu(user)
                 else:
                     print(f'{C}[{R}i{C}] Opção inválida')
             op_final = 'null'
@@ -676,7 +682,7 @@ def menu():
             if cho == '1' or cho == '01':
                 consultaoperadora()
             if cho == '2' or cho == '02':
-                menu()
+                menu(user)
             else:
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
@@ -741,7 +747,7 @@ def menu():
             if choice == "1" or choice == "01":
                 consultacrm()
             if choice == "2" or choice == "02":
-                menu()
+                menu(user)
             else:
                 print("Opcao invalida.")
         consultacrm()
@@ -794,7 +800,7 @@ def menu():
             if choice == "1" or choice == "01":
                 consultaplaca()
             if choice == "2" or choice == "02":
-                menu()
+                menu(user)
             else:
                 print("Opcao invalida.")
         consultaplaca()
@@ -826,7 +832,7 @@ def menu():
             if lo == '1' or lo == '01':
                 tipocns()
             else:
-                menu()
+                menu(user)
         def gerarcns():
             R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             global requests
@@ -909,10 +915,10 @@ def menu():
                 if nova=='1' or nova=='01':
                     tipos()
                 if nova=='2' or nova=='02':
-                    menu()
+                    menu(user)
                 else:
                     print(f'{C}[{R}i{C}]Opção inválida')
-                    menu()
+                    menu(user)
             except(AttributeError):
                 print(f'{R}CPF Gerado nao existe{C}')
                 print(f'{R}Pressione enter para retornar{C}')
@@ -937,7 +943,7 @@ def menu():
             elif tool=='2' or tool == '02':
                 gerarcpf()
             elif tool=='3' or tool == '03':
-                menu()
+                menu(user)
             else:
                 print(f'{C}[{R}-{C}] Seleção inválida.')
                 time.sleep(1)
@@ -980,7 +986,7 @@ def menu():
             	bank()
             else:
                 clear()
-                menu()
+                menu(user)
         bank()
     if op == '1' or op == '01':
         def main():
@@ -1024,7 +1030,7 @@ def menu():
             if option == '1':
                 main()
             else:
-                menu()
+                menu(user)
 
         main()
 
@@ -1036,7 +1042,7 @@ def menu():
     if op == '99' or op == '99':
         os.system("clear")
         os.system("pkg update && pkg update")
-        menu()
+        menu(user)
 
     if op == '3' or op == '03':
         os.system("clear")
@@ -1067,7 +1073,7 @@ def menu():
             os.system("whois " + k)
         print ("Pressione enter para voltar.")
         pause = input("====>")
-        menu()
+        menu(user)
 
     if op == '2' or op == '02':
         def ip():
@@ -1107,7 +1113,7 @@ def menu():
             if vi == '1' or vi == '01':
                 ip()
             else:
-                menu()
+                menu(user)
 
         ip()
     if op == '4' or op == '04':
@@ -1197,7 +1203,7 @@ def menu():
             if lo == '1' or lo == '01':
                 tipo()
             else:
-                menu()
+                menu(user)
         def tipo():
             clear()
             os.system('figlet KINY')
@@ -1235,17 +1241,30 @@ def quit():
 
 def password():
     clear()
-    global user
     user = input("USERNAME:  ")
     snh = 'VirtualInsanity'
     print("\n ")
     if user == 'Kiny' or user == 'KINY':
         kinymode()
     if input("PASSWORD:  ").strip() == snh:
-        menu()
+        menu(user)
     else:
         os.system("clear")
         print("\033[1;31mERROR: Wrong Password....Yare Yare\033[m")
         timeout(1)
-#menu()
+
+if __name__ == '__main__':
+    print(f'{G} Checando por atualizacoes... {C}')
+    '''
+    update = subprocess.check_output('git pull', shell=True)
+    if 'Already up to date' not in update.decode():
+        print(f'{G}Atualizacao instalada!\nReiciando app...{C}')
+        time.sleep(5)
+        subprocess.run('clear')
+        restart()
+    else:
+        print('Nenhuma atualizacao disponivel.')
+        time.sleep(2)
+        password()
+'''
 password()
