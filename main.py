@@ -1,7 +1,9 @@
-global R,B,C,Y,G,RT
+global R,B,C,Y,G,RT,CY,CO
+CO='\033[m'
 R='\033[1;31m'
 B='\033[1;34m'
 C='\033[1;37m'
+CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
@@ -10,7 +12,7 @@ RT='\033[;0m'
 #######################
 ## Gostamos das suas atualizações no nosso github p0is0n,
 ## espero que você não fique bravo se usarmos elas,né?
-## :p abraços,Yato e Kiny. 
+## :p abraços,Yato e Kiny.
 #######################
 ## Obrigado pelo apoio snuking
 #######################
@@ -18,11 +20,9 @@ RT='\033[;0m'
 def restart():
     python = sys.executable
     os.execl(python, python, *sys.argv)
-
-import os,sys,base64, json, re,time
-from time import sleep as timeout
+import os,sys,time,base64, json, re,tools
 try:
-    import requests,api,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers
+    import requests,api,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers,json,tools
     from colorama import Fore, Style
     from bs4 import BeautifulSoup
     from phonenumbers import carrier
@@ -31,92 +31,243 @@ try:
     from urllib.parse import urlencode
 except:
     os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse')
-    print(f'{C}[{Y}i{C}] Reiniciando o painel em 3 seg...')
-    time.sleep(3)
+    for i in range(3):
+    	tools.clear()
+    	print(f'{C}[{Y}i{C}] Reiniciando o painel em {i} seg...')
+    	time.sleep(1)
     restart()
+
 requests = requests.Session()
+def clear_config():
+	if os.path.exists('options.txt'):
+    			try:
+    				os.remove('options.txt')
+    			except:
+    				os.system('rm options.txt')
 
-a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
-a=a.encode('ascii')
-a=base64.b64decode(a)
-a=a.decode('ascii')
+	if os.path.exists('user'):
+    			try:
+    				os.remove('user')
+    			except:
+    				os.system('rm user')
 
-def kinymode():
-    print("Opa, como você veio parar aqui?")
-    time.sleep(1)
-    print("Deseja continuar?[s/n]")
-    lero = input("> ")
-    if lero =='s' or lero == 'S':
-        print("Nova Opção Desbloqueada")
-        kiny=1
-        menu(user)
-    if lero =='n' or lero == 'N':
-        print("Iniciando o script normalmente")
-        menu(user)
+def write():
+	clear_config()
+	f = open('options.txt','a')
+	f.write(str(login))
+	f.write(str(cpf_api))
+	f.write(str(ip_api))
+	f.write(str(placa_api))
+	f.write(str(cnpj_api))
+	f.close()
+	if os.path.exists('user'):
+		os.remove('user')
+	else:
+		pass
+		f = open("user","a")
+		f.write(user)
+	f.close
+
+global login
+global user
+global cpf_api
+global ip_api
+global placa_api
+global cnpj_api
+
+if os.path.exists('options.txt') and os.path.exists('user'):
+	f = open('options.txt','r') # Não espero que vc se ache hacker por saber mexer com esse arquivo
+	data = f.read()
+	login = int(data[0])
+	cpf_api = int(data[1])
+	ip_api = int(data[2])
+	placa_api = int(data[3])
+	cnpj_api = int(data[4])
+	f.close()
+	f = open('user','r')
+	user = f.read()
+	f.close()
+	del data
+else:
+	login = 1 # Não,eu não vou reclamar por você ter corrompido a data :D
+	user = 0
+	cpf_api = 0
+	ip_api = 0
+	placa_api = 0
+	cnpj_api = 0
+anim = 0
+
+
+if __name__ == '__main__':
+    print(f'{G} Checando por atualizacoes... {C}')
+    '''
+    update = subprocess.check_output('git pull', shell=True)
+    if 'Already up to date' not in update.decode():
+        print(f'{G}Atualizacao instalada!\nReiciando app...{C}')
+        time.sleep(5)
+        subprocess.run('clear')
+        restart()
     else:
-        print("Opção Invalida")
-        exit()
+        print('Nenhuma atualizacao disponivel.')
+        time.sleep(2)
+        password()
+'''
 
-def menu(user):
-    try:
-        os.system("pkg update")
-        os.system("pkg install figlet")
-    except:
-        os.system("apt update")
-        os.system("apt install figlet")
-    os.system("clear")
-    print("Coded By: \033[1;36m KINY \033[m and \033[1;36m YATO \033[m in 07/02/2021")
+if login:
+	tools.clear()
+	if user != 0: #and login == 0:
+		pass
+	else:
+		user = input("USERNAME:  ")
+	snh = 'VirtualInsanity'
+	print("\n ")
+	if user == 'YATO' or user == 'KINY':
+		kinymode=1
+	else:
+		kinymode=0
+		if input("PASSWORD:  ").strip() == snh:
+			tools.clear()
+		else:
+			print("{C}[{R}ERROR{C}] Wrong Password....Yare Yare")
+			time.sleep(1)
+			exit()
+
+	if kinymode:
+		print("Nova Opção Desbloqueada")
+		kiny=1
+try:
+    os.system("pkg update")
+    os.system("pkg install figlet")
+except:
+    os.system("apt update")
+    os.system("apt install figlet")
+def options():
+    os.system('figlet KINY')
+    print(f'{C}[{G}1{C}] Login : {login}')
+    print(f'{C}[{G}2{C}] Trocar APIs')
+    print(f'{C}[{G}3{C}] Limpar data')
+    print(f'{C}[{G}4{C}] Animação: {anim}')
+    print(f'{C}[{G}5{C}] Inserir token pessoal')
+    print()
+    print(f'{C}[{G}0{C}] Voltar')
+    choice = input('===>')
+    tools.clear()
+    if choice == '1' or choice == '01':
+        login ^= 1
+        if choice == '2' or choice == '02':
+    if cpf_api == 0:
+        cpf_apt_name="MTE"
+    if cpf_api == 1:
+        cpf_api_name="null"
+    if ip_api == 0:
+        ip_api_name="IP-API 1"
+    if ip_api == 1:
+        ip_api_name="API-IP 2"
+    if ip_api == 2:
+        ip_api_name="Todas"
+    if cnpj_api == 0:
+        cnpj_api_name="receitaws"
+    if cnpj_api == 1:
+        cnpj_api_name="Governo"
+    if cnpj_api == 2:
+        cnpj_api_name="Todas"
+    if placa_api == 0:
+        placa_api_name="receitaws"
+    if placa_api == 1:
+        placa_api_name="Governo"
+    if placa_api == 2:
+        placa_api_name="Todas"
+    print(f'{C}[{G}1{C}] CPF API: {cpf_api_name}')
+    print(f'{C}[{G}2{C}] IP API: {ip_api_name}')
+    print(f'{C}[{G}3{C}] PLACA API: {placa_api_name}')
+    print(f'{C}[{G}4{C}] CNPJ API: {cnpj_api_name}')
+    print()
+    print(f'{C}[{G}0{C}] Voltar')
+    choice2 = input('===>')
+
+    if choice2 == '1' or choice2 == '01':
+        cpf_api = cpf_api + 1
+    if choice2 == '2' or choice2 == '02':
+        ip_api = ip_api + 1
+    if choice2 == '3' or choice2 == '03':
+        placa_api = placa_api + 1
+    if choice2 == '4' or choice2 == '04':
+        cnpj_api = cnpj_api + 1
+
+    if int(cpf_api) >= int('3'):
+            cpf_api = 0
+    if int(cnpj_api) >= int('3'):
+            cnpj_api = 0
+    if int(placa_api) >= int('3'):
+            placa_api = 0
+    if int(ip_api) >= int('3'):
+            ip_api = 0
+if choice == '3' or choice == '02':
+    clear_config()
+if choice == '4' or choice == '04':
+    anim ^= 1
+if choice == '5' or choice == '05':
+    print(f'{C}[{G}i{C}] Digite o seu token de acesso ou d para o token de acesso publico.')
+    token = input('===>')
+    if token == d:
+        token = "f01e0024a26baef3cc53a2ac208dd141"
+if choice != 1 and choice !=2 and choice !=3 and choice!=0:
+    tools.clear()
+    print(f'{C}[{R}ERROR{C}] Opção inválida')
+write()
+
+Sair = False
+while(Sair == False):
+
+    tools.clear()
+    print(f"Coded By: {CY} KINY {CO} and {CY} YATO {CO} in 07/02/2021")
     print()
     os.system("figlet KINY")
     print(f'{C}[{G}*{C}] Bem vindo,' + user)
+    time.sleep(1)
     print()
-    print("\033[32m{1} BUSCADOR DE CEP\033[m")
-    print("\033[32m{2} GEO LOCALIZADOR DE IP\033[m")
-    print("\033[32m{3} KINY-SITE-INFOGA\033[m")
-    print("\033[32m{4} CONSULTA DE CNPJ\033[m")
-    print("\033[32m{5} CONSULTA BANCARIA\033[m")
-    print("\033[32m{6} CONSULTA CPF\033[m")
-    print("\033[32m{7} CONSULTA CNS\033[m")
-    print("\033[32m{8} CONSULTA PLACA\033[m")
-    print("\033[32m{9} CONSULTA CRM\033[m")
-    print("\033[32m{10} CONSULTA DE NUMERO\033[m")
-    print("\033[32m{11} CONSULTA BIN\033[m")
-    print("\033[32m{12} GERAR PESSOA\033[m")
-    #print("\033[32m{13} SCANEAR PORTAS\033[m")
-    print("\033[32m{14} CC CHECKER\033[m")
-    #print("\033[32m{15} CONSULTA NOME\033[m")
+    print(f"{C}{G}[1]{C} BUSCADOR DE CEP")
+    print(f"{C}{G}[2]{C} GEO LOCALIZADOR DE IP")
+    print(f"{C}{G}[3]{C} KINY-SITE-INFOGA")
+    print(f"{C}{G}[4]{C} CONSULTA DE CNPJ")
+    print(f"{C}{G}[5]{C} CONSULTA BANCARIA")
+    print(f"{C}{G}[6]{C} CONSULTA CPF")
+    print(f"{C}{G}[7]{C} CONSULTA CNS")
+    print(f"{C}{G}[8]{C} CONSULTA PLACA")
+    print(f"{C}{G}[9]{C} CONSULTA CRM")
+    print(f"{C}{G}[10]{C} CONSULTA DE NUMERO")
+    print(f"{C}{G}[11]{C} CONSULTA BIN")
+    print(f"{C}{G}[12]{C} GERAR PESSOA")
+    print(f"{C}{G}[13]{C} MOSTRAR MEU IP")
+    print(f"{C}{G}[14]{C} CC CHECKER")
+    print(f"{C}{G}[15]{C} COVID19")
+    if kinymode == 1:
+    	print(f"{C}{G}[16]{C} FERRAMENTAS")
+    time.sleep(1)
     print()
     if login:
     	pass
     else:
-    	print("\033[32m{95} Mudar username\033[m")
-    print("\033[32m{96} Opções\033[m")
-    print("\033[32m{97} Notas de versão\033[m")
-    print("\033[32m{98} Auto-update\033[m")
-    print("\033[32m{99} Update && Upgrade\033[m")
-    print("\033[32m{00} EXIT\033[m")
-    op = input("\033[32m===>\033[m ").strip()
+    	print(f"{C}{G}[95]{C} Mudar username")
+    print(f"{C}{G}[96]{C} Opções")
+    print(f"{C}{G}[97]{C} Notas de versão")
+    #print("{C}[{G}98{C}] Auto-update")
+    print(f"{C}{G}[99]{C} Update && Upgrade")
+    print(f"{C}{G}[00]{C} EXIT")
+    op = input("===>").strip()
+    tools.clear()
     if op == '95':
     	print()
+    	print(f'{C}[{G}i{C}] Me diga como quer ser chamado.')
+    	user = input('===>')
+    	write()
     if op == '96':
-    	print()
-
-    if op == '98':
-        os.system("bash update.sh")
-        print('Painel atualizado.')
+        options()
     if op == '97':
-        clear()
-        print(f'{C}==={R}{C} Notas de versão {C}==={R}{C}')
-        print(f'''
-        * Bug corrigido no updater
-        * Bug corrigido em consultas a placas
-
-        ''')
-        print(f'{C}{B}YATO{C} & {C}{B}KINY{C} , 2021')
-        pause = input('Pressione enter para retornar.')
-        menu(user)
+        tools.notes()
+    if op == '15':
+    	tools.covid19()
     if op == '14':
-        R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
         def checker(cc,mes,ano,cvv):
             r=requests.request('GET','https://lookup.binlist.net/'+cc[0:6]).json()
             band=r.get('scheme')
@@ -231,99 +382,15 @@ def menu(user):
                 elif RS=='DATA_MISSING':
                     print(f'{R}[-]{C}Algum dado faltando.')
                 else:
-                    print(f'{Y}Erro nao listado, confira: {R}{RS}{RT}')
-        estados={
-            'Acre': 'AC',
-            'Alagoas': 'AL',
-            'Amapá': 'AP',
-            'Amazonas': 'AM',
-            'Bahia': 'BA',
-            'Ceará': 'CE',
-            'Distrito Federal': 'DF',
-            'Espírito Santo': 'ES',
-            'Goiás': 'GO',
-            'Maranhão': 'MA',
-            'Mato Grosso': 'MT',
-            'Mato Grosso do Sul': 'MS',
-            'Minas Gerais': 'MG',
-            'Pará': 'PA',
-            'Paraíba': 'PB',
-            'Paraná': 'PR',
-            'Pernambuco': 'PE',
-            'Piauí': 'PI',
-            'Rio de Janeiro': 'RJ',
-            'Rio Grande do Norte': 'RN',
-            'Rio Grande do Sul': 'RS',
-            'Rondônia': 'RO',
-            'Roraima': 'RR',
-            'Santa Catarina': 'SC',
-            'São Paulo': 'SP',
-            'Sergipe': 'SE',
-            'Tocantins': 'TO',
-            'Alabama': 'AL',
-            'Alaska': 'AK',
-            'Arizona': 'AZ',
-            'Arkansas': 'AR',
-            'California': 'CA',
-            'Colorado': 'CO',
-            'Connecticut': 'CT',
-            'Delaware': 'DE',
-            'Florida': 'FL',
-            'Georgia': 'GA',
-            'Hawaii': 'HI',
-            'Idaho': 'ID',
-            'Illinois': 'IL',
-            'Indiana': 'IN',
-            'Iowa': 'IA',
-            'Kansas': 'KS',
-            'Kentucky': 'KY',
-            'Louisiana': 'LA',
-            'Maine': 'ME',
-            'Maryland': 'MD',
-            'Massachusetts': 'MA',
-            'Michigan': 'MI',
-            'Minnesota': 'MN',
-            'Mississippi': 'MS',
-            'Missouri': 'MO',
-            'Montana': 'MT',
-            'Nebraska': 'NE',
-            'Nevada': 'NV',
-            'New Hampshire': 'NH',
-            'New Jersey': 'NJ',
-            'New Mexico': 'NM',
-            'New York': 'NY',
-            'North Carolina': 'NC',
-            'North Dakota': 'ND',
-            'Northern Mariana Islands':'MP',
-            'Ohio': 'OH',
-            'Oklahoma': 'OK',
-            'Oregon': 'OR',
-            'Palau': 'PW',
-            'Pennsylvania': 'PA',
-            'Rhode Island': 'RI',
-            'Puerto Rico': 'PR',
-            'South Carolina': 'SC',
-            'South Dakota': 'SD',
-            'Tennessee': 'TN',
-            'Texas': 'TX',
-            'Utah': 'UT',
-            'Vermont': 'VT',
-            'Virginia': 'VA',
-            'Washington': 'WA',
-            'Washington, DC': 'DC',
-            'West Virginia': 'WV',
-            'Wisconsin': 'WI',
-            'Wyoming': 'WY',
-            'Virgin Islands': 'VI'
-                }
-        clear()
+                    print(f'{Y}Erro nao listado{R}{RS}{RT}')
+        tools.clear()
         os.system('figlet KINY')
         try:
             lista=open(input(f'{C}Caminho da lista: '), 'r').read().splitlines()
         except:
             print(f'{C}[{R}i{C}] Erro,verifique se é um arquivo.')
             time.sleep(3)
-            menu(user)
+            pass
         for gg in lista:
             cc=gg.split('|')[0]
             mes=gg.split('|')[1]
@@ -331,141 +398,18 @@ def menu(user):
             cvv=gg.split('|')[3]
             checker(cc,mes,ano,cvv)
     if op == '13':
-        import socket
-        def scan(message):
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-
-            ip = message.replace('https://', '').replace('http://', '').replace('/scan ', '')
-
-            portas = {
-                21: 'ftp',
-                22: 'ssh',
-                23: 'telnet',
-                25: 'smtp',
-                53: 'domain',
-                80: 'http',
-                110: 'pop3',
-                111: 'rpcbind',
-                135: 'RPC',
-                139: 'netbios',
-                143: 'imap',
-                443: 'https',
-                445: 'microsoft-ds',
-                993: 'imaps',
-                995: 'pop3s',
-                1723: 'pptp',
-                3306: 'mysql',
-                3389: 'RDP',
-                5900: 'vnc',
-                8080: 'http-proxy'
-                }
-
-            texto = ''
-
-            for key, value in portas.items():
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                s.settimeout(1.5)
-                code = s.connect_ex((ip, key))
-                if code == 0:
-                    texto = texto + f'*Porta* `{key} {value}` *=>* Aberta\n'
-                print(texto) if len(texto) > 1 else '`Nenhuma porta aberta`'
-                del code
-                del texto
-                del ip
-                print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
-                print('1.Sim')
-                print('2.Não')
-                choice = input("===>")
-                if choice == '1' or choice == '01':
-                    choityp()
-                if choice == '2' or choice == '02':
-                    menu(user)
-                else:
-                    print(f'{C}[{R}i{C}] Opção inválida')
-                    time.sleep(3)
-                    menu(user)
-        def choityp():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            clear()
-            os.system('figlet KINY')
-            global loufi
-            print(f'{C}[{Y}*{C}] Digite o IP.')
-            loufi = input('===>')
-            scan(loufi)
-        choityp()
+    	tools.ip(ip_api)
     if op == '12':
-        def gerarPessoa():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-
-            while True:
-                cpf = requests.get('http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()['data']['number']
-                r = requests.get(f'http://104.41.5.41:12345/cpf.php?lista={cpf}').json()
-                if r['Type'] == "PESSOAFISICA":
-                    print(f'''*CPF*: `{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}`
-*Nome*: `{r["Nome"].title()}`
-*Nascimento*: `{r["Nacimento"]}`
-*Nome da Mae*: `{r["Mae"].title()}`
-*Endereco*: `{r["Nologradouro"].title()}, {r["Nrlogradouro"]}`
-*Complemento*: `{r["Complemento"].title()}`
-*Bairro*: `{r["Bairro"].title()}`
-*Cidade*: `{r["Municipio"].title()}-{r["Estado"]}`
-*CEP*: `{r["Cep"][:5]}-{r["Cep"][5:]}`''')
-                    print(f'{C}[{Y}i{C}] Deseja gerar mais?')
-                    print('1.Sim')
-                    print('2.Não')
-                    choice = input('===>')
-                    if choice == '1' or choice == '01':
-                        gerarPessoa()
-                    if choice == '2' or choice == '02':
-                        menu(user)
-                    else:
-                        print(f'{C}[{R}i{C}] Opção inválida.')
-                        menu(user)
-        clear()
-        R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
         print(f'{C}[{G}i{C}] Gerando...')
-        gerarPessoa()
+        tools.gerar_pessoa()
     if op == '11':
-        def consultabin():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            clear()
-            os.system('figlet KINY')
-            print('Exemplo:45717360')
-            print(f'{C}[{Y}i{C}] Digite a BIN.')
-            bin_input = input("===>")
-            headers = {"Accept-Version":"3","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-            try:
-                req = requests.get('https://lookup.binlist.net/'+bin_input,headers = headers)
-                req_data = req.json()
-            except:
-                print(f'{C}[{R}i{C}] Ocorreu um erro,tente novamente.')
-            clear()
-            os.system('figlet KINY')
-            print('Bandeira: {}'.format(req_data['scheme']))
-            print('Marca: {}'.format(req_data['brand']))
-            print('Tipo: {}'.format(req_data['type']))
-            print('Pais: {}'.format(req_data['country']['name']))
-            print('Latitude: {}'.format(req_data['country']['latitude']))
-            print('Longitude: {}'.format(req_data['country']['longitude']))
-            print('Moeda: {}'.format(req_data['country']['currency']))
-            print('Emoji: {}'.format(req_data['country']['emoji']))
-            print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            choice = input("===>")
-            if choice == '1' or choice == '01':
-                consultabin()
-            if choice == '2' or choice == '02':
-                menu(user)
-            else:
-                print(f'{C}[{R}i{C}] Opção inválida')
-                time.sleep(3)
-                menu(user)
+        tools.bin()
+        tools.tools.clear()
+
         consultabin()
     if op == '10':
         def consultaphone():
             api.phone()
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             print(f'{C}[{Y}i{C}]Deseja realizar uma nova consulta?')
             print('1.Sim')
             print('2.Não')
@@ -473,168 +417,13 @@ def menu(user):
             if choice == '1' or choice == '01':
                 tiposop()
             if choice == '2' or choice == '02':
-                menu(user)
+                pass
             else:
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
                 tiposop()
-        def consultaddd():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            clear()
-            os.system('figlet KINY')
-            for ins in range(1, 999, 1):
-                ins = int(input('Digite o DDD: '))
-
-                if ins == 11:
-                    print(
-                        '⇾ São Paulo e Região Metropolitana /Jundiaí e Aglomeração Urbana /\n São Roque-Mairinque /\n Itu-Salto /\n Bragança Paulista-Atibaia')
-                elif ins == 12:
-                    print('⇾ São Paulo São José dos Campos e Vale do Paraíba')
-                elif ins == 14:
-                    print('⇾ São Paulo Bauru/Marília/Jaú/Botucatu')
-                elif ins == 15:
-                    print('⇾ São Paulo Sorocaba e Itapetininga')
-                elif ins == 16:
-                    print('⇾ São Paulo Ribeirão Preto/Araraquara/São Carlos')
-                elif ins == 17:
-                    print('⇾ São Paulo São José do Rio Preto/Barretos')
-                elif ins == 18:
-                    print('⇾ São Paulo Presidente Prudente/Araçatuba/Assis')
-                elif ins == 19:
-                    print('⇾ São Paulo Campinas e Região Metropolitana/Piracicaba')
-                elif ins == 21:
-                    print('⇾ Rio de Janeiro	Rio de Janeiro, Região Metropolitana e Teresópolis')
-                elif ins == 22:
-                    print('⇾ Rio de Janeiro	Campos dos Goytacazes/Nova Friburgo/Macaé/Cabo Frio')
-                elif ins == 24:
-                    print('⇾ Rio de Janeiro	Petrópolis/Volta Redonda/Angra dos Reis')
-                elif ins == 27:
-                    print('⇾ Espírito Santo	Vitória e Região Metropolitana')
-                elif ins == 28:
-                    print('⇾ Espírito Santo	Cachoeiro de Itapemirim')
-                elif ins == 31:
-                   print('⇾ Minas Gerais Belo Horizonte, Região Metropolitana e Vale do Aço')
-                elif ins == 32:
-                    print('⇾ Minas Gerais Juiz de Fora/São João Del Rei')
-                elif ins == 33:
-                    print('⇾ Minas Gerais Governador Valadares/Teófilo Otoni/Caratinga/Manhuaçu')
-                elif ins == 34:
-                    print('⇾ Minas Gerais Uberlândia e Triângulo Mineiro')
-                elif ins == 35:
-                    print('⇾ Minas Gerais Poços de Caldas/Pouso Alegre/Varginha')
-                elif ins == 37:
-                    print('⇾ Minas Gerais Divinópolis/Itaúna')
-                elif ins == 38:
-                    print('⇾ Minas Gerais Montes Claros/Diamantina/Noroeste de Minas')
-                elif ins == 41:
-                    print('⇾ Paraná	Curitiba e Região Metropolitana')
-                elif ins == 42:
-                    print('⇾ Paraná	Ponta Grossa/Guarapuava')
-                elif ins == 43:
-                    print('⇾ Paraná	Londrina/Apucarana')
-                elif ins == 44:
-                    print('⇾ Paraná	Maringá/Campo Mourão/Umuarama')
-                elif ins == 45:
-                    print('⇾ Paraná	Cascavel/Foz do Iguaçu')
-                elif ins == 46:
-                    print('⇾ Paraná	Francisco Beltrão/Pato Branco')
-                elif ins == 47:
-                    print('⇾ Santa Catarina	Joinville/Blumenau/Itajaí/Balneário Camboriú')
-                elif ins == 48:
-                    print('⇾ Santa Catarina	Florianópolis e Região Metropolitana/Criciúma/Tubarão')
-                elif ins == 49:
-                    print('⇾ Santa Catarina	Chapecó/Lages/Caçador')
-                elif ins == 51:
-                    print('⇾ Rio Grande do Sul Porto Alegre e Região Metropolitana/Santa Cruz do Sul/Litoral Norte')
-                elif ins == 53:
-                    print('⇾ Rio Grande do Sul Pelotas/Rio Grande')
-                elif ins == 54:
-                    print('⇾ Rio Grande do Sul Caxias do Sul/Passo Fundo')
-                elif ins == 55:
-                    print('⇾ Rio Grande do Sul Santa Maria/Uruguaiana/Santana do Livramento/Santo Ângelo')
-                elif ins == 61:
-                    print(
-                    '⇾ Distrito Federal/Goiás	Abrangência em todo o Distrito Federal e municípios goianos da Região Integrada de Desenvolvimento do Distrito Federal e Entorno')
-                elif ins == 62:
-                    print('⇾ Goiás Goiânia e Região Metropolitana/Anápolis/Niquelândia/Porangatu')
-                elif ins == 63:
-                    print('⇾ Tocantins Abrangência em todo o estado')
-                elif ins == 64:
-                    print('⇾ Goiás	Rio Verde/Itumbiara/Caldas Novas/Catalão')
-                elif ins == 65:
-                    print('⇾ Mato Grosso Cuiabá e Região Metropolitana')
-                elif ins == 66:
-                    print('⇾ Mato Grosso Rondonópolis/Sinop')
-                elif ins == 67:
-                    print('⇾ Mato Grosso do Sul	Abrangência em todo o estado')
-                elif ins == 68:
-                    print('⇾ Acre Abrangência em todo o estado')
-                elif ins == 69:
-                    print('⇾ Rondônia Abrangência em todo o estado')
-                elif ins == 71:
-                    print('⇾ Bahia Salvador e Região Metropolitana')
-                elif ins == 73:
-                    print('⇾ Bahia Itabuna/Ilhéus')
-                elif ins == 74:
-                    print('⇾ Bahia Juazeiro')
-                elif ins == 75:
-                    print('⇾ Bahia Feira de Santana/Alagoinhas')
-                elif ins == 77:
-                    print('⇾ Bahia Vitória da Conquista/Barreiras')
-                elif ins == 79:
-                    print('⇾ Sergipe Abrangência em todo o estado')
-                elif ins == 81:
-                    print('⇾ Pernambuco	Recife e Região Metropolitana/Caruaru')
-                elif ins == 82:
-                    print('⇾ Alagoas Abrangência em todo o estado')
-                elif ins == 83:
-                    print('⇾ Paraíba Abrangência em todo o estado')
-                elif ins == 84:
-                    print('⇾ Rio Grande do Norte Abrangência em todo o estado')
-                elif ins == 85:
-                    print('⇾ Ceará Fortaleza e Região Metropolitana')
-                elif ins == 86:
-                    print('⇾ Piauí Teresina e Região Metropolitana/Parnaíba')
-                elif ins == 87:
-                    print('⇾ Pernambuco	Petrolina/Garanhuns/Serra Talhada/Salgueiro')
-                elif ins == 88:
-                    print('⇾ Ceará Juazeiro do Norte/Sobral')
-                elif ins == 89:
-                    print('⇾ Piauí Picos/Floriano')
-                elif ins == 91:
-                    print('⇾ Pará Belém/Região Metropolitana')
-                elif ins == 92:
-                    print('⇾ Amazonas Manaus/Região Metropolitana/Parintins')
-                elif ins == 93:
-                    print('⇾ Pará Santarém/Altamira')
-                elif ins == 94:
-                    print('⇾ Pará Marabá')
-                elif ins == 95:
-                    print('⇾ Roraima Abrangência em todo o estado')
-                elif ins == 96:
-                    print('⇾ Amapá Abrangência em todo o estado')
-                elif ins == 97:
-                    print('⇾ Amazonas Abrangência no interior do estado')
-                elif ins == 98:
-                    print('⇾ Maranhão São Luís e Região Metropolitana')
-                elif ins == 99:
-                    print('⇾ Maranhão Imperatriz/Caxias')
-                print(f'{C}[{Y}i{C}]Deseja realizar uma nova consulta?')
-                print('1.Sim')
-                print('2.Não')
-                choice = input("===>")
-                if choice == '1' or choice == '01':
-                    tiposop()
-                if choice == '2' or choice == '02':
-                    menu(user)
-                else:
-                    print(f'{C}[{R}i{C}] Opção inválida')
-                    time.sleep(3)
-                    tiposop()
         def consultaoperadora():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            import requests
-            clear()
+            tools.clear()
             os.system("figlet KINY")
             global op_input
             print(f'{C}[{G}i{C}] Exemplo: 48952021826')
@@ -654,7 +443,7 @@ def menu(user):
                 if cho == '1' or cho == '01':
                     consultaoperadora()
                 if cho == '2' or cho == '02':
-                    menu(user)
+                    pass
                 else:
                     print(f'{C}[{R}i{C}] Opção inválida')
             op_final = 'null'
@@ -682,24 +471,21 @@ def menu(user):
             if cho == '1' or cho == '01':
                 consultaoperadora()
             if cho == '2' or cho == '02':
-                menu(user)
+                pass
             else:
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
                 tiposop()
         def tiposop():
-            clear()
+            tools.clear()
             os.system('figlet KINY')
             print(f'O que deseja fazer?')
             print('1.Consultar operadora por numero')
-            print('2.Consultar DDD')
-            print('3.Phone infoga')
+            print('2.Phone infoga')
             choi = input('===>')
             if choi == '1' or choi == '01':
                 consultaoperadora()
             if choi == '2' or choi == '02':
-                consultaddd()
-            if choi == '3' or choi == '03':
                 consultaphone()
             else:
                 print(f'{C}[{R}i{C}] Opção inválida')
@@ -707,89 +493,11 @@ def menu(user):
                 tiposop()
         tiposop()
     if op == '9' or op == '09':
-        def consultacrm():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            import requests
-            clear()
-            os.system("figlet KINY")
-            global crm_input
-            global uf_input
-            print(f'{C}[{G}i{C}] Digite o numero do CRM.')
-            crm_input = input("===>")
-            print(f'{C}[{G}i{C}] Digite o UF.')
-            uf_input = input("===>")
-            url = 'https://www.consultacrm.com.br/api/index.php?tipo=crm&uf='+uf_input
-            requests = requests.get(url+'&q={}&chave=5072097263&destino=json'.format(crm_input))
-            crm_data = requests.json()
-            #consultas = (crm_data['api_limite']) - (crm_data['api_consultas'])
-            if (crm_data['status']) == "true":
-                #print('Consultas restantes ='+consultas)
-                try:
-                    print('CRM: {}'.format(crm_data["item"][0]["numero"]))
-                    print('Nome: {}'.format(crm_data["item"][0]["nome"]))
-                    print('UF: {}'.format(crm_data["item"][0]["uf"]))
-                    print('Situacao: {}'.format(crm_data["item"][0]["situacao"]))
-                    print('Profissão: {}'.format(crm_data["item"][0]["profissao"]))
-                except:
-                    print(f'{C}[{R}*{C}] Erro! dados invalidos!')
-                    time.sleep(3)
-                    consultacrm()
-            else:
-                print(f'{C}[{R}i{C}] CRM invalido')
-            del crm_input
-            del uf_input
-            del url
-            del crm_data
-            print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            choice = input("===>")
-            if choice == "1" or choice == "01":
-                consultacrm()
-            if choice == "2" or choice == "02":
-                menu(user)
-            else:
-                print("Opcao invalida.")
-        consultacrm()
+        tools.crm()
     if op == '8' or op == '08':
         #def gerarplaca():
         #def tiposplaca():
-        #http://api.masterplaca.devplank.com/v2/placa/{placa}/json
-        def consultaplaca():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            clear()
-            os.system("figlet KINY")
-            print(f'{C}[{G}i]{C}Digite o numero da placa.')
-            placa_input = input("===>")
-            from requests import get
-            req = requests.get('https://apicarros.com/v1/consulta/{}/json'.format(placa_input), verify = False) # JSQ7436
-            placa_data = req.json()
-            clear()
-            os.system('figlet KINY')
-            try:
-                if (placa_data['codigoRetorno']) == "0":
-                    print(f"{C}Ano: {B}{placa_data['ano']}{C}")
-                    print(f"Data: {B}{placa_data['data']}{C}")
-                    print(f"Modelo: {B}{placa_data['modelo']}{C}")
-                    print(f"Ano do modelo: {B}{placa_data['anoModelo']}{C}")
-                    print(f"Cor: {B}{placa_data['cor']}{C}")
-                    print(f"Marca: {B}{placa_data['marca']}{C}")
-                    print(f"Roubo/furto: {B}{placa_data['dataAtualizacaoRouboFurto']}{C}")
-                    print(f"Situação: {B}{placa_data['situacao']}{C}")
-                    print(f"Placa: {B}{placa_data['placa']}{C}")
-                    print(f"Chassi: {B}{placa_data['chassi']}{C}")
-                    print(f"UF: {B}{placa_data['uf']}{C}")
-                    print(f"Município: {B}{placa_data['municipio']}{C}")
-                    print(f"Modificada em: {B}{placa_data['dataAtualizacaoCaracteristicasVeiculo']}{C}")
-                    print(f"Alarme atualizado: {B}{placa_data['dataAtualizacaoAlarme']}{C}")
-                    print(f"Mensagem de retorno: {B}{placa_data['mensagemRetorno']}{C}")
-                    print(f"Código de retorno: {B}{placa_data['codigoRetorno']}{C}")
-                else:
-                    print(f'{C}[{R}i]{C} Sem dados sobre.')
-            except:
-                print(f'{C}[{R}i{C}] Placa invalida')
-                time.sleep(3)
-                consultaplaca()
+        tools.consultaplaca()
             del placa_data
             del req
             del placa_input
@@ -800,17 +508,12 @@ def menu(user):
             if choice == "1" or choice == "01":
                 consultaplaca()
             if choice == "2" or choice == "02":
-                menu(user)
+                pass
             else:
                 print("Opcao invalida.")
         consultaplaca()
     if op == '7' or op == '07':
         def consultarcns():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            global requests
-            global cns_input
-            import requests, os, time, base64, json, re
-            from requests import get
             requests = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token=f01e0024a26baef3cc53a2ac208dd141'.format(cns_input))
             cns_data = requests.json()
             if (cns_data['status']) == "1":
@@ -832,13 +535,8 @@ def menu(user):
             if lo == '1' or lo == '01':
                 tipocns()
             else:
-                menu(user)
+                pass
         def gerarcns():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            global requests
-            global cns_input
-            import requests, os, time, base64, json, re
-            from requests import get
             os.system("clear")
             os.system("figlet KINY")
             print(f'{C}[{G}*{C}] Gerando CNS...')
@@ -852,8 +550,6 @@ def menu(user):
             cns_input = cns
             consultarcns()
         def tipocns():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            clear()
             os.system('figlet KINY')
             print(f'''
 {C}[{G}i{C}]Formas de operação
@@ -874,8 +570,6 @@ def menu(user):
         tipocns()
     if op == '6' or op == '06':
         def gerarcpf():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            clear()
             os.system('figlet KINY')
             print(f'{C}[{G}i{C}] Gerando CPF...')
             time.sleep(1)
@@ -888,8 +582,6 @@ def menu(user):
             consulta(cpf)
 
         def consulta(cpf):
-            import requests
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             try:
                 h={
                 'Content-Type': "text/xml, application/x-www-form-urlencoded;charset=ISO-8859-1, text/xml; charset=ISO-8859-1",
@@ -915,10 +607,10 @@ def menu(user):
                 if nova=='1' or nova=='01':
                     tipos()
                 if nova=='2' or nova=='02':
-                    menu(user)
+                    pass
                 else:
                     print(f'{C}[{R}i{C}]Opção inválida')
-                    menu(user)
+                    pass
             except(AttributeError):
                 print(f'{R}CPF Gerado nao existe{C}')
                 print(f'{R}Pressione enter para retornar{C}')
@@ -926,7 +618,7 @@ def menu(user):
                 tipos()
         def tipos():
             R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            clear()
+            tools.clear()
             os.system('figlet KINY')
             print(f"""
 {C}[{G}i{C}] Formas de operação:
@@ -938,12 +630,12 @@ def menu(user):
             tool=input(f'===>')
             if tool=='1' or tool == '01':
                 cpf=input(f'{C}[{Y}i{C}] Informe o CPF a ser consultado (sem pontos ou traços): {B}')
-                clear()
+                tools.clear()
                 consulta(cpf)
             elif tool=='2' or tool == '02':
                 gerarcpf()
             elif tool=='3' or tool == '03':
-                menu(user)
+                pass
             else:
                 print(f'{C}[{R}-{C}] Seleção inválida.')
                 time.sleep(1)
@@ -953,10 +645,6 @@ def menu(user):
 
     if op == '5' or op == '05':
         def bank():
-            global requests
-            import requests, os, time, base64, json, re
-            from requests import get
-            clear()
             os.system("figlet KINY")
             print("DIGITE O CODIGO BANCARIO")
             bank_input = input("\033[32m=====> \033[m")
@@ -966,7 +654,7 @@ def menu(user):
                 bank_data = requests.json()
 
                 if 'message' not in bank_data:
-            	    clear()
+            	    tools.clear()
             	    os.system("figlet KINY")
             	    print("Código bancário: {}".format(bank_data['code']))
             	    print("Nome: {}".format(bank_data['name']))
@@ -974,7 +662,7 @@ def menu(user):
             	    print("ISPB: {}".format(bank_data['ispb']))
 
                 else:
-                    clear()
+                    tools.clear()
                     print('{}: Código bancário inválido.'.format(bank_input))
             except:
                  print(f'{C}[{R}*{C}]Erro no servidor')
@@ -985,13 +673,13 @@ def menu(user):
             if kc == '01' or kc == '1':
             	bank()
             else:
-                clear()
-                menu(user)
+                tools.clear()
+                pass
         bank()
     if op == '1' or op == '01':
         def main():
             from requests import get
-            clear()
+            tools.clear()
             print("\033[32m######\033[m")
             print("\033[32m#KINY#\033[m")
             print("\033[32m######\033[m")
@@ -1030,25 +718,22 @@ def menu(user):
             if option == '1':
                 main()
             else:
-                menu(user)
+                pass
 
         main()
 
     if op == '00' or op == '0':
         os.system("clear")
-        print("\033[32m Arrivederci\033[m")
-        exit()
+        Sair = True
 
     if op == '99' or op == '99':
         os.system("clear")
         os.system("pkg update && pkg update")
-        menu(user)
+        pass
 
     if op == '3' or op == '03':
         os.system("clear")
-        os.system("pkg install nmap")
-        os.system("pkg install whois")
-        os.system("pkg install python")
+        os.system("apt install nmap whois python")
         os.system("clear")
         print("\033[1;36m KINY \033[m")
         print()
@@ -1073,55 +758,17 @@ def menu(user):
             os.system("whois " + k)
         print ("Pressione enter para voltar.")
         pause = input("====>")
-        menu(user)
+        pass
 
     if op == '2' or op == '02':
-        def ip():
-            from requests import get
-            os.system("clear")
-            print("\033[32m######\033[m")
-            print("\033[32m#KINY#\033[m")
-            print("\033[32m######\033[m")
-
-            ip_input = input("\033[32m=====> \033[m")
-
-            requests = get('http://ip-api.com/json/{}'.format(ip_input))
-
-            adress_data = requests.json()
-
-            if (adress_data['status']) == 'success':
-                print('IP: {}'.format(adress_data['query']))
-                print('Status: {}'.format(adress_data['status']))
-                print('Pais: {}'.format(adress_data['country']))
-                print('Regiao: {}'.format(adress_data['regionName']))
-                print('Cidade: {}'.format(adress_data['city']))
-                print('ZIP: {}'.format(adress_data['zip']))
-                print('Latitude: {}'.format(adress_data['lat']))
-                print('Longitude: {}'.format(adress_data['lon']))
-                print('Fuso-Horarro: {}'.format(adress_data['timezone']))
-                print('Internet-Info: {}'.format(adress_data['as']))
-                print('ISP: {}'.format(adress_data['isp']))
-                print('ORG: {}'.format(adress_data['org']))
-
-            else:
-                print('{}: IP INVALIDO.'.format(ip_input))
-
-            print("\nDESEJA LOCALIZAR UM NOVO IP? \n{1}Sim\n{2}Nao\n")
-
-            vi = input('===> ')
-
-            if vi == '1' or vi == '01':
-                ip()
-            else:
-                menu(user)
-
-        ip()
+    	mode = 1
+    	tools.ip(ip_api,mode)
+    	print("\nDESEJA LOCALIZAR UM NOVO IP? \n{1}Sim\n{2}Nao\n")
+		#vi = input('===> ')
+		#if vi == '1' or vi == '01':
+        #	ip()
     if op == '4' or op == '04':
         def geradorcnpj():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            import requests, os, time, base64, json, re
-            from requests import get
-            os.system("clear")
             os.system("figlet KINY")
             print(f'{C}[{G}*{C}] Gerando CNPJ...')
             time.sleep(1)
@@ -1135,11 +782,6 @@ def menu(user):
             cnpj_input = cnpj
             consultacnpj()
         def consultacnpj():
-            global requests
-            global cnpj_input
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-            import requests, os, time, base64, json, re
-            from requests import get
             try:
                 requests = requests.get('https://www.receitaws.com.br/v1/cnpj/{}'.format(cnpj_input))
                 cnpj_data = requests.json()
@@ -1203,9 +845,8 @@ def menu(user):
             if lo == '1' or lo == '01':
                 tipo()
             else:
-                menu(user)
+                pass
         def tipo():
-            clear()
             os.system('figlet KINY')
             print('''
 O QUE DESEJA FAZER?
@@ -1218,7 +859,7 @@ O QUE DESEJA FAZER?
                 gen = "1"
                 geradorcnpj()
             if kct == '2' or kct == '02':
-                clear()
+                tools.clear()
                 print("\033[32m######\033[m")
                 print("\033[32m#KINY#\033[m")
                 print("\033[32m######\033[m")
@@ -1230,41 +871,5 @@ O QUE DESEJA FAZER?
                 print('Opção inválida')
                 tipo()
         tipo()
-
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-def quit():
-        os.system("clear")
-        print("\033[32m Arrivederci\033[m")
-        timeout(1)
-
-def password():
-    clear()
-    user = input("USERNAME:  ")
-    snh = 'VirtualInsanity'
-    print("\n ")
-    if user == 'Kiny' or user == 'KINY':
-        kinymode()
-    if input("PASSWORD:  ").strip() == snh:
-        menu(user)
-    else:
-        os.system("clear")
-        print("\033[1;31mERROR: Wrong Password....Yare Yare\033[m")
-        timeout(1)
-
-if __name__ == '__main__':
-    print(f'{G} Checando por atualizacoes... {C}')
-    '''
-    update = subprocess.check_output('git pull', shell=True)
-    if 'Already up to date' not in update.decode():
-        print(f'{G}Atualizacao instalada!\nReiciando app...{C}')
-        time.sleep(5)
-        subprocess.run('clear')
-        restart()
-    else:
-        print('Nenhuma atualizacao disponivel.')
-        time.sleep(2)
-        password()
-'''
-password()
+os.system('rm -rf __pycache__')
+print(f'{C}{R} Arrivederci{C}')

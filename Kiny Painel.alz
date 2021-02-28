@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<design version="1.21.0">
+ <color g="189" r="186" b="182"/>
+ <edge-color g="0" r="0" b="0"/>
+ <grid-color g="160" r="160" b="164"/>
+ <edge-width>2000</edge-width>
+ <text-size>11000</text-size>
+ <corner-radius>5000</corner-radius>
+ <graph>
+  <node w="200000" x="52857" y="-285714" h="75000" index="0">
+   <text>Inicia main.py</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="216000" x="52857" y="-153214" h="75000" index="1">
+   <text>Declara os codigos de cores</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="200000" x="53000" y="-1500" h="75000" index="2">
+   <text>Tem arquivos de config.?</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="236000" x="335000" y="154500" h="75000" index="3">
+   <text>Carrega os arquivos do usuário</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="234000" x="-216000" y="158500" h="75000" index="4">
+   <text>Carrega a configuração padrão</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="200000" x="60000" y="320500" h="75000" index="5">
+   <text>Login habilitado?</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="200000" x="336000" y="469500" h="75000" index="6">
+   <text>pede user e senha
+</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="200000" x="62178" y="604964" h="75000" index="7">
+   <text>While do Menu principal</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="204000" x="60000" y="736250" h="75000" index="8">
+   <text>Escolhe a opção desejada</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="249000" x="60833" y="900000" h="75000" index="9">
+   <text>Abre o arquivo tools.py e executa</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="281000" x="61666" y="1112500" h="75000" index="10">
+   <text>o usuário deseja fazer outra consulta?</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="272000" x="-421666" y="1107166" h="75000" index="12">
+   <text>Opção de voltar ao menu habilitada?</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="200000" x="35555" y="1464722" h="75000" index="13">
+   <text>FIM</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="200000" x="323333" y="874166" h="75000" index="16">
+   <text>Se for configuração</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="244000" x="768333" y="776666" h="75000" index="17">
+   <text>Configurar e escrever no arquivo</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="247000" x="510000" y="1144166" h="75000" index="18">
+   <text>voltar a mesma def ou usar while</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="200000" x="990000" y="-324285" h="75000" index="19">
+   <text>Ideias</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <node w="237000" x="991428" y="-176071" h="75000" index="20">
+   <text>Colocar os tokens em uma lista</text>
+   <color g="255" r="255" b="255"/>
+   <text-color g="0" r="0" b="0"/>
+  </node>
+  <edge index0="0" index1="1" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="1" index1="2" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="2" index1="3" reversed="0" arrow-mode="0">
+   <text>Sim</text>
+  </edge>
+  <edge index0="2" index1="4" reversed="0" arrow-mode="0">
+   <text>Não</text>
+  </edge>
+  <edge index0="3" index1="5" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="4" index1="5" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="5" index1="6" reversed="0" arrow-mode="0">
+   <text>Sim</text>
+  </edge>
+  <edge index0="5" index1="7" reversed="0" arrow-mode="0">
+   <text>Não</text>
+  </edge>
+  <edge index0="6" index1="7" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="7" index1="8" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="8" index1="9" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="8" index1="16" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="9" index1="10" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="10" index1="12" reversed="0" arrow-mode="0">
+   <text>Não</text>
+  </edge>
+  <edge index0="10" index1="18" reversed="0" arrow-mode="0">
+   <text>Sim</text>
+  </edge>
+  <edge index0="12" index1="13" reversed="0" arrow-mode="0">
+   <text>Não</text>
+  </edge>
+  <edge index0="12" index1="7" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="16" index1="17" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="17" index1="7" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="18" index1="9" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+  <edge index0="19" index1="20" reversed="0" arrow-mode="0">
+   <text></text>
+  </edge>
+ </graph>
+ <layout-optimizer min-edge-length="100000" aspect-ratio="1000"/>
+</design>
