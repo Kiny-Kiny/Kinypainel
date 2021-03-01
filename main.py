@@ -530,22 +530,8 @@ while(Sair == False):
         else:
             print("Opcao invalida.")
     if op == '7' or op == '07':
-        def consultarcns():
-            requests = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token=f01e0024a26baef3cc53a2ac208dd141'.format(cns_input))
-            cns_data = requests.json()
-            if (cns_data['status']) == "1":
-                print('Numero: {}'.format(cns_data["data"]["number"]))
-                print('Mensagem: {}'.format(cns_data["data"]["message"]))
-            else:
-                print(f'{C}[{R}*{C}]'+'{}: CNS INVALIDO.'.format(cns_input))
-                if gen == '1':
-                    print(f'{C}[{Y}i{C}]Tentando novamente...')
-                    del cns_data
-                    time.sleep(4)
-                    gerarcns()
-            #print(f'{C}[{R}*{C}]Erro no servidor')
-            del requests
-            del cns_input
+            token = "f01e0024a26baef3cc53a2ac208dd141"
+            tools.cns(token,anim)
             print("\nDESEJA REALIZAR UMA NOVA CONSULTA? \n{1}Sim\n{2}Nao\n")
 
             lo = input('===> ')
@@ -553,38 +539,6 @@ while(Sair == False):
                 tipocns()
             else:
                 pass
-        def gerarcns():
-            os.system("clear")
-            os.system("figlet KINY")
-            print(f'{C}[{G}*{C}] Gerando CNS...')
-            time.sleep(1)
-            cns=requests.request('GET','http://geradorapp.com/api/v1/cns/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()
-            cns2=cns['data']['number_formatted']
-            cns=cns['data']['number']
-            print(f'{C}[{Y}i{C}] O CNS gerado foi: {B}'+cns2)
-            time.sleep(1)
-            print(f'{C}[{G}*{C}] Consultando CNS gerado...')
-            cns_input = cns
-            consultarcns()
-        def tipocns():
-            os.system('figlet KINY')
-            print(f'''
-{C}[{G}i{C}]Formas de operação
-[{G}1{C}]Gerar CNS
-[{G}2{C}]Consultar CNS
-''')
-            lou = input('===> ')
-            if lou == "1" or lou == "01":
-                global gen
-                gen = 1
-                gerarcns()
-            if lou == "2" or lou == "02":
-                global cns_input
-                cns_input = input(f'{C}[{G}*{C}]Informe o CNS:')
-                consultarcns()
-            else:
-                print('Opção Inválida')
-        tools.cns()
     if op == '6' or op == '06':
         def gerarcpf():
             os.system('figlet KINY')

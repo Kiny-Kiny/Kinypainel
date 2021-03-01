@@ -7,10 +7,7 @@ CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
-import os,base64,requests
-
-global token
-token = "f01e0024a26baef3cc53a2ac208dd141"
+import os,base64,requests,time
 
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
 a=a.encode('ascii')
@@ -177,5 +174,33 @@ def consultaplaca():
                 print(f'{C}[{R}i{C}] Placa invalida')
                 time.sleep(3)
 
-def cns():
-    response = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
+def cns(token,anim):
+    os.system('figlet KINY')
+    print(f'''
+{C}[{G}i{C}]Formas de operação
+[{G}1{C}]Gerar CNS
+[{G}2{C}]Consultar CNS
+''')
+    choice = input('===>')
+    clear()
+    if choice == '1' or choice == '01':
+            print(f'{C}[{G}i{C}] Gerando CNS {B}')
+            cns=requests.request('GET','http://geradorapp.com/api/v1/cns/generate?token={}'.format(token)).json()
+            cns2=cns['data']['number_formatted']
+            entrada=cns['data']['number']
+            print(f'{C}[{Y}i{C}] O CNS gerado foi: {B}'+cns2)
+            if anim == 1:
+                time.sleep(1)
+            print(f'{C}[{G}i{C}] Consultando CNS... {B}')
+            cns_data = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
+            if anim == 1:
+                time.sleep(1)
+            clear()
+    if choice == 2:
+        entrada = input('===>')
+        cns_data = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
+    try:
+        print('Numero: {}'.format(cns_data["data"]["number"]))
+        print('Mensagem: {}'.format(cns_data["data"]["message"]))
+    except:
+        print(f'{C}[{R}*{C}]'+'{}: CNS INVALIDO.')
