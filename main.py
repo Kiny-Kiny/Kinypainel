@@ -52,21 +52,21 @@ def clear_config():
     				os.system('rm user')
 
 def write():
-	clear_config()
-	f = open('options.txt','a')
-	f.write(str(login))
-	f.write(str(cpf_api))
-	f.write(str(ip_api))
-	f.write(str(placa_api))
-	f.write(str(cnpj_api))
-	f.close()
-	if os.path.exists('user'):
-		os.remove('user')
-	else:
-		pass
-		f = open("user","a")
-		f.write(user)
-	f.close
+    clear_config()
+    f = open('options.txt','a')
+    f.write(str(login))
+    f.write(str(cpf_api))
+    f.write(str(ip_api))
+    f.write(str(placa_api))
+    f.write(str(cnpj_api))
+    f.write(str(anim))
+    f.write(str(menu_return))
+    f.close()
+    if os.path.exists('user'):
+        os.remove('user')
+    f = open("user","a")
+    f.write(user)
+    f.close
 
 global login
 global user
@@ -76,18 +76,20 @@ global placa_api
 global cnpj_api
 
 if os.path.exists('options.txt') and os.path.exists('user'):
-	f = open('options.txt','r') # Não espero que vc se ache hacker por saber mexer com esse arquivo
-	data = f.read()
-	login = int(data[0])
-	cpf_api = int(data[1])
-	ip_api = int(data[2])
-	placa_api = int(data[3])
-	cnpj_api = int(data[4])
-	f.close()
-	f = open('user','r')
-	user = f.read()
-	f.close()
-	del data
+    f = open('options.txt','r') # Não espero que vc se ache hacker por saber mexer com esse arquivo
+    data = f.read()
+    login = int(data[0])
+    cpf_api = int(data[1])
+    ip_api = int(data[2])
+    placa_api = int(data[3])
+    cnpj_api = int(data[4])
+    anim = int(data[5])
+    menu_return = int(data[6])
+    f.close()
+    f = open('user','r')
+    user = f.read()
+    f.close()
+    del data
 else:
 	login = 1 # Não,eu não vou reclamar por você ter corrompido a data :D
 	user = 0
@@ -95,6 +97,7 @@ else:
 	ip_api = 0
 	placa_api = 0
 	cnpj_api = 0
+menu_return = 0
 anim = 0
 
 
@@ -121,18 +124,18 @@ if login:
 		user = input("USERNAME:  ")
 	snh = 'VirtualInsanity'
 	print("\n ")
-	if user == 'YATO' or user == 'KINY':
-		kinymode=1
-	else:
-		kinymode=0
-		if input("PASSWORD:  ").strip() == snh:
-			tools.clear()
-		else:
-			print("{C}[{R}ERROR{C}] Wrong Password....Yare Yare")
-			time.sleep(1)
-			exit()
+if user == 'YATO' or user == 'KINY':
+	kinymode=1
+else:
+    kinymode=0
+    if input("PASSWORD:  ").strip() == snh:
+        tools.clear()
+    else:
+        print("{C}[{R}ERROR{C}] Wrong Password....Yare Yare")
+        time.sleep(1)
+        exit()
 
-	if kinymode:
+if kinymode:
 		print("Nova Opção Desbloqueada")
 		kiny=1
 try:
@@ -141,80 +144,6 @@ try:
 except:
     os.system("apt update")
     os.system("apt install figlet")
-def options():
-    os.system('figlet KINY')
-    print(f'{C}[{G}1{C}] Login : {login}')
-    print(f'{C}[{G}2{C}] Trocar APIs')
-    print(f'{C}[{G}3{C}] Limpar data')
-    print(f'{C}[{G}4{C}] Animação: {anim}')
-    print(f'{C}[{G}5{C}] Inserir token pessoal')
-    print()
-    print(f'{C}[{G}0{C}] Voltar')
-    choice = input('===>')
-    tools.clear()
-    if choice == '1' or choice == '01':
-        login ^= 1
-        if choice == '2' or choice == '02':
-    if cpf_api == 0:
-        cpf_apt_name="MTE"
-    if cpf_api == 1:
-        cpf_api_name="null"
-    if ip_api == 0:
-        ip_api_name="IP-API 1"
-    if ip_api == 1:
-        ip_api_name="API-IP 2"
-    if ip_api == 2:
-        ip_api_name="Todas"
-    if cnpj_api == 0:
-        cnpj_api_name="receitaws"
-    if cnpj_api == 1:
-        cnpj_api_name="Governo"
-    if cnpj_api == 2:
-        cnpj_api_name="Todas"
-    if placa_api == 0:
-        placa_api_name="receitaws"
-    if placa_api == 1:
-        placa_api_name="Governo"
-    if placa_api == 2:
-        placa_api_name="Todas"
-    print(f'{C}[{G}1{C}] CPF API: {cpf_api_name}')
-    print(f'{C}[{G}2{C}] IP API: {ip_api_name}')
-    print(f'{C}[{G}3{C}] PLACA API: {placa_api_name}')
-    print(f'{C}[{G}4{C}] CNPJ API: {cnpj_api_name}')
-    print()
-    print(f'{C}[{G}0{C}] Voltar')
-    choice2 = input('===>')
-
-    if choice2 == '1' or choice2 == '01':
-        cpf_api = cpf_api + 1
-    if choice2 == '2' or choice2 == '02':
-        ip_api = ip_api + 1
-    if choice2 == '3' or choice2 == '03':
-        placa_api = placa_api + 1
-    if choice2 == '4' or choice2 == '04':
-        cnpj_api = cnpj_api + 1
-
-    if int(cpf_api) >= int('3'):
-            cpf_api = 0
-    if int(cnpj_api) >= int('3'):
-            cnpj_api = 0
-    if int(placa_api) >= int('3'):
-            placa_api = 0
-    if int(ip_api) >= int('3'):
-            ip_api = 0
-if choice == '3' or choice == '02':
-    clear_config()
-if choice == '4' or choice == '04':
-    anim ^= 1
-if choice == '5' or choice == '05':
-    print(f'{C}[{G}i{C}] Digite o seu token de acesso ou d para o token de acesso publico.')
-    token = input('===>')
-    if token == d:
-        token = "f01e0024a26baef3cc53a2ac208dd141"
-if choice != 1 and choice !=2 and choice !=3 and choice!=0:
-    tools.clear()
-    print(f'{C}[{R}ERROR{C}] Opção inválida')
-write()
 
 Sair = False
 while(Sair == False):
@@ -262,7 +191,81 @@ while(Sair == False):
     	user = input('===>')
     	write()
     if op == '96':
-        options()
+            os.system('figlet KINY')
+            print(f'{C}[{G}1{C}] Login : {login}')
+            print(f'{C}[{G}2{C}] Trocar APIs')
+            print(f'{C}[{G}3{C}] Limpar data')
+            print(f'{C}[{G}4{C}] Animação: {anim}')
+            print(f'{C}[{G}5{C}] Inserir token pessoal')
+            print(f'{C}[{G}6{C}] Modo retornar ao menu: {menu_return}')
+            print()
+            print(f'{C}[{G}0{C}] Voltar')
+            choice = input('===>')
+            tools.clear()
+            if choice == '1' or choice == '01':
+                login ^= 1
+            if choice == '2' or choice == '02':
+                if cpf_api == 0:
+                    cpf_apt_name="MTE"
+                if cpf_api == 1:
+                    cpf_api_name="null"
+                if ip_api == 0:
+                    ip_api_name="IP-API 1"
+                if ip_api == 1:
+                    ip_api_name="API-IP 2"
+                if ip_api == 2:
+                    ip_api_name="Todas"
+                if cnpj_api == 0:
+                    cnpj_api_name="receitaws"
+                if cnpj_api == 1:
+                    cnpj_api_name="Governo"
+                if cnpj_api == 2:
+                    cnpj_api_name="Todas"
+                if placa_api == 0:
+                    placa_api_name="receitaws"
+                if placa_api == 1:
+                    placa_api_name="Governo"
+                if placa_api == 2:
+                    placa_api_name="Todas"
+                print(f'{C}[{G}1{C}] CPF API: {cpf_api_name}')
+                print(f'{C}[{G}2{C}] IP API: {ip_api_name}')
+                print(f'{C}[{G}3{C}] PLACA API: {placa_api_name}')
+                print(f'{C}[{G}4{C}] CNPJ API: {cnpj_api_name}')
+                print()
+                print(f'{C}[{G}0{C}] Voltar')
+                choice2 = input('===>')
+
+                if choice2 == '1' or choice2 == '01':
+                    cpf_api = cpf_api + 1
+                if choice2 == '2' or choice2 == '02':
+                    ip_api = ip_api + 1
+                if choice2 == '3' or choice2 == '03':
+                    placa_api = placa_api + 1
+                if choice2 == '4' or choice2 == '04':
+                    cnpj_api = cnpj_api + 1
+
+                if int(cpf_api) >= int('3'):
+                    cpf_api = 0
+                if int(cnpj_api) >= int('3'):
+                    cnpj_api = 0
+                if int(placa_api) >= int('3'):
+                    placa_api = 0
+                if int(ip_api) >= int('3'):
+                    ip_api = 0
+            if choice == '3' or choice == '03':
+                clear_config()
+            if choice == '4' or choice == '04':
+                anim ^= 1
+            if choice == '5' or choice == '05':
+                print(f'{C}[{G}i{C}] Digite o seu token de acesso ou d para o token de acesso publico.')
+                token = input('===>')
+                if token == d:
+                    token = "f01e0024a26baef3cc53a2ac208dd141"
+            if choice != 1 and choice !=2 and choice !=3 and choice!=4 and choice!=5 and choice!=0:
+                tools.clear()
+                print(f'{C}[{R}ERROR{C}] Opção inválida')
+            write()
+
     if op == '97':
         tools.notes()
     if op == '15':
@@ -404,7 +407,7 @@ while(Sair == False):
         tools.gerar_pessoa()
     if op == '11':
         tools.bin()
-        tools.tools.clear()
+        tools.clear()
 
         consultabin()
     if op == '10':
@@ -494,24 +497,38 @@ while(Sair == False):
         tiposop()
     if op == '9' or op == '09':
         tools.crm()
+        del crm_input
+        del uf_input
+        del url
+        del crm_data
+        print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
+        print('1.Sim')
+        print('2.Não')
+        choice = input("===>")
+        if choice == "1" or choice == "01":
+            consultacrm()
+        if choice == "2" or choice == "02":
+            pass
+        else:
+            print("Opcao invalida.")
+
     if op == '8' or op == '08':
         #def gerarplaca():
         #def tiposplaca():
         tools.consultaplaca()
-            del placa_data
-            del req
-            del placa_input
-            print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            choice = input("===>")
-            if choice == "1" or choice == "01":
-                consultaplaca()
-            if choice == "2" or choice == "02":
-                pass
-            else:
-                print("Opcao invalida.")
-        consultaplaca()
+        del placa_data
+        del req
+        del placa_input
+        print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
+        print('1.Sim')
+        print('2.Não')
+        choice = input("===>")
+        if choice == "1" or choice == "01":
+            tools.consultaplaca()
+        if choice == "2" or choice == "02":
+            pass
+        else:
+            print("Opcao invalida.")
     if op == '7' or op == '07':
         def consultarcns():
             requests = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token=f01e0024a26baef3cc53a2ac208dd141'.format(cns_input))
@@ -567,7 +584,7 @@ while(Sair == False):
                 consultarcns()
             else:
                 print('Opção Inválida')
-        tipocns()
+        tools.cns()
     if op == '6' or op == '06':
         def gerarcpf():
             os.system('figlet KINY')

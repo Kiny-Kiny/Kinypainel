@@ -7,8 +7,10 @@ CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
-import os
+import os,base64,requests
 
+global token
+token = "f01e0024a26baef3cc53a2ac208dd141"
 
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
 a=a.encode('ascii')
@@ -19,28 +21,22 @@ a=a.decode('ascii')
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def api(mode,entrada,api):    
-    global response
-    token = "f01e0024a26baef3cc53a2ac208dd141"
-    response = requests.get('http://geradorapp.com/api/v1/{}/validate/{}?token={}'.format(mode,entrada,token)).json()
-    
-
 def notes():
     print(f'{C}==={R}{C} Notas de versão {C}==={R}{C}')
-        print(f'''
+    print(f'''
 -Novas APIs
 -Configurações-
 -Modo sem senha-
 -Remoção de opção inútil-
--Otimização do código 
+-Otimização do código
 -Nova opção no menu
-    Agradecemos ao P0is0n pelo novo método de atualização e 
+    Agradecemos ao P0is0n pelo novo método de atualização e
         pelas boas vindas a comunidade OpenSource
-        ''')
-        print(f'{C}{B}YATO{C} & {C}{B}KINY{C} , 2021')
-        pause = input('Pressione enter para retornar.')
+    ''')
+    print(f'{C}{B}YATO{C} & {C}{B}KINY{C} , 2021')
+    pause = input('Pressione enter para retornar.')
 
-def covid19():    
+def covid19():
     os.system('figlet KINY')
     print(f'{C}[{Y}i{C}] Informe o UF. Exemplo: sp, pa, ba ')
     choice = input('===>')
@@ -88,37 +84,37 @@ def ip(ip_api,mode):
 
 def bin():
     os.system('figlet KINY')
-            print('Exemplo:45717360')
-            print(f'{C}[{Y}i{C}] Digite a BIN.')
-            bin_input = input("===>")
-            headers = {"Accept-Version":"3","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-            try:
-                req = requests.get('https://lookup.binlist.net/'+bin_input,headers = headers)
-                req_data = req.json()
-            except:
-                print(f'{C}[{R}i{C}] Ocorreu um erro,tente novamente.')
-            clear()
-            os.system('figlet KINY')
-            print('Bandeira: {}'.format(req_data['scheme']))
-            print('Marca: {}'.format(req_data['brand']))
-            print('Tipo: {}'.format(req_data['type']))
-            print('Pais: {}'.format(req_data['country']['name']))
-            print('Latitude: {}'.format(req_data['country']['latitude']))
-            print('Longitude: {}'.format(req_data['country']['longitude']))
-            print('Moeda: {}'.format(req_data['country']['currency']))
-            print('Emoji: {}'.format(req_data['country']['emoji']))
-            print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            choice = input("===>")
-            if choice == '1' or choice == '01':
-                consultabin()
-            if choice == '2' or choice == '02':
-                pass
-            else:
-                print(f'{C}[{R}i{C}] Opção inválida')
-                time.sleep(3)
-                pass
+    print('Exemplo:45717360')
+    print(f'{C}[{Y}i{C}] Digite a BIN.')
+    bin_input = input("===>")
+    headers = {"Accept-Version":"3","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    try:
+        req = requests.get('https://lookup.binlist.net/'+bin_input,headers = headers)
+        req_data = req.json()
+    except:
+        print(f'{C}[{R}i{C}] Ocorreu um erro,tente novamente.')
+        clear()
+        os.system('figlet KINY')
+        print('Bandeira: {}'.format(req_data['scheme']))
+        print('Marca: {}'.format(req_data['brand']))
+        print('Tipo: {}'.format(req_data['type']))
+        print('Pais: {}'.format(req_data['country']['name']))
+        print('Latitude: {}'.format(req_data['country']['latitude']))
+        print('Longitude: {}'.format(req_data['country']['longitude']))
+        print('Moeda: {}'.format(req_data['country']['currency']))
+        print('Emoji: {}'.format(req_data['country']['emoji']))
+        print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
+        print('1.Sim')
+        print('2.Não')
+        choice = input("===>")
+        if choice == '1' or choice == '01':
+            consultabin()
+        if choice == '2' or choice == '02':
+            pass
+        else:
+            print(f'{C}[{R}i{C}] Opção inválida')
+            time.sleep(3)
+            pass
 
 def crm():
     os.system("figlet KINY")
@@ -130,34 +126,20 @@ def crm():
     data = requests.get(url+'&q={}&chave=5072097263&destino=json'.format(crm_input))
     crm_data = data.json()
             #consultas = (crm_data['api_limite']) - (crm_data['api_consultas'])
-            if (crm_data['status']) == "true":
+    if (crm_data['status']) == "true":
                 #print('Consultas restantes ='+consultas)
-                try:
-                    print('CRM: {}'.format(crm_data["item"][0]["numero"]))
-                    print('Nome: {}'.format(crm_data["item"][0]["nome"]))
-                    print('UF: {}'.format(crm_data["item"][0]["uf"]))
-                    print('Situacao: {}'.format(crm_data["item"][0]["situacao"]))
-                    print('Profissão: {}'.format(crm_data["item"][0]["profissao"]))
-                except:
-                    print(f'{C}[{R}*{C}] Erro! dados invalidos!')
-                    time.sleep(3)
-                    consultacrm()
-            else:
-                print(f'{C}[{R}i{C}] CRM invalido')
-            del crm_input
-            del uf_input
-            del url
-            del crm_data
-            print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            choice = input("===>")
-            if choice == "1" or choice == "01":
-                consultacrm()
-            if choice == "2" or choice == "02":
-                pass
-            else:
-                print("Opcao invalida.")
+        try:
+            print('CRM: {}'.format(crm_data["item"][0]["numero"]))
+            print('Nome: {}'.format(crm_data["item"][0]["nome"]))
+            print('UF: {}'.format(crm_data["item"][0]["uf"]))
+            print('Situacao: {}'.format(crm_data["item"][0]["situacao"]))
+            print('Profissão: {}'.format(crm_data["item"][0]["profissao"]))
+        except:
+            print(f'{C}[{R}*{C}] Erro! dados invalidos!')
+            time.sleep(3)
+            consultacrm()
+    else:
+        print(f'{C}[{R}i{C}] CRM invalido')
 
 def gerar_pessoa(): #####REWORK
     print("refazer")
@@ -167,7 +149,6 @@ def consultaplaca():
             os.system("figlet KINY")
             print(f'{C}[{G}i]{C}Digite o numero da placa.')
             placa_input = input("===>")
-            from requests import get
             req = requests.get('https://apicarros.com/v1/consulta/{}/json'.format(placa_input), verify = False) # JSQ7436
             placa_data = req.json()
             tools.clear()
@@ -195,3 +176,6 @@ def consultaplaca():
             except:
                 print(f'{C}[{R}i{C}] Placa invalida')
                 time.sleep(3)
+
+def cns():
+    response = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
