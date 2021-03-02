@@ -7,7 +7,7 @@ CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
-import os,base64,requests,time
+import os,base64,requests,time,json
 
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
 a=a.encode('ascii')
@@ -61,20 +61,20 @@ def ip(ip_api,mode):
         adress_data = data.json()
         weather_data = requests.get('http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=25d800a8b8e8b99d77c809567aa291b8')
         weather = json.loads(weather_data.text)
-    if (adress_data['status']) == 'success':
-        print('IP: {}'.format(adress_data['query']))
-        print('Status: {}'.format(adress_data['status']))
-        print('Pais: {}'.format(adress_data['country']))
-        print('Regiao: {}'.format(adress_data['regionName']))
-        print('Cidade: {}'.format(adress_data['city']))
-        print('ZIP: {}'.format(adress_data['zip']))
-        print('Latitude: {}'.format(adress_data['lat']))
-        print('Longitude: {}'.format(adress_data['lon']))
-        print('Fuso-Horarro: {}'.format(adress_data['timezone']))
-        print('Internet-Info: {}'.format(adress_data['as']))
-        print('ISP: {}'.format(adress_data['isp']))
-        print('ORG: {}'.format(adress_data['org']))
-        print('Temperatura: {}'.format(weather["weather"]["main"]))
+        if (adress_data['status']) == 'success':
+            print('IP: {}'.format(adress_data['query']))
+            print('Status: {}'.format(adress_data['status']))
+            print('Pais: {}'.format(adress_data['country']))
+            print('Regiao: {}'.format(adress_data['regionName']))
+            print('Cidade: {}'.format(adress_data['city']))
+            print('ZIP: {}'.format(adress_data['zip']))
+            print('Latitude: {}'.format(adress_data['lat']))
+            print('Longitude: {}'.format(adress_data['lon']))
+            print('Fuso-Horarro: {}'.format(adress_data['timezone']))
+            print('Internet-Info: {}'.format(adress_data['as']))
+            print('ISP: {}'.format(adress_data['isp']))
+            print('ORG: {}'.format(adress_data['org']))
+            #print('Temperatura: {}'.format(weather["weather"]["main"]))
     else:
         print('another API')
     pausa = input('Pressione enter para retornar')

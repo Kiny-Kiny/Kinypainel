@@ -207,28 +207,14 @@ while(Sair == False):
             if choice == '1' or choice == '01':
                 login ^= 1
             if choice == '2' or choice == '02':
-                if cpf_api == 0:
-                    cpf_apt_name="MTE"
-                if cpf_api == 1:
-                    cpf_api_name="null"
-                if ip_api == 0:
-                    ip_api_name="IP-API 1"
-                if ip_api == 1:
-                    ip_api_name="API-IP 2"
-                if ip_api == 2:
-                    ip_api_name="Todas"
-                if cnpj_api == 0:
-                    cnpj_api_name="receitaws"
-                if cnpj_api == 1:
-                    cnpj_api_name="Governo"
-                if cnpj_api == 2:
-                    cnpj_api_name="Todas"
-                if placa_api == 0:
-                    placa_api_name="receitaws"
-                if placa_api == 1:
-                    placa_api_name="Governo"
-                if placa_api == 2:
-                    placa_api_name="Todas"
+                lista_api_cpf = ["MTE","null"]
+                cpf_api_name = (lista_api_cpf[cpf_api])
+                lista_api_ip = ["IP-API 1","API-IP 2","Todas"]
+                ip_api_name = (lista_api_ip[ip_api])
+                lista_api_cnpj = ["receitaws","Governo","Todas"]
+                cnpj_api_name = (lista_api_cnpj[cnpj_api])
+                lista_api_placa = ["receitaws","Governo","Todas"]
+                placa_api_name = (lista_api_placa[placa_api])
                 print(f'{C}[{G}1{C}] CPF API: {cpf_api_name}')
                 print(f'{C}[{G}2{C}] IP API: {ip_api_name}')
                 print(f'{C}[{G}3{C}] PLACA API: {placa_api_name}')
