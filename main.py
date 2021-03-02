@@ -91,14 +91,14 @@ if os.path.exists('options.txt') and os.path.exists('user'):
     f.close()
     del data
 else:
-	login = 1 # Não,eu não vou reclamar por você ter corrompido a data :D
-	user = 0
-	cpf_api = 0
-	ip_api = 0
-	placa_api = 0
-	cnpj_api = 0
-menu_return = 0
-anim = 0
+    login = 1 # Não,eu não vou reclamar por você ter corrompido a data :D
+    user = 0
+    cpf_api = 0
+    ip_api = 0
+    placa_api = 0
+    cnpj_api = 0
+    menu_return = 0
+    anim = 0
 
 
 if __name__ == '__main__':
@@ -153,7 +153,7 @@ while(Sair == False):
     print()
     os.system("figlet KINY")
     print(f'{C}[{G}*{C}] Bem vindo,' + user)
-    if anim == "1":
+    if anim == 1:
         time.sleep(1)
     print()
     print(f"{C}{G}[1]{C} BUSCADOR DE CEP")
@@ -173,7 +173,7 @@ while(Sair == False):
     print(f"{C}{G}[15]{C} COVID19")
     if kinymode == 1:
     	print(f"{C}{G}[16]{C} FERRAMENTAS")
-    if anim=="1":
+    if anim==1:
         time.sleep(1)
     print()
     if login:
