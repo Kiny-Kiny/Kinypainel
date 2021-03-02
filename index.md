@@ -1,5 +1,6 @@
 ### Sumário
-[O que é o Kiny Painel](https://github.com/oporadokrl/Kinypainel/blob/gh-pages/index.md#)
+[O que é o Kiny Painel](https://github.com/oporadokrl/Kinypainel/blob/gh-pages/index.md#o-que-%C3%A9-o-kiny-painel)
+
 [Instalando](https://github.com/oporadokrl/Kinypainel/blob/gh-pages/index.md#instalando)
 
 
