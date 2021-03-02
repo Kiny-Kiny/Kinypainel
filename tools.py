@@ -263,15 +263,14 @@ def kiny_infoga():
     print ("Pressione enter para voltar.")
     pause = input("====>")
 
-def cnpj(token,anim):
-    kct = input("===> ")
+def cnpj(kct,token,anim):
     clear()
     if kct == '1' or kct == '01':
         gen = "1"
     elif kct == '2' or kct == '02':
         os.system('figlet KINY')
         print("DIGITE O CNPJ SEM / . OU -")
-        cnpj = input("===>")
+        cnpj_input = input("===>")
         gen = 0
     else:
         print('Opção inválida')
@@ -281,8 +280,9 @@ def cnpj(token,anim):
         print(f'{C}[{G}*{C}] Gerando CNPJ...')
         if anim == '1':
             time.sleep(1)
-        cnpj=requests.get('http://geradorapp.com/api/v1/cnpj/generate?token={}'.format(token)).json()
-        cnpj_formatted=(cnpj['data']['number_formatted'])
+        cnpj_data=requests.get('http://geradorapp.com/api/v1/cnpj/generate?token={}'.format(token)).json()
+        cnpj_input = (cnpj_data['data']['number'])
+        cnpj_formatted=(cnpj_data['data']['number_formatted'])
         print(f'{C}[{Y}i{C}] O CNPJ gerado foi: {cnpj_formatted}')
     print(f'{C}[{G}i{C}] Consultando CNPJ... ')
     try:
@@ -292,6 +292,7 @@ def cnpj(token,anim):
         cnpj_data = "message"
 
     if 'message' not in cnpj_data:
+        tagain = '0'
         print("CNPJ: {}".format(cnpj_data['cnpj']))
         print("Atividade principal: {}".format(cnpj_data['atividade_principal'][0]['text']))
         print("Nome: {}".format(cnpj_data['nome']))
@@ -332,16 +333,22 @@ def cnpj(token,anim):
         except:
             pass
     else:
-        print(f'{C}[{R}*{C}]'+'{}: CNPJ INVALIDO.'.format(cnpj))
+        try:
+            print(f'{C}[{R}ERROR{C}]'+'{}: CNPJ INVALIDO.'.format(cnpj_formatted))
+        except:
+            print(f'{C}[{R}ERROR{C}] Sem dados.')
         if gen == '1':
-            print(f'{C}[{Y}i{C}]Tentando novamente...')
             del cnpj_data
-            del cnpj
-            time.sleep(4)
-            cnpj(token,anim)
-    print(f"{C}[{Y}i{C}] DESEJA REALIZAR UMA NOVA CONSULTA?")
-    print(f"{C}[{G}1{C}] Sim")
-    print(f"{C}[{G}2{C}] Não")
-    lo = input('===> ')
-    if lo == '1' or lo == '01':
-        cnpj(token,anim)
+            del cnpj_input
+            del cnpj_formatted
+            tagain='1'
+            print(f'{C}[{Y}i{C}]Tentando novamente...')
+            time.sleep(3)
+            cnpj(kct,token,anim)
+    if tagain == '0':
+        print(f"{C}[{Y}i{C}] DESEJA REALIZAR UMA NOVA CONSULTA?")
+        print(f"{C}[{G}1{C}] Sim")
+        print(f"{C}[{G}2{C}] Não")
+        lo = input('===> ')
+        if lo == '1' or lo == '01':
+            cnpj(kct,token,anim)
