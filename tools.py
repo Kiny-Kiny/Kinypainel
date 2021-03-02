@@ -77,7 +77,13 @@ def ip(ip_api,mode):
             #print('Temperatura: {}'.format(weather["weather"]["main"]))
     else:
         print('another API')
-    pausa = input('Pressione enter para retornar')
+    print(f"{C}[{Y}i{C}]DESEJA LOCALIZAR UM NOVO IP?")
+    print(f"{C}{G}[1]{C} Sim")
+    print(f"{C}{G}[2]{C} Não")
+    vi = input('===> ')
+    if vi == '1' or vi == '01':
+        clear()
+        ip(ip_api,mode)
 
 def bin():
     os.system('figlet KINY')
@@ -237,5 +243,22 @@ def cep(anim):
     option = input('===> ')
     if option == '1':
         cep(anim)
-    else:
-        pass
+
+def kiny_infoga():
+    os.system("apt install nmap whois")
+    clear()
+    os.system("figlet KINY")
+    print()
+    j = input("1 para HTTPS, 2 para HTTP:")
+    k = input("Domain: ")
+    if j == '1':
+        print("URL: ""https://www." + k)
+        os.system("nmap " + k)
+        os.system("whois " + k)
+    print()
+    if j == '2':
+        print("URL: ""http://www." + k)
+        os.system("nmap " + k)
+        os.system("whois " + k)
+    print ("Pressione enter para voltar.")
+    pause = input("====>")

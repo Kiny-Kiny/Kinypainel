@@ -649,41 +649,11 @@ while(Sair == False):
         pass
 
     if op == '3' or op == '03':
-        os.system("clear")
-        os.system("apt install nmap whois python")
-        os.system("clear")
-        print("\033[1;36m KINY \033[m")
-        print()
-        j = input("1 for HTTPS, 2 for HTTP:")
-        print()
-        print("^^^^^^^^^^^^^^^^*")
-        print()
-        print("ex: site.com")
-        print()
-        k = input("Domain: ")
-        print()
-        print("^^^^^^^^^^^^^^^^^*")
-        print()
-        if j == '1':
-            print("URL: ""https://www." + k)
-            os.system("nmap " + k)
-            os.system("whois " + k)
-        print()
-        if j == '2':
-            print("URL: ""http://www." + k)
-            os.system("nmap " + k)
-            os.system("whois " + k)
-        print ("Pressione enter para voltar.")
-        pause = input("====>")
-        pass
-
+        tools.kiny_infoga()
     if op == '2' or op == '02':
-    	mode = 1
-    	tools.ip(ip_api,mode)
-    	print("\nDESEJA LOCALIZAR UM NOVO IP? \n{1}Sim\n{2}Nao\n")
-		#vi = input('===> ')
-		#if vi == '1' or vi == '01':
-        #	ip()
+        mode = 1
+        tools.ip(ip_api,mode)
+
     if op == '4' or op == '04':
         def geradorcnpj():
             os.system("figlet KINY")
