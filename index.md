@@ -1,3 +1,8 @@
+### Sumário
+[O que é o Kiny Painel](https://github.com/oporadokrl/Kinypainel/blob/gh-pages/index.md#)
+[Instalando](https://github.com/oporadokrl/Kinypainel/blob/gh-pages/index.md#instalando)
+
+
 ### O que é o Kiny Painel?
 Apenas um pequeno painel de consultas gratuito.
 [Me visite no GitHub](https://www.github.com/oporadokrl)
