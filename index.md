@@ -1,25 +1,16 @@
-## Welcome to GitHub Pages
+### O que é o Kiny Painel?
+Apenas um pequeno painel de consultas gratuito.
+[Me visite no GitHub](https://www.github.com/oporadokrl)
+[Baixe a versão estável](https://www.github.com/Kiny-kiny/Kiny-Painel)
 
-You can use the [editor on GitHub](https://github.com/oporadokrl/Kinypainel/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+### Instalando
+LEMBRANDO QUE É UMA VERSÃO **BETA**
 ```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
+# apt update && apt upgrade
+# apt install git python
+# git clone https://github.com/oporadokrl/Kinypainel.git
+# cd Kinypainel
 
 **Bold** and _Italic_ and `Code` text
 
