@@ -532,8 +532,9 @@ while(Sair == False):
     if op == '7' or op == '07':
             token = "f01e0024a26baef3cc53a2ac208dd141"
             tools.cns(token,anim)
-            print("\nDESEJA REALIZAR UMA NOVA CONSULTA? \n{1}Sim\n{2}Nao\n")
-
+            print(f"{C}{G}DESEJA REALIZAR UMA NOVA CONSULTA?{C}")
+            print(f"{C}{G}[1]{C} Sim")
+            print(f"{C}{G}[2]{C} Não")
             lo = input('===> ')
             if lo == '1' or lo == '01':
                 tipocns()

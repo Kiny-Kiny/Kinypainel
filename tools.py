@@ -184,23 +184,22 @@ def cns(token,anim):
     choice = input('===>')
     clear()
     if choice == '1' or choice == '01':
-            print(f'{C}[{G}i{C}] Gerando CNS {B}')
+            print(f'{C}[{G}i{C}] Gerando CNS')
             cns=requests.request('GET','http://geradorapp.com/api/v1/cns/generate?token={}'.format(token)).json()
             cns2=cns['data']['number_formatted']
             entrada=cns['data']['number']
-            print(f'{C}[{Y}i{C}] O CNS gerado foi: {B}'+cns2)
+            print(f'{C}[{Y}i{C}] O CNS gerado foi: '+cns2)
             if anim == 1:
                 time.sleep(1)
-            print(f'{C}[{G}i{C}] Consultando CNS... {B}')
-            cns_data = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
-            if anim == 1:
-                time.sleep(1)
-            clear()
-    if choice == 2:
+            print(f'{C}[{G}i{C}] Consultando CNS...')
+    if choice == '2' or choice == '02':
         entrada = input('===>')
-        cns_data = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
+    if anim == 1:
+        time.sleep(1)
+    clear()
+    cns_data = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
     try:
         print('Numero: {}'.format(cns_data["data"]["number"]))
         print('Mensagem: {}'.format(cns_data["data"]["message"]))
     except:
-        print(f'{C}[{R}*{C}]'+'{}: CNS INVALIDO.')
+        print(f'{C}[{R}*{C}] CNS INVALIDO.')
