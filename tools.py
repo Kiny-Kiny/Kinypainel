@@ -282,7 +282,8 @@ def cnpj(token,anim):
         if anim == '1':
             time.sleep(1)
         cnpj=requests.get('http://geradorapp.com/api/v1/cnpj/generate?token={}'.format(token)).json()
-        print(f'{C}[{Y}i{C}] O CNPJ gerado foi: {(cnpj['data']['number_formatted'])}')
+        cnpj_formatted=(cnpj['data']['number_formatted'])
+        print(f'{C}[{Y}i{C}] O CNPJ gerado foi: {cnpj_formatted}')
     print(f'{C}[{G}i{C}] Consultando CNPJ... ')
     try:
         cnpj_data = requests.get('https://www.receitaws.com.br/v1/cnpj/{}'.format(cnpj_input)).json()

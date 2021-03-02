@@ -99,7 +99,7 @@ else:
     cnpj_api = 0
     menu_return = 0
     anim = 0
-
+token = "f01e0024a26baef3cc53a2ac208dd141"
 
 if __name__ == '__main__':
     print(f'{G} Checando por atualizacoes... {C}')
@@ -650,7 +650,7 @@ while(Sair == False):
 
     if op == '3' or op == '03':
         tools.kiny_infoga()
-        
+
     if op == '2' or op == '02':
         mode = 1
         tools.ip(ip_api,mode)
@@ -662,6 +662,6 @@ while(Sair == False):
 {C}[{G}1{C}] GERAR CNPJ
 {C}[{G}2{C}] CONSULTAR CNPJ
         ''')
-        cnpj(token,anim)
+        tools.cnpj(token,anim)
 os.system('rm -rf __pycache__')
 print(f'{C}{R} Arrivederci{C}')
