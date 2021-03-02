@@ -153,7 +153,8 @@ while(Sair == False):
     print()
     os.system("figlet KINY")
     print(f'{C}[{G}*{C}] Bem vindo,' + user)
-    time.sleep(1)
+    if anim == "1":
+        time.sleep(1)
     print()
     print(f"{C}{G}[1]{C} BUSCADOR DE CEP")
     print(f"{C}{G}[2]{C} GEO LOCALIZADOR DE IP")
@@ -172,7 +173,8 @@ while(Sair == False):
     print(f"{C}{G}[15]{C} COVID19")
     if kinymode == 1:
     	print(f"{C}{G}[16]{C} FERRAMENTAS")
-    time.sleep(1)
+    if anim=="1":
+        time.sleep(1)
     print()
     if login:
     	pass
@@ -649,50 +651,7 @@ while(Sair == False):
                 pass
         bank()
     if op == '1' or op == '01':
-        def main():
-            from requests import get
-            tools.clear()
-            print("\033[32m######\033[m")
-            print("\033[32m#KINY#\033[m")
-            print("\033[32m######\033[m")
-
-            cep_input = input("DIGITE O CEP: ")
-
-            if len(cep_input) != 8:
-                print("\033[1;31mQUANTIDADE DE DIGITOS INVALIDA\033[m")
-                main()
-
-            request = get('https://viacep.com.br/ws/{}/json/'.format(cep_input))
-
-            adress_data = request.json()
-
-            if 'erro' not in adress_data:
-                os.system("clear")
-                print("\033[1;31m^CEP ENCONTRADO^\033[m")
-                print()
-                print('Cep: {}'.format(adress_data['cep']))
-                print('Logradouro: {}'.format(adress_data['logradouro']))
-                print('Complemento: {}'.format(adress_data['complemento']))
-                print('Bairro: {}'.format(adress_data['bairro']))
-                print('Cidade: {}'.format(adress_data["localidade"]))
-                print('Estado: {}'.format(adress_data['uf']))
-                print('IBGE: {}'.format(adress_data['ibge']))
-                print('GIA: {}'.format(adress_data['gia']))
-                print('SIAFI: {}'.format(adress_data['siafi']))
-                print('DDD: {}'.format(adress_data['ddd']))
-
-            else:
-                print('{}: CEP INVALIDO.'.format(cep_input))
-
-            print("DESEJA REALIZAR UMA NOVA CONSULTA? \n1. Yes\n2. No\n")
-            option = input('===> ')
-
-            if option == '1':
-                main()
-            else:
-                pass
-
-        main()
+        tools.cep(anim)
 
     if op == '00' or op == '0':
         os.system("clear")

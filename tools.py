@@ -203,3 +203,39 @@ def cns(token,anim):
         print('Mensagem: {}'.format(cns_data["data"]["message"]))
     except:
         print(f'{C}[{R}*{C}] CNS INVALIDO.')
+def cep(anim):
+    clear()
+    os.system('figlet KINY')
+    print(f'{C}[{G}i{C}] Informe o CEP.')
+    cep_input = input("===>")
+    if len(cep_input) != 8:
+        print(f"{C}[{R}ERROR{C}] QUANTIDADE DE DIGITOS INVALIDA")
+        time.sleep(3)
+        cep(anim)
+
+    request = requests.get('https://viacep.com.br/ws/{}/json/'.format(cep_input))
+
+    adress_data = request.json()
+    clear()
+    if 'erro' not in adress_data:
+        os.system('figlet KINY')
+        print('Cep: {}'.format(adress_data['cep']))
+        print('Logradouro: {}'.format(adress_data['logradouro']))
+        print('Complemento: {}'.format(adress_data['complemento']))
+        print('Bairro: {}'.format(adress_data['bairro']))
+        print('Cidade: {}'.format(adress_data["localidade"]))
+        print('Estado: {}'.format(adress_data['uf']))
+        print('IBGE: {}'.format(adress_data['ibge']))
+        print('GIA: {}'.format(adress_data['gia']))
+        print('SIAFI: {}'.format(adress_data['siafi']))
+        print('DDD: {}'.format(adress_data['ddd']))
+    else:
+        print('{C}[{R}ERROR{C}] CEP INVALIDO.')
+    print(f"{C}{G}DESEJA REALIZAR UMA NOVA CONSULTA?{C}")
+    print(f"{C}[{G}1{C}] Sim")
+    print(f"{C}[{G}2{C}] Não")
+    option = input('===> ')
+    if option == '1':
+        cep(anim)
+    else:
+        pass
