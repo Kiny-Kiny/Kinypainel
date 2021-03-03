@@ -604,38 +604,7 @@ while(Sair == False):
 
 
     if op == '5' or op == '05':
-        def bank():
-            os.system("figlet KINY")
-            print("DIGITE O CODIGO BANCARIO")
-            bank_input = input("\033[32m=====> \033[m")
-            try:
-                requests = requests.get('https://brasilapi.com.br/api/banks/v1/{}'.format(bank_input))
-
-                bank_data = requests.json()
-
-                if 'message' not in bank_data:
-            	    tools.clear()
-            	    os.system("figlet KINY")
-            	    print("Código bancário: {}".format(bank_data['code']))
-            	    print("Nome: {}".format(bank_data['name']))
-            	    print("Nome completo: {}".format(bank_data['fullName']))
-            	    print("ISPB: {}".format(bank_data['ispb']))
-
-                else:
-                    tools.clear()
-                    print('{}: Código bancário inválido.'.format(bank_input))
-            except:
-                 print(f'{C}[{R}*{C}]Erro no servidor')
-            print("\nDESEJA CONSULTAR UM NOVO CODIGO BANCARIO? \n{1}Sim\n{2}Nao\n")
-            del requests
-            kc = input("===> ")
-
-            if kc == '01' or kc == '1':
-            	bank()
-            else:
-                tools.clear()
-                pass
-        bank()
+        tools.bank(anim)
     if op == '1' or op == '01':
         tools.cep(anim)
 

@@ -352,3 +352,32 @@ def cnpj(kct,token,anim):
         lo = input('===> ')
         if lo == '1' or lo == '01':
             cnpj(kct,token,anim)
+
+def bank(anim):
+    clear()
+    os.system("figlet KINY")
+    print(f"{C}[{G}i{C}] DIGITE O CODIGO BANCARIO")
+    print(f"{C}[{G}i{C}] Exemplo: 260")
+    bank_input = input("=====>")
+    clear()
+    try:
+        req = requests.get('https://brasilapi.com.br/api/banks/v1/{}'.format(bank_input))
+
+        bank_data = req.json()
+
+        if 'message' not in bank_data:
+            os.system("figlet KINY")
+            print("Código bancário: {}".format(bank_data['code']))
+            print("Nome: {}".format(bank_data['name']))
+            print("Nome completo: {}".format(bank_data['fullName']))
+            print("ISPB: {}".format(bank_data['ispb']))
+        else:
+            print('{}: Código bancário inválido.'.format(bank_input))
+    except:
+         print(f'{C}[{R}ERROR{C}]Erro no servidor')
+    print(f"{C}[{Y}i{C}] DESEJA CONSULTAR UM NOVO CODIGO BANCARIO? ")
+    print(f"{C}[{G}1{C}] Sim")
+    print(f"{C}[{G}2{C}] Não")
+    kc = input("===> ")
+    if kc == '01' or kc == '1':
+        bank(anim)
