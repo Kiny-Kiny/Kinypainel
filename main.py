@@ -91,7 +91,7 @@ if os.path.exists('options.txt') and os.path.exists('user'):
     f.close()
     del data
 else:
-    login = 1 # Não,eu não vou reclamar por você ter corrompido a data :D
+    login = '1' # Não,eu não vou reclamar por você ter corrompido a data :D
     user = 0
     cpf_api = 0
     ip_api = 0
@@ -116,28 +116,25 @@ if __name__ == '__main__':
         password()
 '''
 
-if login:
-	tools.clear()
-	if user != 0: #and login == 0:
-		pass
-	else:
-		user = input("USERNAME:  ")
-	snh = 'VirtualInsanity'
-	print("\n ")
-if user == 'YATO' or user == 'KINY':
-	kinymode=1
-else:
-    kinymode=0
+if login == 1:
+    tools.clear()
+    user = input("USERNAME:  ")
+    snh = 'VirtualInsanity'
     if input("PASSWORD:  ").strip() == snh:
         tools.clear()
     else:
         print("{C}[{R}ERROR{C}] Wrong Password....Yare Yare")
-        time.sleep(1)
+        if anim == 1:
+            time.sleep(1)
         exit()
+    print("\n ")
+if user == 'YATO' or user == 'KINY':
+    kinymode=1
+    kiny=1
+    print("Nova Opção Desbloqueada")
+else:
+    kinymode=0
 
-if kinymode:
-		print("Nova Opção Desbloqueada")
-		kiny=1
 try:
     os.system("pkg update")
     os.system("pkg install figlet")
