@@ -9,6 +9,7 @@ G='\033[1;32m'
 RT='\033[;0m'
 import os,base64,requests,time,json
 
+global a
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
 a=a.encode('ascii')
 a=base64.b64decode(a)
@@ -52,7 +53,7 @@ def covid19():
 
 def ip(ip_api,mode):
     os.system('figlet KINY')
-    if ip_api == 1:
+    if ip_api == 0 or ip_api == 2:
         if mode == 0:
             data = requests.get('http://ip-api.com/json/')
         else:
@@ -75,8 +76,42 @@ def ip(ip_api,mode):
             print('ISP: {}'.format(adress_data['isp']))
             print('ORG: {}'.format(adress_data['org']))
             #print('Temperatura: {}'.format(weather["weather"]["main"]))
-    else:
-        print('another API')
+    if ip_api == 1 or ip_api == 2:
+        ip_input = input("===>")
+        api=requests.get('http://ipwhois.app/json/'+ip_input).json()
+        clear()
+        os.system('figlet KINY')
+        try:
+            if ip_api == 1:
+                print('IP: {}'.format(api['ip']))
+            print('TIPO: {}'.format(api['type']))
+            print('CONTINENTE: {}'.format(api['continent']))
+            print('CÓDIGO DO CONTINENTE: {}'.format(api['continent_code']))
+            print('PAIS: {}'.format(api['country']))
+            print('CÓDIGO DO PAÍS: {}'.format(api['country']))
+            print('PAIS: {}'.format(api['country']))
+            print('CAPITAL DO PAIS: {}'.format(api['country_capital']))
+            print('CÓDIGO TELEFÔNICO DO PAÍS: {}'.format(api['country_phone']))
+            print('PAISES VIZINHOS: {}'.format(api['country_neighbours']))
+            print('REGIÃO: {}'.format(api['region']))
+            print('CIDADE: {}'.format(api['city']))
+            print('LATITUDE: {}'.format(api['latitude']))
+            print('LONGITUDE: {}'.format(api['longitude']))
+            print('ASN: {}'.format(api['asn']))
+            print('ORG: {}'.format(api['org']))
+            print('ISP: {}'.format(api['isp']))
+            print('HORÁRIO PADRÃO: {}'.format(api['timezone']))
+            print('NOME DO HORÁRIO PADRÃO: {}'.format(api['timezone_name']))
+            print('GMT: {}'.format(api['timezone_gmt']))
+            print('MOEDA: {}'.format(api['currency']))
+            print('CÓDIGO DA MOEDA: {}'.format(api['currency_code']))
+            print('SIMBOLO DA MOEDA: {}'.format(api['currency_symbol']))
+        except:
+            print(f'{C}[{R}ERROR{C}] IP Inválido ')
+            time.sleep(3)
+            clear()
+            ip(ip_api,mode)
+
     print(f"{C}[{Y}i{C}]DESEJA LOCALIZAR UM NOVO IP?")
     print(f"{C}{G}[1]{C} Sim")
     print(f"{C}{G}[2]{C} Não")
@@ -360,6 +395,9 @@ def bank(anim):
     print(f"{C}[{G}i{C}] Exemplo: 260")
     bank_input = input("=====>")
     clear()
+    if anim == '1':
+        print(f'{C}[{G}i{C}] Consultando banco.')
+        time.sleep(1)
     try:
         req = requests.get('https://brasilapi.com.br/api/banks/v1/{}'.format(bank_input))
 
@@ -381,3 +419,38 @@ def bank(anim):
     kc = input("===> ")
     if kc == '01' or kc == '1':
         bank(anim)
+
+def consulta(cpf):
+    try:
+        h={
+        'Content-Type': "text/xml, application/x-www-form-urlencoded;charset=ISO-8859-1, text/xml; charset=ISO-8859-1",
+        'Cookie': "ASPSESSIONIDSCCRRTSA=NGOIJMMDEIMAPDACNIEDFBID;                       FGTServer=2A56DE837DA99704910F47A454B42D1A8CCF150E0874FDE491A399A5EF5657BC0CF03A1EEB1C685B4C118A83F971F6198A78",
+'Host': "www.juventudeweb.mte.gov.br"
+        }
+        r=requests.post(a, headers=h, data=f'acao=consultar%20cpf&cpf={cpf}&nocache=0.7636039437638835').text
+        print(f'''
+{C}CPF: {B}{r.search('NRCPF="(.*?)"', r).group(1)}
+{C}Nome: {B}{r.search('NOPESSOAFISICA="(.*?)"', r).group(1).title()}
+{C}Nascimento: {B}{r.search('DTNASCIMENTO="(.*?)"', r).group(1)}
+{C}Nome da Mae: {B}{r.search('NOMAE="(.*?)"', r).group(1).title()}
+{C}Endereco: {B}{r.search('NOLOGRADOURO="(.*?)"', r).group(1).title()}, {re.search('NRLOGRADOURO="(.*?)"', r).group(1)}
+{C}Complemento: {B}{r.search('DSCOMPLEMENTO="(.*?)"', r).group(1).title()}
+{C}Bairro: {B}{r.search('NOBAIRRO="(.*?)"', r).group(1).title()}
+{C}Cidade: {B}{r.search('NOMUNICIPIO="(.*?)"', r).group(1).title()}-{re.search('SGUF="(.*?)"', r).group(1)}
+{C}CEP: {B}{r.search('NRCEP="(.*?)"', r).group(1)}
+      ''')
+        print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
+        print('1.Sim')
+        print('2.Não')
+        nova=input(f'===>').lower()
+        if nova=='1' or nova=='01':
+            tipos()
+        elif nova=='2' or nova=='02':
+            pass
+        else:
+            print(f'{C}[{R}i{C}]Opção inválida')
+            pass
+    except(AttributeError):
+        print(f'{R}CPF não existe{C}')
+        print(f'{R}Pressione enter para retornar{C}')
+        lo = input("===>")

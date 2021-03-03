@@ -539,45 +539,8 @@ while(Sair == False):
             print(f'{C}[{Y}i{C}] O CPF gerado foi: {B}'+cpf2)
             time.sleep(1)
             print(f'{C}[{G}i{C}] Consultando CPF gerado...')
-            consulta(cpf)
-
-        def consulta(cpf):
-            try:
-                h={
-                'Content-Type': "text/xml, application/x-www-form-urlencoded;charset=ISO-8859-1, text/xml; charset=ISO-8859-1",
-                'Cookie': "ASPSESSIONIDSCCRRTSA=NGOIJMMDEIMAPDACNIEDFBID;                       FGTServer=2A56DE837DA99704910F47A454B42D1A8CCF150E0874FDE491A399A5EF5657BC0CF03A1EEB1C685B4C118A83F971F6198A78",
-    'Host': "www.juventudeweb.mte.gov.br"
-                }
-                r=requests.post(a, headers=h, data=f'acao=consultar%20cpf&cpf={cpf}&nocache=0.7636039437638835').text
-                print(f'''
-{C}CPF: {B}{re.search('NRCPF="(.*?)"', r).group(1)}
-{C}Nome: {B}{re.search('NOPESSOAFISICA="(.*?)"', r).group(1).title()}
-{C}Nascimento: {B}{re.search('DTNASCIMENTO="(.*?)"', r).group(1)}
-{C}Nome da Mae: {B}{re.search('NOMAE="(.*?)"', r).group(1).title()}
-{C}Endereco: {B}{re.search('NOLOGRADOURO="(.*?)"', r).group(1).title()}, {re.search('NRLOGRADOURO="(.*?)"', r).group(1)}
-{C}Complemento: {B}{re.search('DSCOMPLEMENTO="(.*?)"', r).group(1).title()}
-{C}Bairro: {B}{re.search('NOBAIRRO="(.*?)"', r).group(1).title()}
-{C}Cidade: {B}{re.search('NOMUNICIPIO="(.*?)"', r).group(1).title()}-{re.search('SGUF="(.*?)"', r).group(1)}
-{C}CEP: {B}{re.search('NRCEP="(.*?)"', r).group(1)}
-              ''')
-                print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
-                print('1.Sim')
-                print('2.Não')
-                nova=input(f'===>').lower()
-                if nova=='1' or nova=='01':
-                    tipos()
-                if nova=='2' or nova=='02':
-                    pass
-                else:
-                    print(f'{C}[{R}i{C}]Opção inválida')
-                    pass
-            except(AttributeError):
-                print(f'{R}CPF Gerado nao existe{C}')
-                print(f'{R}Pressione enter para retornar{C}')
-                lo = input("===>")
-                tipos()
+            tools.consulta(cpf)
         def tipos():
-            R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
             tools.clear()
             os.system('figlet KINY')
             print(f"""
@@ -591,7 +554,7 @@ while(Sair == False):
             if tool=='1' or tool == '01':
                 cpf=input(f'{C}[{Y}i{C}] Informe o CPF a ser consultado (sem pontos ou traços): {B}')
                 tools.clear()
-                consulta(cpf)
+                tools.consulta(cpf)
             elif tool=='2' or tool == '02':
                 gerarcpf()
             elif tool=='3' or tool == '03':
