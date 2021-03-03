@@ -118,26 +118,6 @@ if __name__ == '__main__':
 
 if login == 1:
     tools.clear()
-    print(f'''{G}
-        .o oOOOOOOOo                                            OOOo
-    Ob.OOOOOOOo  OOOo.      oOOo.                      .adOOOOOOO
-    OboO"""""""""""".OOo. .oOOOOOo.    OOOo.oOOOOOo.."""""""""'OO
-    OOP.oOOOOOOOOOOO "POOOOOOOOOOOo.   `"OOOOOOOOOP,OOOOOOOOOOOB'
-    `O'OOOO'     `OOOOo"OOOOOOOOOOO` .adOOOOOOOOO"oOOO'    `OOOOo
-    .OOOO'            `OOOOOOOOOOOOOOOOOOOOOOOOOO'            `OO
-    OOOOO                 '"OOOOOOOOOOOOOOOO"`                oOO
-   oOOOOOba.                .adOOOOOOOOOOba               .adOOOOo.
-  oOOOOOOOOOOOOOba.    .adOOOOOOOOOO@^OOOOOOOba.     .adOOOOOOOOOOOO
- OOOOOOOOOOOOOOOOO.OOOOOOOOOOOOOO"`  '"OOOOOOOOOOOOO.OOOOOOOOOOOOOO
- "OOOO"       "YOoOOOOMOIONODOO"`  .   '"OOROAOPOEOOOoOY"     "OOO"
-    Y           'OOOOOOOOOOOOOO: .oOOo. :OOOOOOOOOOO?'         :`
-    :            .oO%OOOOOOOOOOo.OOOOOO.oOOOOOOOOOOOO?         .
-    .            oOOP"%OOOOOOOOoOOOOOOO?oOOOOO?OOOO"OOo
-                 '%o  OOOO"%OOOO%"%OOOOO"OOOOOO"OOO':
-                      `$"  `OOOO' `O"Y ' `OOOO'  o             .
-    .                  .     OP"          : o     .
-                              :
-    {C}''')
     user = input("USERNAME:  ")
     snh = 'VirtualInsanity'
     if input("PASSWORD:  ").strip() == snh:
@@ -518,8 +498,6 @@ while(Sair == False):
             print("Opcao invalida.")
 
     if op == '8' or op == '08':
-        #def gerarplaca():
-        #def tiposplaca():
         tools.consultaplaca()
         del placa_data
         del req
@@ -535,7 +513,6 @@ while(Sair == False):
         else:
             print("Opcao invalida.")
     if op == '7' or op == '07':
-            token = "f01e0024a26baef3cc53a2ac208dd141"
             tools.cns(token,anim)
             print(f"{C}{G}DESEJA REALIZAR UMA NOVA CONSULTA?{C}")
             print(f"{C}{G}[1]{C} Sim")
@@ -546,48 +523,11 @@ while(Sair == False):
             else:
                 pass
     if op == '6' or op == '06':
-        def gerarcpf():
-            os.system('figlet KINY')
-            print(f'{C}[{G}i{C}] Gerando CPF...')
-            time.sleep(1)
-            cpf=requests.request('GET','http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()
-            cpf2=cpf['data']['number_formatted']
-            cpf=cpf['data']['number']
-            print(f'{C}[{Y}i{C}] O CPF gerado foi: {B}'+cpf2)
-            time.sleep(1)
-            print(f'{C}[{G}i{C}] Consultando CPF gerado...')
-            tools.consulta(cpf)
-        def tipos():
-            tools.clear()
-            os.system('figlet KINY')
-            print(f"""
-{C}[{G}i{C}] Formas de operação:
-    1.Consultar CPF
-    2.Gerar CPF e consultar
-    3.Voltar
-{C}[{Y}i{C}] Selecione a forma de operação.
-""")
-            tool=input(f'===>')
-            if tool=='1' or tool == '01':
-                cpf=input(f'{C}[{Y}i{C}] Informe o CPF a ser consultado (sem pontos ou traços): {B}')
-                tools.clear()
-                tools.consulta(cpf)
-            elif tool=='2' or tool == '02':
-                gerarcpf()
-            elif tool=='3' or tool == '03':
-                pass
-            else:
-                print(f'{C}[{R}-{C}] Seleção inválida.')
-                time.sleep(1)
-                tipos()
-        tipos()
-
-
+        tools.consultacpf()
     if op == '5' or op == '05':
         tools.bank(anim)
     if op == '1' or op == '01':
         tools.cep(anim)
-
     if op == '00' or op == '0':
         os.system("clear")
         Sair = True

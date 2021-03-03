@@ -7,7 +7,7 @@ CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
-import os,base64,requests,time,json
+import os,base64,requests,time,json,re
 
 global a
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
@@ -420,37 +420,67 @@ def bank(anim):
     if kc == '01' or kc == '1':
         bank(anim)
 
-def consulta(cpf):
-    try:
-        h={
+def consultacpf():
+    clear()
+    cpf = 0
+    os.system('figlet KINY')
+    print(f"""
+{C}[{G}i{C}] Formas de operação:
+    1.Consultar CPF
+    2.Gerar CPF e consultar
+    3.Voltar
+{C}[{Y}i{C}] Selecione a forma de operação.
+""")
+    choice=input(f'===>')
+    if choice=='1' or choice == '01':
+        cpf=input(f'{C}[{Y}i{C}] Informe o CPF a ser consultado (sem pontos ou traços): {B}')
+        clear()
+    elif choice=='2' or choice == '02':
+        os.system('figlet KINY')
+        print(f'{C}[{G}i{C}] Gerando CPF...')
+        time.sleep(1)
+        cpf=requests.request('GET','http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()
+        cpf2=cpf['data']['number_formatted']
+        cpf=cpf['data']['number']
+        print(f'{C}[{Y}i{C}] O CPF gerado foi: {B}'+cpf2)
+        time.sleep(1)
+        print(f'{C}[{G}i{C}] Consultando CPF gerado...')
+    elif choice=='3' or choice == '03':
+        pass
+    else:
+        print(f'{C}[{R}ERROR{C}] Opção inválida.')
+        time.sleep(3)
+    if cpf != '0':
+        try:
+            h={
         'Content-Type': "text/xml, application/x-www-form-urlencoded;charset=ISO-8859-1, text/xml; charset=ISO-8859-1",
         'Cookie': "ASPSESSIONIDSCCRRTSA=NGOIJMMDEIMAPDACNIEDFBID;                       FGTServer=2A56DE837DA99704910F47A454B42D1A8CCF150E0874FDE491A399A5EF5657BC0CF03A1EEB1C685B4C118A83F971F6198A78",
 'Host': "www.juventudeweb.mte.gov.br"
-        }
-        r=requests.post(a, headers=h, data=f'acao=consultar%20cpf&cpf={cpf}&nocache=0.7636039437638835').text
-        print(f'''
-{C}CPF: {B}{r.search('NRCPF="(.*?)"', r).group(1)}
-{C}Nome: {B}{r.search('NOPESSOAFISICA="(.*?)"', r).group(1).title()}
-{C}Nascimento: {B}{r.search('DTNASCIMENTO="(.*?)"', r).group(1)}
-{C}Nome da Mae: {B}{r.search('NOMAE="(.*?)"', r).group(1).title()}
-{C}Endereco: {B}{r.search('NOLOGRADOURO="(.*?)"', r).group(1).title()}, {re.search('NRLOGRADOURO="(.*?)"', r).group(1)}
-{C}Complemento: {B}{r.search('DSCOMPLEMENTO="(.*?)"', r).group(1).title()}
-{C}Bairro: {B}{r.search('NOBAIRRO="(.*?)"', r).group(1).title()}
-{C}Cidade: {B}{r.search('NOMUNICIPIO="(.*?)"', r).group(1).title()}-{re.search('SGUF="(.*?)"', r).group(1)}
-{C}CEP: {B}{r.search('NRCEP="(.*?)"', r).group(1)}
-      ''')
-        print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
-        print('1.Sim')
-        print('2.Não')
-        nova=input(f'===>').lower()
-        if nova=='1' or nova=='01':
-            tipos()
-        elif nova=='2' or nova=='02':
-            pass
-        else:
-            print(f'{C}[{R}i{C}]Opção inválida')
-            pass
-    except(AttributeError):
-        print(f'{R}CPF não existe{C}')
-        print(f'{R}Pressione enter para retornar{C}')
-        lo = input("===>")
+            }
+            r=requests.post(a, headers=h, data=f'acao=consultar%20cpf&cpf={cpf}&nocache=0.7636039437638835').text
+            print(f'''
+{C}CPF: {B}{re.search('NRCPF="(.*?)"', r).group(1)}
+{C}Nome: {B}{re.search('NOPESSOAFISICA="(.*?)"', r).group(1).title()}
+{C}Nascimento: {B}{re.search('DTNASCIMENTO="(.*?)"', r).group(1)}
+{C}Nome da Mae: {B}{re.search('NOMAE="(.*?)"', r).group(1).title()}
+{C}Endereco: {B}{re.search('NOLOGRADOURO="(.*?)"', r).group(1).title()}, {re.search('NRLOGRADOURO="(.*?)"', r).group(1)}
+{C}Complemento: {B}{re.search('DSCOMPLEMENTO="(.*?)"', r).group(1).title()}
+{C}Bairro: {B}{re.search('NOBAIRRO="(.*?)"', r).group(1).title()}
+{C}Cidade: {B}{re.search('NOMUNICIPIO="(.*?)"', r).group(1).title()}-{re.search('SGUF="(.*?)"', r).group(1)}
+{C}CEP: {B}{re.search('NRCEP="(.*?)"', r).group(1)}
+            ''')
+            print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
+            print('1.Sim')
+            print('2.Não')
+            nova=input(f'===>').lower()
+            if nova=='1' or nova=='01':
+                consultacpf()
+            elif nova=='2' or nova=='02':
+                pass
+            else:
+                print(f'{C}[{R}i{C}]Opção inválida')
+                pass
+        except(AttributeError):
+            print(f'{R}CPF não existe{C}')
+            print(f'{R}Tente novamente e pressione enter para retornar{C}')
+            lo = input("===>")
