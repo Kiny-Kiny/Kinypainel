@@ -29,8 +29,9 @@ try:
     from phonenumbers import geocoder
     from phonenumbers import timezone
     from urllib.parse import urlencode
+    from fordev.generator import people
 except:
-    os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse')
+    os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse fordev')
     for i in range(3):
     	tools.clear()
     	print(f'{C}[{Y}i{C}] Reiniciando o painel em {i} seg...')
@@ -186,11 +187,13 @@ while(Sair == False):
     print(f"{C}{G}[00]{C} EXIT")
     op = input("===>").strip()
     tools.clear()
+
     if op == '95':
     	print()
     	print(f'{C}[{G}i{C}] Me diga como quer ser chamado.')
     	user = input('===>')
     	write()
+
     if op == '96':
             os.system('figlet KINY')
             print(f'{C}[{G}1{C}] Login : {login}')
@@ -259,17 +262,22 @@ while(Sair == False):
 
     if op == '97':
         tools.notes()
+
     if op == '15':
     	tools.covid19()
+
     if op == '14':
         tools.cc_checker()
+
     if op == '13':
     	tools.ip(ip_api,0)
+
     if op == '12':
-        print(f'{C}[{G}i{C}] Gerando...')
-        tools.gerar_pessoa()
+        tools.gerar_pessoa(token)
+
     if op == '11':
         tools.bin()
+
     if op == '10':
         def consultaphone():
             api.phone()
@@ -300,6 +308,7 @@ while(Sair == False):
                 time.sleep(3)
                 tiposop()
         tiposop()
+
     if op == '9' or op == '09':
         tools.crm()
 
@@ -307,21 +316,17 @@ while(Sair == False):
         tools.consultaplaca()
 
     if op == '7' or op == '07':
-            tools.cns(token,anim)
-            print(f"{C}{G}DESEJA REALIZAR UMA NOVA CONSULTA?{C}")
-            print(f"{C}{G}[1]{C} Sim")
-            print(f"{C}{G}[2]{C} Não")
-            lo = input('===> ')
-            if lo == '1' or lo == '01':
-                tipocns()
-            else:
-                pass
+        tools.cns(token,anim)
+
     if op == '6' or op == '06':
         tools.consultacpf()
+
     if op == '5' or op == '05':
         tools.bank(anim)
+
     if op == '1' or op == '01':
         tools.cep(anim)
+
     if op == '00' or op == '0':
         os.system("clear")
         Sair = True

@@ -8,6 +8,9 @@ Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
 import os,base64,requests,time,json,re
+from fordev.generator import people
+import random
+from random import randint
 
 global a
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
@@ -191,8 +194,47 @@ def crm():
     else:
         print("Opcao invalida.")
 
-def gerar_pessoa(): #####REWORK
-    print("refazer")
+def gerar_pessoa(token): #####REWORK
+    os.system('figlet KINY')
+    print(f'{C}[{G}i{C}] Gerando pessoa.')
+    national = ["BR","USA","PT","CA","JP"]
+    RN = randint(0,10)
+    cns=requests.get('http://geradorapp.com/api/v1/cns/generate?token={}'.format(token[0])).json()
+    cpf=requests.get('http://geradorapp.com/api/v1/cpf/generate?token={}'.format(token[0])).json()
+    pessoa= requests.get('https://randomuser.me/api/?nat={}'.format(random.choice('national'))).json()
+
+    states = ["AC","AL","AP","AM","BA","SP","RJ","MT","CE","DF","ES","GO","MA","MS","MG","PA","PB","PR","PE","PI","RN","RS","RO","RR","SC","SE","TO"]
+    state = random.choice(states)
+
+    email_provider = ["@gmail.com","@outlook.com","@yahoo.com","@terra.com"]
+
+    email = (pessoa['results'][0]['name']['first']) + "." + (pessoa['results'][0]['name']['last']) + random.choice(email_provider)
+
+    if pessoa['results'][0]['gender'] == 'female':
+        gender = 'F'
+    if pessoa['results'][0]['gender'] == 'male':
+        gender = 'M'
+    age = randint(18,80)
+
+    p = people(sex=gender, age=age, state=state)
+
+    print('Nome: {} {}'.format(pessoa['results'][0]['name']['first'],pessoa['results'][0]['name']['last']))
+    print('Genero: {}'.format(gender))
+    print('Nascimento: {}'.format(pessoa['results'][0]['dob']['date'][0:10]))
+    print('CPF: {}'.format(cpf['data']['number_formatted']))
+    print('CPF sem formatação: {}'.format(cpf['data']['number']))
+    print('E-mail: {}'.format(email))
+    print('CEP: {}{}'.format(pessoa['results'][0]['location']['postcode'],'-000'))
+    print('Endereço: {}'.format(pessoa['results'][0]['location']['street']['name']))
+    print('Cidade: {}'.format(pessoa['results'][0]['location']['city']))
+    print('Estado: {}'.format(pessoa['results'][0]['location']['state']))
+    print(f'{C}[{Y}i{C}] Deseja gerar mais uma pessoa?')
+    print(f'{C}[{G}1{C}] Sim')
+    print(f'{C}[{G}2{C}] Não')
+    choice = input('===>')
+    if choice == '1' or choice == '01':
+        clear()
+        gerar_pessoa(token)
 
 def consultaplaca():
     #http://api.masterplaca.devplank.com/v2/placa/{placa}/json
@@ -269,6 +311,12 @@ def cns(token,anim):
         print('Mensagem: {}'.format(cns_data["data"]["message"]))
     except:
         print(f'{C}[{R}*{C}] CNS INVALIDO.')
+    print(f"{C}{G}DESEJA REALIZAR UMA NOVA CONSULTA?{C}")
+    print(f"{C}{G}[1]{C} Sim")
+    print(f"{C}{G}[2]{C} Não")
+    lo = input('===> ')
+    if lo == '1' or lo == '01':
+        cns(token,anim)
 def cep(anim):
     clear()
     os.system('figlet KINY')
@@ -658,3 +706,18 @@ def cc_checker(token):
             print(f'{C}[{R}ERROR{C}] Algum dado faltando.')
         else:
             print(f'{C}[{R}ERROR{C}] Erro não listado.')
+def gerarlinkwhats():
+    clear()
+    os.system('figlet KINY')
+    print(f'{C}[{G}i{C}] Digite o numero.')
+    num = input('===>')
+    print(f'{C}[{G}i{C}] Digite a mensagem.')
+    msg = input('===>')
+    url = 'https://api.whatsapp.com/send?phone='+num+'&text='+msg
+    print(f'{C}[{G}i{C}] URL gerada :'+url)
+    print(f'{C}[{Y}i{C}] Deseja gerar uma nova url?')
+    print(f'{C}[{G}1{C}] Sim')
+    print(f'{C}[{G}2{C}] Não')
+    choice = input('===>')
+    if choice == '1':
+        gerarlinkwhats()
