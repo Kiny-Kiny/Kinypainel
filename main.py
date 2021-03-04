@@ -20,7 +20,7 @@ RT='\033[;0m'
 def restart():
     python = sys.executable
     os.execl(python, python, *sys.argv)
-import os,sys,time,base64, json, re,tools
+import os,sys,time,base64, json, re,tools,subprocess
 try:
     import requests,api,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers,json,tools
     from colorama import Fore, Style
@@ -106,7 +106,6 @@ welcome_msg = ["Que a força esteja com você", "Bem vindo", "Você é um mito",
 
 if __name__ == '__main__':
     print(f'{G} Checando por atualizacoes... {C}')
-    '''
     update = subprocess.check_output('git pull', shell=True)
     if 'Already up to date' not in update.decode():
         print(f'{G}Atualizacao instalada!\nReiciando app...{C}')
@@ -116,8 +115,6 @@ if __name__ == '__main__':
     else:
         print('Nenhuma atualizacao disponivel.')
         time.sleep(2)
-        password()
-'''
 
 if login == 1:
     tools.clear()
@@ -187,6 +184,18 @@ while(Sair == False):
     print(f"{C}{G}[00]{C} EXIT")
     op = input("===>").strip()
     tools.clear()
+
+    if op == '16' and kinymode == 1:
+        os.system('figlet KINY')
+        print()
+        print(f'{C}[{G}1{C}] Gerar link whatsapp')
+        print(f'{C}[{G}2{C}] Youtube downloader')
+        print()
+        choice = input('===>')
+        if choice == '1' or choice == '01':
+            tools.gerarlinkwhats()
+        if choice == '2' or choice == '02':
+            tools.youtube()
 
     if op == '95':
     	print()

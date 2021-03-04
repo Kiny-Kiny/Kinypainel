@@ -7,9 +7,10 @@ CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
-import os,base64,requests,time,json,re
+import os,base64,requests,time,json,re,random
+from pytube import YouTube
+from moviepy.editor import *
 from fordev.generator import people
-import random
 from random import randint
 
 global a
@@ -721,3 +722,31 @@ def gerarlinkwhats():
     choice = input('===>')
     if choice == '1':
         gerarlinkwhats()
+
+def youtube():
+    clear()
+    os.system('figlet KINY')
+    print(f'{C}[{G}i{C}] Selecione o modo de operação')
+    print(f'{C}[{G}1{C}] MP4')
+    print(f'{C}[{G}2{C}] MP3')
+    filetype = input('===>')
+    print(f'{C}[{G}i{C}] Informe a url do video')
+    url = input('===>')
+    clear()
+    os.system('figlet KINY')
+    print(f'{C}[{G}i{C}] Baixando...por favor aguarde')
+    if filetype == '1':
+        file = YouTube(url).streams.first()
+        file.download(output_path="downloads")
+    if filetype == '2':
+        file = YouTube(url)
+        final = file.streams.filter(only_audio=True).all()
+        final[0].download(output_path="downloads")
+    print(f'{C}[{G}i{C}] Video baixado.')
+    print()
+    print(f'{C}[{G}i{C}] Deseja baixar outro video?')
+    print(f'{C}[{G}1{C}] Sim')
+    print(f'{C}[{G}2{C}] Não')
+    choice = input('===>')
+    if choice == '1':
+        youtube()
