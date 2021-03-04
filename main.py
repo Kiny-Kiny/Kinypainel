@@ -303,20 +303,7 @@ while(Sair == False):
                 time.sleep(3)
                 tiposop()
         def tiposop():
-            os.system('figlet KINY')
-            print(f'O que deseja fazer?')
-            print('1.Consultar operadora por numero')
-            print('2.Phone infoga')
-            choi = input('===>')
-            if choi == '1' or choi == '01':
-                consultaoperadora()
-            if choi == '2' or choi == '02':
-                consultaphone()
-            else:
-                print(f'{C}[{R}i{C}] Opção inválida')
-                time.sleep(3)
-                tiposop()
-        tiposop()
+            tools.consultatel()
 
     if op == '9' or op == '09':
         tools.crm()
