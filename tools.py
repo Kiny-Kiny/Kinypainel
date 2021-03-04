@@ -77,8 +77,11 @@ def ip(ip_api,mode):
             print('ORG: {}'.format(adress_data['org']))
             #print('Temperatura: {}'.format(weather["weather"]["main"]))
     if ip_api == 1 or ip_api == 2:
-        ip_input = input("===>")
-        api=requests.get('http://ipwhois.app/json/'+ip_input).json()
+        if mode == 1:
+            ip_input = input("===>")
+            api=requests.get('http://ipwhois.app/json/'+ip_input).json()
+        if mode == 0:
+            api=requests.get('http://ipwhois.app/json/').json()
         clear()
         os.system('figlet KINY')
         try:
@@ -198,7 +201,7 @@ def consultaplaca():
             placa_input = input("===>")
             req = requests.get('https://apicarros.com/v1/consulta/{}/json'.format(placa_input), verify = False) # JSQ7436
             placa_data = req.json()
-            tools.clear()
+            clear()
             os.system('figlet KINY')
             try:
                 if (placa_data['codigoRetorno']) == "0":
@@ -221,8 +224,21 @@ def consultaplaca():
                 else:
                     print(f'{C}[{R}i]{C} Sem dados sobre.')
             except:
-                print(f'{C}[{R}i{C}] Placa invalida')
+                print(f'{C}[{R}ERROR{C}] Placa invalida')
                 time.sleep(3)
+            del placa_data
+            del req
+            del placa_input
+            print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
+            print('1.Sim')
+            print('2.Não')
+            choice = input("===>")
+            if choice == "1" or choice == "01":
+                tools.consultaplaca()
+            if choice == "2" or choice == "02":
+                pass
+            else:
+                print("Opcao invalida.")
 
 def cns(token,anim):
     os.system('figlet KINY')
@@ -235,7 +251,7 @@ def cns(token,anim):
     clear()
     if choice == '1' or choice == '01':
             print(f'{C}[{G}i{C}] Gerando CNS')
-            cns=requests.request('GET','http://geradorapp.com/api/v1/cns/generate?token={}'.format(token)).json()
+            cns=requests.request('GET','http://geradorapp.com/api/v1/cns/generate?token={}'.format(token[0])).json()
             cns2=cns['data']['number_formatted']
             entrada=cns['data']['number']
             print(f'{C}[{Y}i{C}] O CNS gerado foi: '+cns2)
@@ -247,7 +263,7 @@ def cns(token,anim):
     if anim == 1:
         time.sleep(1)
     clear()
-    cns_data = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token)).json()
+    cns_data = requests.get('http://geradorapp.com/api/v1/cns/validate/{}?token={}'.format(entrada,token[0])).json()
     try:
         print('Numero: {}'.format(cns_data["data"]["number"]))
         print('Mensagem: {}'.format(cns_data["data"]["message"]))
@@ -324,7 +340,7 @@ def cnpj(kct,token,anim):
         print(f'{C}[{G}*{C}] Gerando CNPJ...')
         if anim == '1':
             time.sleep(1)
-        cnpj_data=requests.get('http://geradorapp.com/api/v1/cnpj/generate?token={}'.format(token)).json()
+        cnpj_data=requests.get('http://geradorapp.com/api/v1/cnpj/generate?token={}'.format(token[0])).json()
         cnpj_input = (cnpj_data['data']['number'])
         cnpj_formatted=(cnpj_data['data']['number_formatted'])
         print(f'{C}[{Y}i{C}] O CNPJ gerado foi: {cnpj_formatted}')
@@ -448,7 +464,7 @@ def consultacpf():
         os.system('figlet KINY')
         print(f'{C}[{G}i{C}] Gerando CPF...')
         time.sleep(1)
-        cpf=requests.request('GET','http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()
+        cpf=requests.request('GET','http://geradorapp.com/api/v1/cpf/generate?token={}'.format(token[0])).json()
         cpf2=cpf['data']['number_formatted']
         cpf=cpf['data']['number']
         print(f'{C}[{Y}i{C}] O CPF gerado foi: {B}'+cpf2)
@@ -546,7 +562,7 @@ def consultaoperadora():
         print(f'{C}[{R}i{C}] Opção inválida')
         time.sleep(3)
 
-def cc_checker():
+def cc_checker(token):
     try:
         lista=open(input(f'{C}Caminho da lista: '), 'r').read().splitlines()
     except:
@@ -561,7 +577,7 @@ def cc_checker():
 
     data = requests.get('https://lookup.binlist.net/{}'.format(cc[0:6])).json()
     pessoa = requests.get('https://randomuser.me/api/?nat={}'.format(data['country']['alpha2'])).json()
-    cpf = requests.get('http://geradorapp.com/api/v1/cpf/generate?token=f01e0024a26baef3cc53a2ac208dd141').json()
+    cpf = requests.get('http://geradorapp.com/api/v1/cpf/generate?token={}'.format(token[0])).json()
 
     email_provider = ["@gmail.com","@outlook.com","@yahoo.com","@terra.com"]
 

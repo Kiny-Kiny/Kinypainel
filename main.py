@@ -99,7 +99,9 @@ else:
     cnpj_api = 0
     menu_return = 0
     anim = 0
-token = "f01e0024a26baef3cc53a2ac208dd141"
+
+token = ["f01e0024a26baef3cc53a2ac208dd141"]
+welcome_msg = ["Que a força esteja com você", "Bem vindo", "Você é um mito", "Okaerinasai"]
 
 if __name__ == '__main__':
     print(f'{G} Checando por atualizacoes... {C}')
@@ -149,7 +151,7 @@ while(Sair == False):
     print(f"Coded By: {CY} KINY {CO} and {CY} YATO {CO} in 07/02/2021")
     print()
     os.system("figlet KINY")
-    print(f'{C}[{G}*{C}] Bem vindo,' + user)
+    print(f'{C}[{G}*{C}]'+random.choice(welcome_msg)+' '+user+'!')
     if anim == 1:
         time.sleep(1)
     print()
@@ -195,8 +197,8 @@ while(Sair == False):
             print(f'{C}[{G}2{C}] Trocar APIs')
             print(f'{C}[{G}3{C}] Limpar data')
             print(f'{C}[{G}4{C}] Animação: {anim}')
-            print(f'{C}[{G}5{C}] Inserir token pessoal')
-            print(f'{C}[{G}6{C}] Modo retornar ao menu: {menu_return}')
+            #print(f'{C}[{G}5{C}] Inserir token pessoal')
+            print(f'{C}[{G}5{C}] Modo retornar ao menu: {menu_return}')
             print()
             print(f'{C}[{G}0{C}] Voltar')
             choice = input('===>')
@@ -242,10 +244,14 @@ while(Sair == False):
             if choice == '4' or choice == '04':
                 anim ^= 1
             if choice == '5' or choice == '05':
-                print(f'{C}[{G}i{C}] Digite o seu token de acesso ou d para o token de acesso publico.')
-                token = input('===>')
-                if token == d:
-                    token = "f01e0024a26baef3cc53a2ac208dd141"
+                menu_return ^= 1
+            #if choice == '5' or choice == '05':
+                #print(f'{C}[{G}i{C}] Digite o seu token de acesso ou d para o token de acesso publico.')
+                #token_inn = input('===>')
+                #if token_inn == d:
+                #    token[0] = "f01e0024a26baef3cc53a2ac208dd141"
+                #else:
+                #    token[0] = token_inn
             if choice != 1 and choice !=2 and choice !=3 and choice!=4 and choice!=5 and choice!=0:
                 tools.clear()
                 print(f'{C}[{R}ERROR{C}] Opção inválida')
@@ -258,7 +264,7 @@ while(Sair == False):
     if op == '14':
         tools.cc_checker()
     if op == '13':
-    	tools.ip(ip_api)
+    	tools.ip(ip_api,0)
     if op == '12':
         print(f'{C}[{G}i{C}] Gerando...')
         tools.gerar_pessoa()
@@ -296,32 +302,10 @@ while(Sair == False):
         tiposop()
     if op == '9' or op == '09':
         tools.crm()
-        print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
-        print('1.Sim')
-        print('2.Não')
-        choice = input("===>")
-        if choice == "1" or choice == "01":
-            tools.crm()
-        if choice == "2" or choice == "02":
-            pass
-        else:
-            print("Opcao invalida.")
 
     if op == '8' or op == '08':
         tools.consultaplaca()
-        del placa_data
-        del req
-        del placa_input
-        print(f'{C}[{G}i{C}] Deseja realizar uma nova consulta?')
-        print('1.Sim')
-        print('2.Não')
-        choice = input("===>")
-        if choice == "1" or choice == "01":
-            tools.consultaplaca()
-        if choice == "2" or choice == "02":
-            pass
-        else:
-            print("Opcao invalida.")
+
     if op == '7' or op == '07':
             tools.cns(token,anim)
             print(f"{C}{G}DESEJA REALIZAR UMA NOVA CONSULTA?{C}")
