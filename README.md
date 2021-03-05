@@ -25,3 +25,15 @@ git clone https://github.com/oporadokrl/Kinypainel.git
 cd Kinypainel
 
 python3 main.py
+
+## Termux
+
+pkg update && pkg upgrade
+
+pkg install git python
+
+git clone https://github.com/oporadokrl/Kinypainel.git
+
+cd Kinypainel
+
+python3 main.py
