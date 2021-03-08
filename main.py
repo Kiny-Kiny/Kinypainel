@@ -20,9 +20,10 @@ RT='\033[;0m'
 def restart():
     python = sys.executable
     os.execl(python, python, *sys.argv)
-import os,sys,time,base64, json, re,tools,subprocess
+
 try:
-    import requests,api,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers,json,tools
+    import os,sys,time,base64, json, re,tools,subprocess
+    import requests,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers,json,tools
     from colorama import Fore, Style
     from bs4 import BeautifulSoup
     from phonenumbers import carrier
@@ -33,9 +34,8 @@ try:
 except:
     os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse fordev')
     for i in range(3):
-    	tools.clear()
-    	print(f'{C}[{Y}i{C}] Reiniciando o painel em {i} seg...')
-    	time.sleep(1)
+        print(f'{C}[{Y}i{C}] Reiniciando o painel em {i} seg...')
+        time.sleep(1)
     restart()
 
 requests = requests.Session()
@@ -77,7 +77,7 @@ global placa_api
 global cnpj_api
 
 if os.path.exists('options.txt') and os.path.exists('user'):
-    f = open('options.txt','r') # Não espero que vc se ache hacker por saber mexer com esse arquivo
+    f = open('options.txt','r') # Nao espero que vc se ache hacker por saber mexer com esse arquivo
     data = f.read()
     login = int(data[0])
     cpf_api = int(data[1])
@@ -100,8 +100,15 @@ else:
     cnpj_api = 0
     menu_return = 0
     anim = 0
+    
+'''
+    Logo abaixo você pode colocar seus tokens pessoais para usar as APIs de forma privada
+    1 lugar da lista é da API Geradorapp
+    2 lugar da lista é a API de consulta de CRM
+    3 lugar da lista é da API OpenWeather.org
+'''
+token = ["f01e0024a26baef3cc53a2ac208dd141","5072097263","25d800a8b8e8b99d77c809567aa291b8"]
 
-token = ["f01e0024a26baef3cc53a2ac208dd141"]
 welcome_msg = ["Que a força esteja com você", "Bem vindo", "Você é um mito", "Okaerinasai"]
 
 if __name__ == '__main__':
@@ -279,7 +286,7 @@ while(Sair == False):
         tools.cc_checker()
 
     if op == '13':
-    	tools.ip(ip_api,0)
+    	tools.ip(ip_api,0,token)
 
     if op == '12':
         tools.gerar_pessoa(token)
@@ -306,7 +313,7 @@ while(Sair == False):
             tools.consultatel()
 
     if op == '9' or op == '09':
-        tools.crm()
+        tools.crm(token)
 
     if op == '8' or op == '08':
         tools.consultaplaca()
@@ -337,7 +344,7 @@ while(Sair == False):
 
     if op == '2' or op == '02':
         mode = 1
-        tools.ip(ip_api,mode)
+        tools.ip(ip_api,mode,token)
 
     if op == '4' or op == '04':
         os.system('figlet KINY')

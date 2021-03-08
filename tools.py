@@ -7,18 +7,25 @@ CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
-import os,base64,requests,time,json,re,random
+import os,base64,requests,time,json,re,random,platform,sys,signal,atexit,argparse,hashlib,urllib3,html5lib
 from pytube import YouTube
 from moviepy.editor import *
-from fordev.generator import people
+#from fordev.generator import people #presente pra quem estiver lendo
 from random import randint
+from colorama import Fore, Style
+from bs4 import BeautifulSoup
+import html5lib
+import phonenumbers
+from phonenumbers import carrier
+from phonenumbers import geocoder
+from phonenumbers import timezone
+from urllib.parse import urlencode
 
 global a
 a='aHR0cDovL3d3dy5qdXZlbnR1ZGV3ZWIubXRlLmdvdi5ici9wbnBlcGVzcXVpc2FzLmFzcA=='
 a=a.encode('ascii')
 a=base64.b64decode(a)
 a=a.decode('ascii')
-
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -55,7 +62,7 @@ def covid19():
     print("Recusados: {}".format(data['refuses']))
     pausa = input('Pressione enter para retornar ao menu.')
 
-def ip(ip_api,mode):
+def ip(ip_api,mode,token):
     os.system('figlet KINY')
     if ip_api == 0 or ip_api == 2:
         if mode == 0:
@@ -64,7 +71,7 @@ def ip(ip_api,mode):
             ip_input = input("===>")
             data = requests.get('http://ip-api.com/json/{}'.format(ip_input))
         adress_data = data.json()
-        weather_data = requests.get('http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=25d800a8b8e8b99d77c809567aa291b8')
+        weather_data = requests.get('http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={token[2]}')
         weather = json.loads(weather_data.text)
         if (adress_data['status']) == 'success':
             print('IP: {}'.format(adress_data['query']))
@@ -160,14 +167,14 @@ def bin():
         print(f'{C}[{R}ERROR{C}] Opção inválida')
         time.sleep(3)
 
-def crm():
+def crm(token):
     os.system("figlet KINY")
     print(f'{C}[{G}i{C}] Digite o numero do CRM.')
     crm_input = input("===>")
     print(f'{C}[{G}i{C}] Digite o UF.')
     uf_input = input("===>")
     url = 'https://www.consultacrm.com.br/api/index.php?tipo=crm&uf='+uf_input
-    data = requests.get(url+'&q={}&chave=5072097263&destino=json'.format(crm_input))
+    data = requests.get(url+'&q={}&chave={}&destino=json'.format(crm_input,token[1]))
     crm_data = data.json()
             #consultas = (crm_data['api_limite']) - (crm_data['api_consultas'])
     if (crm_data['status']) == "true":
@@ -766,31 +773,6 @@ def consultatel():
         time.sleep(3)
         tiposop()
 #################################################################
-    import platform
-    import sys
-    import time
-    import os
-    import signal
-    from colorama import Fore, Style
-    import atexit
-    import argparse
-    import random
-    import time
-    import hashlib
-    import json
-    import re
-    import requests
-    import urllib3
-    from bs4 import BeautifulSoup
-    import html5lib
-    import phonenumbers
-    from phonenumbers import carrier
-    from phonenumbers import geocoder
-    from phonenumbers import timezone
-    from urllib.parse import urlencode
-
-    def clear():
-        os.system('cls' if os.name == 'nt' else 'clear')
 
     parser = argparse.ArgumentParser(description="use: python %(prog)s -n (número) [opções]")
 
@@ -1387,7 +1369,7 @@ def consultatel():
 
         if args.output:
             args.output.close()
-    args.number = input(f"{C}[{G}*{C}] Informe os números (sem espaços, parênteses e traço): {B}")
+    args.number = input(f"{C}[{G}i{C}] Informe os números (sem espaços, parênteses e traço): {B}")
     scanNumber(args.number)
     def again():
         again=input("\n" + f'{C}[{G}+{C}] Deseja realizar uma nova consulta?[{G}s{C}/{R}n{C}]: ')
@@ -1395,6 +1377,4 @@ def consultatel():
               clear()
               main()
         elif again == "nao" or again == "n":
-              exit()
-        else:
-              exit()
+              pass
