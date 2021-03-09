@@ -29,6 +29,12 @@ python3 main.py
 ## OpenSUSE
 zypper install python git
 
+git clone https://github.com/oporadokrl/Kinypainel.git
+
+cd Kinypainel
+
+python3 main.py
+
 ## Termux
 
 pkg update && pkg upgrade
