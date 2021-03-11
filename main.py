@@ -38,6 +38,11 @@ except:
         time.sleep(1)
     restart()
 
+if sys.version_info[0] < 3:
+    print(f'{C}[{R}ERROR{C}] Necessário utilizar python3!')
+    print(f'{C}[{Y}i{C}] Instale-o com base em sua distribuição.')
+    sys.exit()
+
 requests = requests.Session()
 def clear_config():
 	if os.path.exists('options.txt'):
@@ -100,7 +105,7 @@ else:
     cnpj_api = 0
     menu_return = 0
     anim = 0
-    
+
 '''
     Logo abaixo você pode colocar seus tokens pessoais para usar as APIs de forma privada
     1 lugar da lista é da API Geradorapp
@@ -156,7 +161,7 @@ while(Sair == False):
     print(f"Coded By: {CY} KINY {CO} and {CY} YATO {CO} in 07/02/2021")
     print()
     os.system("figlet KINY")
-    print(f'{C}[{G}*{C}]'+random.choice(welcome_msg)+' '+user+'!')
+    print(f'{C}[{G}*{C}]'+random.choice(welcome_msg)+' '+str(user)+'!')
     if anim == 1:
         time.sleep(1)
     print()
@@ -309,8 +314,7 @@ while(Sair == False):
                 print(f'{C}[{R}i{C}] Opção inválida')
                 time.sleep(3)
                 tiposop()
-        def tiposop():
-            tools.consultatel()
+        tools.consultatel()
 
     if op == '9' or op == '09':
         tools.crm(token)
