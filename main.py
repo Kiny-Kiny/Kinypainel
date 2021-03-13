@@ -19,7 +19,7 @@ RT='\033[;0m'
 #######################
 
 
-import os,sys,time,base64, json, re,tools,subprocess
+import os,sys,time,base64, json, re,subprocess
 try:
     import requests,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers,json,tools
     from colorama import Fore, Style
