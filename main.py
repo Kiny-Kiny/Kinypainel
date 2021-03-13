@@ -17,7 +17,9 @@ RT='\033[;0m'
 #######################
 ## Obrigado pelo apoio snuking
 #######################
-
+def restart():
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
 
 import os,sys,time,base64, json, re,subprocess
 try:
@@ -30,16 +32,12 @@ try:
     from urllib.parse import urlencode
     #from fordev.generator import people #Presente para algum dev que esteja lendo :p
 except:
-    pass
-    os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse pytube moviepy')
+    os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse pytube')
     for i in range(3):
         print(f'{C}[{Y}i{C}] Reiniciando o painel em {i} seg...')
         time.sleep(1)
     restart()
 
-def restart():
-    python = sys.executable
-    os.execl(python, python, *sys.argv)
 
 if sys.version_info[0] < 3:
     print(f'{C}[{R}ERROR{C}] Necessário utilizar python3!')

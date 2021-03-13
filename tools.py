@@ -9,7 +9,6 @@ G='\033[1;32m'
 RT='\033[;0m'
 import os,base64,requests,time,json,re,random,platform,sys,signal,atexit,argparse,hashlib,urllib3,html5lib
 from pytube import YouTube
-from moviepy.editor import *
 #from fordev.generator import people #presente pra quem estiver lendo
 from random import randint
 from colorama import Fore, Style
