@@ -780,11 +780,11 @@ def consultatel():
     elif choi == '2' or choi == '02':
         phoneinfoga()
     elif choi == '3' or choi == '03':
-        numero()
+        primenumero()
     else:
         print(f'{C}[{R}i{C}] Opção inválida')
         time.sleep(3)
-def numero():
+def primenumero():
     print(f'{C}[{G}i{C}] Digite o numero do celular.')
     print(f'{C}[{Y}!{C}] Exemplo: 85988120677')
     print(f'{C}[{G}i{C}] 85 é o DDD , 9 é padrão e o restante é o numero.')
@@ -799,7 +799,7 @@ def numero():
           ''')
     choice = input('===>')
     if choice == '1' or choice == '01':
-        numero()
+        primenumero()
         
 def phoneinfoga():
     uagent = []
