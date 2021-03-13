@@ -7,6 +7,7 @@ CY='\033[1;36m'
 Y='\033[1;33m'
 G='\033[1;32m'
 RT='\033[;0m'
+
 ## Distribuido livremente pela licença MIT,
 ## Aos que não sabem o que isso significa,sugerimos estudo.
 #######################
@@ -17,12 +18,9 @@ RT='\033[;0m'
 ## Obrigado pelo apoio snuking
 #######################
 
-def restart():
-    python = sys.executable
-    os.execl(python, python, *sys.argv)
 
+import os,sys,time,base64, json, re,tools,subprocess
 try:
-    import os,sys,time,base64, json, re,tools,subprocess
     import requests,platform,signal,atexit,argparse,random,hashlib,urllib3,html5lib,phonenumbers,json,tools
     from colorama import Fore, Style
     from bs4 import BeautifulSoup
@@ -30,13 +28,18 @@ try:
     from phonenumbers import geocoder
     from phonenumbers import timezone
     from urllib.parse import urlencode
-    from fordev.generator import people
+    #from fordev.generator import people #Presente para algum dev que esteja lendo :p
 except:
-    os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse fordev')
+    pass
+    os.system('pip3 install requests phonenumbers urllib3 colorama bs4 html5lib argparse')
     for i in range(3):
         print(f'{C}[{Y}i{C}] Reiniciando o painel em {i} seg...')
         time.sleep(1)
     restart()
+
+def restart():
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
 
 if sys.version_info[0] < 3:
     print(f'{C}[{R}ERROR{C}] Necessário utilizar python3!')
@@ -97,7 +100,7 @@ if os.path.exists('options.txt') and os.path.exists('user'):
     f.close()
     del data
 else:
-    login = '1' # Não,eu não vou reclamar por você ter corrompido a data :D
+    login = int('1')
     user = 0
     cpf_api = 0
     ip_api = 0
@@ -115,7 +118,7 @@ else:
 token = ["f01e0024a26baef3cc53a2ac208dd141","5072097263","25d800a8b8e8b99d77c809567aa291b8"]
 
 welcome_msg = ["Que a força esteja com você", "Bem vindo", "Você é um mito", "Okaerinasai"]
-
+'''
 if __name__ == '__main__':
     print(f'{G} Checando por atualizacoes... {C}')
     update = subprocess.check_output('git pull', shell=True)
@@ -127,6 +130,7 @@ if __name__ == '__main__':
     else:
         print('Nenhuma atualizacao disponivel.')
         time.sleep(2)
+'''
 
 if login == 1:
     tools.clear()
@@ -203,6 +207,8 @@ while(Sair == False):
         print(f'{C}[{G}1{C}] Gerar link whatsapp')
         print(f'{C}[{G}2{C}] Youtube downloader')
         print()
+        print(f'{C}[{G}0{C}] Sair')
+        print()
         choice = input('===>')
         if choice == '1' or choice == '01':
             tools.gerarlinkwhats()
@@ -221,8 +227,7 @@ while(Sair == False):
             print(f'{C}[{G}2{C}] Trocar APIs')
             print(f'{C}[{G}3{C}] Limpar data')
             print(f'{C}[{G}4{C}] Animação: {anim}')
-            #print(f'{C}[{G}5{C}] Inserir token pessoal')
-            print(f'{C}[{G}5{C}] Modo retornar ao menu: {menu_return}')
+            #print(f'{C}[{G}5{C}] Modo retornar ao menu: {menu_return}')
             print()
             print(f'{C}[{G}0{C}] Voltar')
             choice = input('===>')
@@ -230,13 +235,13 @@ while(Sair == False):
             if choice == '1' or choice == '01':
                 login ^= 1
             if choice == '2' or choice == '02':
-                lista_api_cpf = ["MTE","null"]
+                lista_api_cpf = ["MTE","CADSUS"]
                 cpf_api_name = (lista_api_cpf[cpf_api])
-                lista_api_ip = ["IP-API 1","API-IP 2","Todas"]
+                lista_api_ip = ["IP-API 1","API-IP 2"]
                 ip_api_name = (lista_api_ip[ip_api])
-                lista_api_cnpj = ["receitaws","Governo","Todas"]
+                lista_api_cnpj = ["receitaws","Governo"]
                 cnpj_api_name = (lista_api_cnpj[cnpj_api])
-                lista_api_placa = ["receitaws","Governo","Todas"]
+                lista_api_placa = ["receitaws","Governo"]
                 placa_api_name = (lista_api_placa[placa_api])
                 print(f'{C}[{G}1{C}] CPF API: {cpf_api_name}')
                 print(f'{C}[{G}2{C}] IP API: {ip_api_name}')
@@ -255,13 +260,13 @@ while(Sair == False):
                 if choice2 == '4' or choice2 == '04':
                     cnpj_api = cnpj_api + 1
 
-                if int(cpf_api) >= int('3'):
+                if int(cpf_api) >= int('2'):
                     cpf_api = 0
-                if int(cnpj_api) >= int('3'):
+                if int(cnpj_api) >= int('2'):
                     cnpj_api = 0
-                if int(placa_api) >= int('3'):
+                if int(placa_api) >= int('2'):
                     placa_api = 0
-                if int(ip_api) >= int('3'):
+                if int(ip_api) >= int('2'):
                     ip_api = 0
             if choice == '3' or choice == '03':
                 clear_config()
@@ -269,13 +274,6 @@ while(Sair == False):
                 anim ^= 1
             if choice == '5' or choice == '05':
                 menu_return ^= 1
-            #if choice == '5' or choice == '05':
-                #print(f'{C}[{G}i{C}] Digite o seu token de acesso ou d para o token de acesso publico.')
-                #token_inn = input('===>')
-                #if token_inn == d:
-                #    token[0] = "f01e0024a26baef3cc53a2ac208dd141"
-                #else:
-                #    token[0] = token_inn
             if choice != 1 and choice !=2 and choice !=3 and choice!=4 and choice!=5 and choice!=0:
                 tools.clear()
                 print(f'{C}[{R}ERROR{C}] Opção inválida')
@@ -300,20 +298,6 @@ while(Sair == False):
         tools.bin()
 
     if op == '10':
-        def consultaphone():
-            api.phone()
-            print(f'{C}[{Y}i{C}]Deseja realizar uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            choice = input("===>")
-            if choice == '1' or choice == '01':
-                tiposop()
-            if choice == '2' or choice == '02':
-                pass
-            else:
-                print(f'{C}[{R}i{C}] Opção inválida')
-                time.sleep(3)
-                tiposop()
         tools.consultatel()
 
     if op == '9' or op == '09':
@@ -326,7 +310,7 @@ while(Sair == False):
         tools.cns(token,anim)
 
     if op == '6' or op == '06':
-        tools.consultacpf()
+        tools.consultacpf(cpf_api)
 
     if op == '5' or op == '05':
         tools.bank(anim)

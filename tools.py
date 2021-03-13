@@ -33,16 +33,20 @@ def clear():
 def notes():
     print(f'{C}==={R}{C} Notas de versão {C}==={R}{C}')
     print(f'''
--Novas APIs
--Configurações-
--Modo sem senha-
--Remoção de opção inútil-
+-Novas APIs (inclusive APIs pagas)
+-Configurações
+-Modo sem senha
+-Remoção de opção inútil
 -Otimização do código
 -Nova opção no menu
     Agradecemos ao P0is0n pelo novo método de atualização e
         pelas boas vindas a comunidade OpenSource
+        
+    Codado por: {C}{B}YATO{C}
+    APIs e ideia inicial: {C}{B}KINY{C}
+    API MTE e auxilio no script: {C}{B}p0is0n{C}
+    
     ''')
-    print(f'{C}{B}YATO{C} & {C}{B}KINY{C} , 2021')
     pause = input('Pressione enter para retornar.')
 
 def covid19():
@@ -501,7 +505,7 @@ def bank(anim):
     if kc == '01' or kc == '1':
         bank(anim)
 
-def consultacpf():
+def consultacpf(cpf_api):
     clear()
     cpf = 0
     os.system('figlet KINY')
@@ -531,7 +535,7 @@ def consultacpf():
     else:
         print(f'{C}[{R}ERROR{C}] Opção inválida.')
         time.sleep(3)
-    if cpf != '0':
+    if cpf != '0' and cpf_apt == '0':
         try:### Agradecemos ao p0is0n por essa parte :)
             h={
         'Content-Type': "text/xml, application/x-www-form-urlencoded;charset=ISO-8859-1, text/xml; charset=ISO-8859-1",
@@ -550,21 +554,26 @@ def consultacpf():
 {C}Cidade: {B}{re.search('NOMUNICIPIO="(.*?)"', r).group(1).title()}-{re.search('SGUF="(.*?)"', r).group(1)}
 {C}CEP: {B}{re.search('NRCEP="(.*?)"', r).group(1)}
             ''')
-            print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
-            print('1.Sim')
-            print('2.Não')
-            nova=input(f'===>').lower()
-            if nova=='1' or nova=='01':
-                consultacpf()
-            elif nova=='2' or nova=='02':
-                pass
-            else:
-                print(f'{C}[{R}i{C}]Opção inválida')
-                pass
         except(AttributeError):
             print(f'{R}CPF não existe{C}')
             print(f'{R}Tente novamente e pressione enter para retornar{C}')
             lo = input("===>")
+    else:
+        data = requests.get('https://jlbuscas.com/apis2020/ho20ts/cadsus.php?info={}'.format(cpf)).text
+
+        a = data.replace('<br><b>', '\n').replace('</br>', '').replace('<br><h2>', '').replace('</br></h2>', '\n').replace('</b>', '').replace('<h2>','').replace('<b>','').replace('<br>','').replace('</h2>', '').replace('<h3>','').replace('</h3>','').replace('DOCUMENTOS ENCONTRADOS','DOCUMENTOS ENCONTRADOS\n    ').replace('rgDados:','Dados do RG:').replace('Dados Pessoais','Dados Pessoais\n    ').replace('endereco','').replace('certidao Dados','Dados da certidão')
+
+        print(a)
+        print(f'{C}[{Y}i{C}] Deseja realizar uma nova consulta?')
+        print('1.Sim')
+        print('2.Não')
+        nova=input(f'===>').lower()
+        if nova=='1' or nova=='01':
+            consultacpf()
+        elif nova=='2' or nova=='02':
+            pass
+        else:
+            print(f'{C}[{R}i{C}]Opção inválida')
 
 def consultaoperadora():
     os.system("figlet KINY")
@@ -572,6 +581,8 @@ def consultaoperadora():
     print(f'{C}[{Y}i{C}] Limite de consultas: 6 consultas por hora.')
     print(f'{C}[{Y}i{C}] Digite o numero com DDD.')
     op_input = input("===>")
+    clear()
+    os.system('figlet KINY')
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     try:
         request = requests.get('http://free.telein.com.br/sistema/consulta_json.php?chave=senhasite&numero='+op_input, headers=headers)
@@ -584,10 +595,10 @@ def consultaoperadora():
         cho = input("===>")
         if cho == '1' or cho == '01':
             consultaoperadora()
-        if cho == '2' or cho == '02':
+        elif cho == '2' or cho == '02':
             pass
         else:
-            print(f'{C}[{R}i{C}] Opção inválida')
+            print(f'{C}[{R}ERROR{C}] Opção inválida')
     op_final = 'null'
     if (op_data['operadora']) == '553016':
         op_final = 'CLARO'
@@ -763,42 +774,35 @@ def consultatel():
     print(f'O que deseja fazer?')
     print('1.Consultar operadora por numero')
     print('2.Phone infoga')
+    print('3.Consulta premium')
     choi = input('===>')
     if choi == '1' or choi == '01':
         consultaoperadora()
-    if choi == '2' or choi == '02':
-        consultaphone()
+    elif choi == '2' or choi == '02':
+        phoneinfoga()
+    elif choi == '3' or choi == '03':
+        numero()
     else:
         print(f'{C}[{R}i{C}] Opção inválida')
         time.sleep(3)
-        tiposop()
-#################################################################
-
-    parser = argparse.ArgumentParser(description="use: python %(prog)s -n (número) [opções]")
-
-    parser.add_argument('-n', '--number', metavar='number', type=str,
-        help='O número de telefone a ser digitalizado (E164 ou formato internacional)')
-
-    parser.add_argument('-i', '--input', metavar="input_file", type=argparse.FileType('r'),
-        help='Lista de números de telefone para verificar (um por linha).')
-
-    parser.add_argument('-o', '--output', metavar="output_file", type=argparse.FileType('w'),
-        help='Saída para salvar os resultados da verificação.')
-
-    parser.add_argument('-s', '--scanner', metavar="scanner", default="all", type=str,
-        help='O scanner a ser usado.')
-
-    parser.add_argument('--osint', action='store_true',
-        help='Use o reconhecimento OSINT.')
-
-    parser.add_argument('-u', '--update', action='store_true',
-        help='Atualize o projeto.')
-
-    parser.add_argument('-v', '--version', action='store_true',
-        help='Mostrar versão da ferramenta.')
-
-    args = parser.parse_args()
-
+def numero():
+    print(f'{C}[{G}i{C}] Digite o numero do celular.')
+    print(f'{C}[{Y}!{C}] Exemplo: 85988120677')
+    print(f'{C}[{G}i{C}] 85 é o DDD , 9 é padrão e o restante é o numero.')
+    numero = input('===>')
+    data = requests.get('https://jlbuscas.com/apis2020/ho20ts/targtelefone.php?info={}'.format(numero)).text
+    a = data.replace('<br><b>', '\n').replace('</br>', '').replace('<br><h2>', '').replace('</br></h2>', '\n').replace('</b>', '').replace('<h2>','').replace('<b>','').replace('<br>','').replace('</h2>', '').replace('<h3>','').replace('</h3>','').replace('DOCUMENTOS ENCONTRADOS','').replace('endereco','').replace('certidao Dados','Dados da certidão').replace('▸','\n▸').replace('<hr>','').replace('Nenhuma','\nNenhuma').replace('<h1>','\n').replace('</h1>','\n')
+    print(a)
+    print(f'''
+{C}[{Y}!{C}] Deseja realizar uma nova consulta?
+{C}[{G}1{C}] Sim
+{C}[{G}2{C}] Não
+          ''')
+    choice = input('===>')
+    if choice == '1' or choice == '01':
+        numero()
+        
+def phoneinfoga():
     uagent = []
     uagent.append(
         "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14")
@@ -826,12 +830,6 @@ def consultatel():
     googleAbuseToken = ''
     customFormatting = ''
 
-    R='\033[1;31m'; B='\033[1;34m'; C='\033[1;37m'; Y='\033[1;33m'; G='\033[1;32m'; RT='\033[;0m'
-    code_info = C + '[' + Y + 'i' + C + '] '
-    code_warning = C + '[' + R + '!' + C + '] '
-    code_result = C + '[' + G + '+' + C + '] '
-    code_error = C + '[' + R + '!' + C + '] '
-
     clear()
 
     def search(req, stop):
@@ -858,9 +856,7 @@ def consultatel():
             r = reqSession.get(URL + googleAbuseToken, headers=headers)
 
             while r.status_code != 200:
-                print(code_warning + 'Você está temporariamente na lista negra da pesquisa do Google. Preencha o captcha no seguinte URL e copie / cole o conteúdo do cookie GOOGLE_ABUSE_EXEMPTION: {}'.format(URL))
-                print('\n' + code_info +
-                      'Precisa de ajuda? Leia: https://github.com/sundowndev/PhoneInfoga/wiki')
+                print('{}[{}ERROR{}] Você está temporariamente na lista negra da pesquisa do Google. Preencha o captcha no seguinte URL e copie / cole o conteúdo do cookie GOOGLE_ABUSE_EXEMPTION: {}'.format(C,R,C,URL))
                 token = input('\nGOOGLE_ABUSE_EXEMPTION=')
                 googleAbuseToken = '&google_abuse=' + token
                 r = reqSession.get(URL + googleAbuseToken, headers=headers)
@@ -892,7 +888,7 @@ def consultatel():
 
             return links
         except Exception as e:
-            print(code_error + 'O pedido falhou. Tente novamente ou abra um problema em https://github.com/sundowndev/PhoneInfoga.')
+            print('{}[{}ERROR{}] O pedido falhou. Tente novamente.'.format(C,R,C))
             print(e)
             return []
 
@@ -907,7 +903,7 @@ def consultatel():
         global numberCountryCode
         global numberCountry
 
-        print(code_info + 'Executando verificação local...')
+        print('{}[{}i{}] Executando verificação local...'.format(C,Y,C))
 
         FormattedPhoneNumber = "+" + formatNumber(InputNumber)
 
@@ -935,34 +931,30 @@ def consultatel():
             location = geocoder.description_for_number(PhoneNumberObject, "en")
             carrierName = carrier.name_for_number(PhoneNumberObject, 'en')
 
-            print(code_result + f'Formato internacional:{B} {internationalNumber}')
-            print(code_result + f'Formato local:{B} 0 {localNumber}')
-            print(code_result + f'País: {B}{country} ({numberCountryCode})')
-            print(code_result + f'Cidade/Estado:{B} {location}')
-            print(code_result + f'Operadora:{B} {carrierName}')
+            print(f'Formato internacional:{B} {internationalNumber}')
+            print(f'Formato local:{B} 0 {localNumber}')
+            print(f'País: {B}{country} ({numberCountryCode})')
+            print(f'Cidade/Estado:{B} {location}')
+            print(f'Operadora:{B} {carrierName}')
             for timezoneResult in timezone.time_zones_for_number(PhoneNumberObject):
-                print(code_result + f'Fuso horário:{B} {timezoneResult}')
+                print(f'Fuso horário:{B} {timezoneResult}')
 
             if phonenumbers.is_possible_number(PhoneNumberObject):
-                print(code_info + 'O número é válido e possível.')
+                print('O número é válido e possível.')
             else:
-                print(code_warning + 'O número é válido, mas pode não ser possível.')
+                print('O número é válido, mas pode não ser possível.')
 
 
     def numverifyScan():
         global number
-
-        if not args.scanner == 'numverify' and not args.scanner == 'all':
-            return -1
-
-        print(code_info + 'Executando scan com Numverify.com...')
+        print('Executando scan com Numverify.com...')
 
         try:
             requestSecret = ''
             resp = requests.get('https://numverify.com/')
             soup = BeautifulSoup(resp.text, "html5lib")
         except Exception as e:
-            print(code_error + 'Numverify.com não está disponível')
+            print('Numverify.com não está disponível')
             return -1
 
         for tag in soup.find_all("input", type="hidden"):
@@ -990,42 +982,39 @@ def consultatel():
 
             data = json.loads(response.content.decode('utf-8'))
         except Exception as e:
-            print(code_error + 'Numverify.com não está disponível')
+            print('Numverify.com não está disponível')
             return -1
 
         if response.content == "Unauthorized" or response.status_code != 200:
-            print((code_error + "Ocorreu um erro ao chamar a API (solicitação incorreta ou chave de API incorreta)."))
+            print(("{}[{}ERROR{}] Ocorreu um erro ao chamar a API (solicitação incorreta ou chave de API incorreta)."))
             return -1
 
         if data["valid"] == False:
-            print((code_error + "Erro: especifique um número de telefone válido. Exemplo: +5585999999999 (DDD país + DDD estado + número"))
+            print(("{}[{}ERROR{}] especifique um número de telefone válido. Exemplo: +5585999999999 (DDD país + DDD estado + número"))
             sys.exit()
 
         InternationalNumber = '({}){}'.format(
             data["country_prefix"], data["local_format"])
 
-        print(code_result +
+        print(
             f'Número:{B} ({data["country_prefix"]}) {data["local_format"]}')
-        print(code_result +
+        print(
             f'País:{B} {data["country_name"]} ({data["country_code"]})')
-        print(code_result + f'Cidade/Estado:{B} {data["location"]}')
-        print(code_result + f'Operadora: {B}{data["carrier"]}')
-        print(code_result + f'Tipo de linha:{B} {data["line_type"]}')
+        print(f'Cidade/Estado:{B} {data["location"]}')
+        print(f'Operadora: {B}{data["carrier"]}')
+        print(f'Tipo de linha:{B} {data["line_type"]}')
 
         if data["line_type"] == 'landline':
-            print((code_warning + "Provavelmente é um telefone fixo, mas ainda pode ser um número VoIP fixo."))
+            print(("Provavelmente é um telefone fixo, mas ainda pode ser um número VoIP fixo."))
         elif data["line_type"] == 'mobile':
-            print((code_warning + "Provavelmente é um número de celular, mas ainda pode ser um número VoIP."))
+            print(("Provavelmente é um número de celular, mas ainda pode ser um número VoIP."))
 
 
     def ovhScan():
         global localNumber
         global numberCountry
 
-        if not args.scanner == 'ovh' and not args.scanner == 'all':
-            return -1
-
-        print(code_info + 'Executando OVH scan...')
+        print('{}[{}ERROR{}]Executando OVH scan...'.format(C,R,C))
 
         querystring = {"País": numberCountry.lower()}
 
@@ -1039,7 +1028,7 @@ def consultatel():
                 "GET", "https://api.ovh.com/1.0/telephony/number/detailedZones", data="", headers=headers, params=querystring)
             data = json.loads(response.content.decode('utf-8'))
         except Exception as e:
-            print(code_error + 'API OVH inacessível. Talvez tente novamente mais tarde.')
+            print('API OVH inacessível. Talvez tente novamente mais tarde.')
             return -1
 
         if isinstance(data, list):
@@ -1047,11 +1036,11 @@ def consultatel():
 
             for voip_number in data:
                 if voip_number['number'] == askedNumber:
-                    print((code_info + "1 resultado encontrado na base de dados OVH"))
+                    print(("1 resultado encontrado na base de dados OVH"))
                     print(
-                        (code_result + f"Intervalo numérico:{B} {voip_number['number']}"))
-                    print((code_result + f"Cidade:{B} {voip_number['city']}"))
-                    print((code_result + f"Código postal: {B} {voip_number['zipCode'] if voip_number['zipCode'] is not None else        askForExit()}"))
+                        (f"Intervalo numérico:{B} {voip_number['number']}"))
+                    print((f"Cidade:{B} {voip_number['city']}"))
+                    print((f"Código postal: {B} {voip_number['zipCode'] if voip_number['zipCode'] is not None else        askForExit()}"))
     def replaceVariables(string):
         global number
         global internationalNumber
@@ -1081,10 +1070,10 @@ def consultatel():
                     dorkRequest = replaceVariables(dork['request'])
 
                 print(
-                    (code_info + "Procurando footprints em {}...".format(dork['site'])))
+                    ("Procurando footprints em {}...".format(dork['site'])))
 
                 for result in search(dorkRequest, stop=dork['stop']):
-                    print((code_result + "URL: " + result))
+                    print(("URL: " + result))
             else:
                 return -1
 
@@ -1103,9 +1092,9 @@ def consultatel():
             else:
                 dorkRequest = replaceVariables(dork['request'])
 
-            print((code_info + "Procurando por {}...".format(dork['title'])))
+            print(("Procurando por {}...".format(dork['title'])))
             for result in search(dorkRequest, stop=dork['stop']):
-                print((code_result + "URL: " + result))
+                print(("URL: " + result))
 
 
     def osintSocialMediaScan():
@@ -1123,10 +1112,10 @@ def consultatel():
                 dorkRequest = replaceVariables(dork['request'])
 
             print(
-                (code_info + "Procurando footprints em {}...".format(dork['site'])))
+                ("Procurando footprints em {}...".format(dork['site'])))
 
             for result in search(dorkRequest, stop=dork['stop']):
-                print((code_result + "URL: " + result))
+                print(("URL: " + result))
 
 
     def osintDisposableNumScan():
@@ -1138,11 +1127,11 @@ def consultatel():
             dorkRequest = replaceVariables(dork['request'])
 
             print(
-                (code_info + "Procurando footprints em {}...".format(dork['site'])))
+                ("Procurando footprints em {}...".format(dork['site'])))
 
             for result in search(dorkRequest, stop=dork['stop']):
-                print((code_result + "Result found: {}".format(dork['site'])))
-                print((code_result + "URL: " + result))
+                print(("Result found: {}".format(dork['site'])))
+                print(("URL: " + result))
                 askForExit()
 
 
@@ -1153,25 +1142,22 @@ def consultatel():
         global numberCountryCode
         global customFormatting
 
-        if not args.osint:
-            return -1
-
-        print(code_info + 'Execução de reconhecimento de footprints OSINT...')
+        print('Execução de reconhecimento de footprints OSINT...')
 
         if not rerun:
-            print((code_info + "Gerando scan URL em 411.com..."))
-            print(code_result + "Scan URL: https://www.411.com/phone/{}".format(
+            print(("Gerando scan URL em 411.com..."))
+            print("Scan URL: https://www.411.com/phone/{}".format(
                 internationalNumber.replace('+', '').replace(' ', '-')))
 
             askingCustomPayload = input(
-                code_info + 'Você gostaria de usar um formato adicional para este número?[y/n] ')
+                'Você gostaria de usar um formato adicional para este número?[y/n] ')
 
         if rerun or askingCustomPayload == 'y' or askingCustomPayload == 'yes':
-            customFormatting = input(code_info + 'Custom format: ')
+            customFormatting = input('Custom format: ')
 
-        print((code_info + 'Páginas Web footprints'))
+        print(('Páginas Web footprints'))
 
-        print((code_info + "Pesquisando footprints em páginas da web... (limit=10)"))
+        print(("Pesquisando footprints em páginas da web... (limit=10)"))
         if customFormatting:
             req = '{} | intext:"{}" | intext:"{}" | intext:"{}"'.format(
                 number, number, internationalNumber, customFormatting)
@@ -1180,60 +1166,60 @@ def consultatel():
                 number, number, internationalNumber)
 
         for result in search(req, stop=10):
-            print((code_result + "Resultado encontrado: " + result))
+            print(("Resultado encontrado: " + result))
 
-        print((code_info + "Procurando documentos... (limit=10)"))
+        print(("Procurando documentos... (limit=10)"))
         if customFormatting:
             req = '[ext:doc | ext:docx | ext:odt | ext:pdf | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv | ext:txt     | ext:xls] && [intext:"{}"]'.format(customFormatting)
         else:
             req = '[ext:doc | ext:docx | ext:odt | ext:pdf | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv | ext:txt | ext:xls] && [intext:"{}" | intext:"{}"]'.format(internationalNumber, localNumber)
         for result in search(req, stop=10):
-            print((code_result + "Resultado encontrado: " + result))
+            print(("Resultado encontrado: " + result))
 
-        print((code_info + 'Footprints de reputação...'))
+        print(('Footprints de reputação...'))
 
         osintReputationScan()
 
-        print((code_info + "Gerando URL em scamcallfighters.com..."))
-        print(code_result +
+        print(("Gerando URL em scamcallfighters.com..."))
+        print(
             'http://www.scamcallfighters.com/search-phone-{}.html'.format(number))
 
         tmpNumAsk = input(
-            code_info + "Você gostaria de pesquisar footprints de provedores de números temporários?[y/n]")
+            "Você gostaria de pesquisar footprints de provedores de números temporários?[y/n]")
 
         if tmpNumAsk.lower() != 'n' and tmpNumAsk.lower() != 'no':
-            print((code_info + 'Footprints em provedores de números temporários'))
+            print(('Footprints em provedores de números temporários'))
 
             try:
-                print((code_info + "Pesquisando número de telefone em tempophone.com..."))
+                print(("Pesquisando número de telefone em tempophone.com..."))
                 response = requests.request(
                     "GET", "https://tempophone.com/api/v1/phones")
                 data = json.loads(response.content.decode('utf-8'))
                 for voip_number in data['objects']:
                     if voip_number['phone'] == formatNumber(number):
                         print(
-                            (code_result + "Encontrado um provedor de número temporário: tempophone.com"))
+                            ("Encontrado um provedor de número temporário: tempophone.com"))
                         askForExit()
             except Exception as e:
-                print((code_error + "Não foi possível acessar a API tempophone.com. Pulando etapa..."))
+                print(("Não foi possível acessar a API tempophone.com. Pulando etapa..."))
 
             osintDisposableNumScan()
 
-        print((code_info + 'Footprints de mídia social'))
+        print(('Footprints de mídia social'))
 
         osintSocialMediaScan()
 
-        print((code_info + 'Footprints de listas telefônicas'))
+        print(('Footprints de listas telefônicas'))
 
         if numberCountryCode == '+1':
-            print((code_info + "Gerando URL em TruePeopleSearch.com... "))
-            print(code_result + 'https://www.truepeoplesearch.com/results?phoneno={}'.format(
+            print(("Gerando URL em TruePeopleSearch.com... "))
+            print('https://www.truepeoplesearch.com/results?phoneno={}'.format(
                 internationalNumber.replace(' ', '')))
 
         osintIndividualScan()
 
         retry_input = input(
-            code_info + "Você gostaria de executar novamente a varredura OSINT? (por exemplo, para usar um formato diferente)[s/n]")
+            "Você gostaria de executar novamente a varredura OSINT? (por exemplo, para usar um formato diferente)[s/n]")
 
         if retry_input.lower() == 'y' or retry_input.lower() == 'yes':
             osintScan(True)
@@ -1242,8 +1228,8 @@ def consultatel():
 
 
     def askForExit():
-        if not args.output:
-            user_input = input(code_info + "Continuar scanning?[y/n] ")
+        if not output:
+            user_input = input("Continuar scanning?[y/n] ")
 
             if user_input.lower() == 'y' or user_input.lower() == 'yes':
                 return -1
@@ -1258,23 +1244,23 @@ def consultatel():
         global internationalNumber
         global numberCountryCode
         global numberCountry
-        os.system('clear')
-        print(code_info + f"Buscando informações para{B} {formatNumber(InputNumber)}{C}...")
+        clear()
+        print(f"Buscando informações para{B} {formatNumber(InputNumber)}{C}...")
 
         localScan(InputNumber)
 
         if not number:
-            print((code_error + f"Erro: o número{B}{formatNumber(InputNumber)}{C} inválido."))
+            print((f"Erro: o número{B}{formatNumber(InputNumber)}{C} inválido."))
             #again()
 
         numverifyScan()
         ovhScan()
         osintScan()
 
-        print(code_info + "Scan concluído.")
+        print("Scan concluído.")
         #again()
 
-        #if not args.no_ansi and not args.output:
+        #if not no_ansi and not output:
             #print(Style.RESET_ALL)
 
 
@@ -1286,14 +1272,6 @@ def consultatel():
             if chunk:
                 handle.write(chunk)
 
-
-    def updateTool():
-        print('Atualizando...')
-        print('Versão atual: {}'.format(__version__))
-        new_version = json.loads(requests.get(
-            'https://api.github.com/repos/sundowndev/PhoneInfoga/tags').content)[0]['name']
-        print('versão anterior: {}'.format(new_version))
-
         osintFiles = [
             'disposable_num_providers.json',
             'individuals.json',
@@ -1301,40 +1279,8 @@ def consultatel():
             'social_medias.json'
         ]
 
-        try:
-            print('[*] Updating OSINT files')
-
-            for file in osintFiles:
-                url = 'https://raw.githubusercontent.com/sundowndev/PhoneInfoga/master/osint/{}'.format(
-                    file)
-                output_directory = 'osint/{}'.format(file)
-                download_file(url, output_directory)
-
-            print('[*] Atualizando o script python...')
-
-            url = 'https://raw.githubusercontent.com/sundowndev/PhoneInfoga/master/phoneinfoga.py'
-            output_directory = 'phoneinfoga.py'
-            download_file(url, output_directory)
-        except Exception as e:
-            print('Update failed. Try using git pull.')
-            sys.exit()
-
-        print('A ferramenta foi atualizada com sucesso.')
-        sys.exit()
-
 
     def main():
-        scanners = ['any', 'all', 'numverify', 'ovh']
-
-        if sys.version_info[0] < 3:
-            print(code_info + "Execute a ferramenta usando Python 3" + Style.RESET_ALL)
-            sys.exit()
-            if not len(sys.argv) > 1:
-                parser.print_help()
-                sys.exit()
-            elif args.version:
-                print("Versão {}".format(__version__))
-                sys.exit()
 
         requests.packages.urllib3.disable_warnings()
         requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += 'HIGH:!DH:!aNULL'
@@ -1342,35 +1288,9 @@ def consultatel():
             requests.packages.urllib3.contrib.pyopenssl.DEFAULT_SSL_CIPHER_LIST += 'HIGH:!DH:!aNULL'
         except AttributeError:
             pass
+    number = input(f"{C}[{G}i{C}] Informe os números (sem espaços, parênteses e traço): {B}")
+    scanNumber(number)
 
-        if args.update:
-            updateTool()
-
-        if args.output:
-            if args.osint:
-                os.system("clear")
-                print(code_error +'O scanner OSINT não está disponível usando a opção de saída.')
-                sys.exit()
-
-            sys.stdout = args.output
-        if not args.scanner in scanners:
-            clear()
-            print((code_error + "Erro: o scanner não existe."))
-            sys.exit()
-
-        if args.number:
-            scanNumber(args.number)
-        elif args.input:
-            for line in args.input.readlines():
-                scanNumber(line)
-        else:
-            parser.print_help()
-            sys.exit()
-
-        if args.output:
-            args.output.close()
-    args.number = input(f"{C}[{G}i{C}] Informe os números (sem espaços, parênteses e traço): {B}")
-    scanNumber(args.number)
     def again():
         again=input("\n" + f'{C}[{G}+{C}] Deseja realizar uma nova consulta?[{G}s{C}/{R}n{C}]: ')
         if again == "s" or again == "sim":
@@ -1378,3 +1298,22 @@ def consultatel():
               main()
         elif again == "nao" or again == "n":
               pass
+    main()
+
+def nomemae():
+    print(f'{C}[{G}i{C}] Digite o nome que queira procurar.')
+    mae = input('===>')
+    
+    data = requests.get('https://jlbuscas.com/apis2020/ho20ts/maelocaliza.php?info={}'.format(mae)).text
+    
+    a = data.replace('<br><b>', '\n').replace('</br>', '').replace('<br><h2>', '').replace('</br></h2>', '\n').replace('</b>', '').replace('<h2>','').replace('<b>','').replace('<br>','').replace('</h2>', '').replace('<h3>','').replace('</h3>','').replace('DOCUMENTOS ENCONTRADOS','').replace('endereco','').replace('certidao Dados','Dados da certidão').replace('▸','\n▸').replace('<hr>','').replace('Nenhuma','\nNenhuma').replace('<h1>','\n').replace('</h1>','\n')
+    
+    print(a)
+    print(f'''
+{C}[{Y}?{C}] Deseja realizar outra consulta ?
+{C}[{G}1{C}] Sim
+{C}[{G}2{C}] Não
+          ''')
+    choice = input('===>')
+    if choice == '1' or choice == '01':
+        nomemae()
